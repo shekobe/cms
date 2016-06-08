@@ -1,0 +1,51 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<style>
+    .sc-view.sc-static-layout { position: relative; }
+    .sc-view { cursor: default; overflow: hidden; position: absolute; margin: 0px; border: solid 0 transparent; -moz-user-select: -moz-none; -khtml-user-select: none; -ms-user-select: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="row-fluid">
+    <button type="button" class="btn j_database green-meadow">备份数据库</button>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+    $(function(){
+        $(document).on('click','.j_database',function(e){
+            e.preventDefault();
+            var t = $(this);
+            t.addClass('disabled').text('正在备份...');
+            $.ajax({
+                url:'/admin/database/backups',
+                type:'POST',
+                cache: false,
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        ////window.console && console.log('getuserlist get data',response);
+                        if(response.errno == 0){//返回数据正常
+                            toastr.success(response.data);
+                        }else{
+                            toastr.error(response.errmsg);
+                        }
+
+                    }else{
+                        toastr.error('error',xhr, textStatus);
+                    }
+                    t.removeClass('disabled').text('备份数据库');
+                }
+            });
+
+        });
+    });
+</script>
+{% endblock %}
+

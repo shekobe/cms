@@ -1,0 +1,43 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/help/help.css">
+{% endblock %}
+{% block container %}
+<div class="container">
+{% include "./help_silder.html" %}
+
+  <div class="helparticle" >
+    <h2>订单状态</h2>
+        <div class="helpmain">
+            <dl>
+                <h4>1. 订单提交成</h4>
+                <dd>
+                    <p>指您的订单已经成功提交，注意：线上支付（网银/支付宝）的订单，请您在2小时内完成支付，线下支付（银行/邮局汇款），请您在72小时之内在“我的订单”中填写“支付确认”，抢购、促销的订单支付时效按照活动规则执行，支付不及时的订单，系统会自动取消订单。</p>
+                </dd>
+                <h4>2. 已审核</h4>
+                <dd>
+                    <p>指您的订单已经通过审核，在线支付、线下付款的订单，需要付款后才能审核，货到付款的订单，确认收货信息准确完整后才能审核。</p>
+                </dd>
+                <h4>3  备货中</h4>
+                <dd>
+                    <p>指您的订单已经准备出库发货，订单在此状态下无法修改、取消。</p>
+                </dd>
+                <h4>4. 在途</h4>
+                <dd>
+                    <p>订单中的商品已发出，等待用户查收。</p>
+                </dd>
+                <h4>5. 已签收</h4>
+                <dd>
+                    <p>用户已签收发出的订单中的商品。</p>
+                </dd>
+                <h4>6. 订单拒收</h4>
+                <dd>
+                    <p>用户拒收所订购的商品。</p>
+                </dd>
+            </dl>
+    	</div>
+    </div>
+
+</div>
+{% endblock %}

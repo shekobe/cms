@@ -1,0 +1,40 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/help/help.css">
+{% endblock %}
+
+{% block container %}
+<div class="container">
+{% include "./help_silder.html" %}
+
+   <div class="helparticle" >
+      <h2>货到付款</h2>
+      <div class="helpmain">
+          <dl>
+            <h4>货到付款</h4>
+            <dd>
+              <p>货到付款是一种支付方式，由我们专业的快递公司把您订购的商品送到您指定地址。货到付款时快递公司要求交纳一定的手续费，该手续费由奇酷承担，不再向您收取任何费用。因此请您在确定购买意向后再选择货到付款方式订购。</p>
+            </dd>
+
+            <h4>注意事项：</h4>
+            <dd>
+              <p>1、奇酷商城对绝大部分区域支持货到付款，如遇极少数不支持货到付款的区域，会员在提交订单时，选取地址后，则系统自动屏蔽"货到付款"支付方式选项；</p>
+              <p>2、选择货到付款的用户，请留下您的详细地址、邮编、姓名、电话等资料，方便我们及时准确地向您配送商品。</p>
+              <p>3、在您签收前，您有权打开外包装进行检验手机包装盒外的防伪封签是否完好，如完好无损，则需将现金交给配送工作人员后方可打开手机包装。正常签收，则默认手防伪标签完好。</p>
+              <p>4、商城将严格按照国家三包法规，针对产品履行修理、更换和退货的责任和义务。自购买之日起7日内，出现性能故障，且经过奇酷授权维修机构鉴定的，附检测单可以进行退货。自购买之8-15天内的性能故障的，附检测单可以进行换货。</p>
+            </dd>
+
+            <h4>奇酷商城货到付款地区查询</h4>
+            <dd>
+                <p>打开顺丰官网<a href="//www.sf-express.com/cn/sc/" target="_blank">（http://www.sf-express.com/cn/sc/）</a>，在网页左上角的"收送范围查询"栏目选择您所在的地区，就可以查看顺丰速递在您所在地区的配送范围。</p>
+                <p><br /><img src="//css.qiku.com/images/hdfk_sf.png" /><br /></p>
+            </dd>
+
+          </dl>
+      </div>
+        
+    </div>
+
+</div>
+{% endblock %}

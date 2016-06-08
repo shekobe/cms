@@ -1,0 +1,23 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/help/help.css">
+{% endblock %}
+{% block container %}
+<div class="container">
+{% include "./help_silder.html" %}
+
+	<div class="helparticle">
+		<h2>联系客服</h2>
+        <div class="helpmain">
+        	<dl>
+        		<dd>
+        			<p><i>售前咨询：400-011-1366（提供售前咨询）【工作日 09:00 — 21:00 】</i></p>
+        			<p><i>售后咨询：400-888-1388（提供售后维保咨询）【工作日 09:00 — 21:00 】</i></p>
+        			<p><i>商城客服邮箱：kefu24@qiku.com</i></p>
+        		</dd>
+        	</dl>
+        </div>
+	</div>
+</div>
+{% endblock %}

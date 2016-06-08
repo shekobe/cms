@@ -1,0 +1,24 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/help/help.css">
+{% endblock %}
+{% block container %}
+<div class="container">
+{% include "./help_silder.html" %}
+ 	<div class="helparticle" >
+        <h2>关于发票</h2>
+        <div class="helpmain">
+			<dl>
+				<dd>
+					<p>1.从商城购买商品均可提供发票，发票为增值税普通发票，不提供增值税专用发票。</p>
+					<p>2.一张订单对应一张发票，发票金额不得大于订单金额。</p>
+					<p>3.如您使用优惠券，开票金额为您实际支付的金额，不包含优惠券金额。</p>
+					<p>4.发票内容默认为您订购的商品明细，商城不支持修改发票内容。</p>
+					<p>5.发票抬头不能为空，您可选择个人或公司名称，如选择公司名称，需要填写公司全称并进行核对，发票开出后不可更改、退换。</p>
+				</dd>
+			</dl>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/help/help.css">
+{% endblock %}
+{% block container %}
+<div class="container">
+{% include "./help_silder.html" %}
+
+</style>
+ <div class="helparticle">
+	<h2>奇酷全国客户服务网点查询</h2>
+    <div class="helpmain">
+		<dl>
+			<h4>服务网点查询</h4>
+				<iframe src="//www.360shouji.com/www/serviceshop.html" width="835" height="600" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" ></iframe>
+			<h4>更多服务快捷入口</h4>
+			<dd><a href="http://www.coolpad.cn/repair/repair/repairInfo/searchrepair.html#downListUL" target="_blank">维修进度查询</a></dd>
+			<dd><a href="http://www.coolpad.cn/product/feedback/feedbacks/add.html" target="_blank">意见反馈</a></dd>
+			<dd><a href="http://www.coolpad.cn/assocator/assocator/associatorInfo/vipLoginForm.html#errorMessageTD" target="_blank">会员服务</a></dd>
+		</dl>
+	</div>
+
+</div>
+</div>
+{% endblock %}

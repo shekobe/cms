@@ -1,0 +1,169 @@
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+        © 版权2012-2020 奇酷互联网络科技(深圳)有限公司
+    </div>
+    <div class="page-footer-tools">
+        <span class="go-top">
+        <i class="fa fa-angle-up"></i>
+        </span>
+    </div>
+</div>
+<!-- token -->
+<input type="hidden" name="qktoken" value="{$ qktoken $}">
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="/static/admin/theme/assets/global/plugins/respond.min.js"></script>
+<script src="/static/admin/theme/assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="/static/admin/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="/static/admin/theme/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+
+<script src="/static/admin/theme/assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<!-- IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support -->
+<script src="/static/admin/theme/assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "positionClass": "toast-top-full-width",
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+//    //显示一个信息没有标题
+//    toastr.info('Are you the 6 fingered man?')
+//    //显示一个警告,没有标题
+//    toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
+//    //显示一个成功,标题
+//    toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+//    //显示错误标题
+//    toastr.error('I do not think that word means what you think it means.', 'Inconceivable!')
+//    //清除当前的列表
+//    toastr.clear()
+
+</script>
+<script src="/static/admin/js/pulgins/particles/canvas_all.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/static/admin/theme/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!--<script src="/static/admin/theme/assets/admin/pages/scripts/index.js" type="text/javascript"></script>-->
+<!--<script src="/static/admin/theme/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>-->
+<!-- END PAGE LEVEL SCRIPTS -->
+<!--<script src="/static/admin/theme/assets/admin/layout/scripts/socket.io.js"></script>-->
+<script src="/static/admin/theme/assets/admin/layout/scripts/artTemplate.js"></script>
+<script>
+    var sesisonObj = {$ userinfo | safe $};
+    jQuery.ajaxSetup({
+        data: {
+            qktoken: "{$ qktoken $}"
+        }
+    });
+    jQuery(document).ready(function () {
+        Metronic.init(); // init metronic core componets
+        Layout.init(); // init layout
+        QuickSidebar.init(); // init quick sidebar
+        Demo.init(); // init demo features
+
+    });
+</script>
+<script>
+    // $(document).on('click.b', '.j_outli', function () {
+    //     var t = $(this);
+    //     if (t.find('.sub-menu').length) {
+    //         t.find('.sub-menu').show();
+    //     }
+    // });
+
+    $(function () {
+       
+        //window.console && console.log('sesisonObj',sesisonObj);
+        $('.j_username').html(sesisonObj.username);
+        getLeftMenu(sesisonObj.leftMenuArr);
+
+        //获取菜单
+        function getLeftMenu(arr) {
+            if(arr.length){
+                var tree =getmenuTree(arr,"1");
+                var dom = getTreedom(tree);
+                $('.j_leftsidebar').append(dom);
+                //选中状态
+                var url = location.href;
+                $('.j_leftsidebar > li').each(function(){
+                    var _this = $(this);
+                    var a = _this.find('a');
+                    a.each(function(){
+                        if(url.indexOf($(this).attr('href')) > 0){
+                            _this.addClass('open');
+                            $(this).parent('li').addClass('active').parents('.sub-menu').show().siblings('a').find('.arrow').addClass('open');
+                        }
+                    })
+                })
+
+            }else{
+                toastr.error('左侧菜单加载失败')
+            }
+        }
+        //获取菜单节点树
+        function getmenuTree(arr,id){
+            var tree =[];
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]['parent'] == id ){//有子节点
+                    var newNode = arr[i];
+                    var child = getmenuTree(arr,arr[i]["_id"]);
+                    if(child) newNode["child"] = child;
+                    tree.push(newNode);
+                }
+            }
+            return tree;
+        }
+        //得到菜单dom
+        function getTreedom(arr){
+         var html ='';
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]){//有子节点
+                    var href = arr[i]["href"]? arr[i]["href"]:"javascript:;";
+                    
+                    //生成html
+                    html +='<li><a href="'+href+'">'+(arr[i]["icon"] ? '<i class="'+arr[i]["icon"]+'"></i>' :'')+'<span class="title">'+arr[i].text+'</span>';
+                    if(arr[i]['child'].length > 0)
+                    html+='<span class="arrow"></span></a><ul class="sub-menu">'+getTreedom(arr[i]['child'])+'</ul>'
+                    else
+                    html+='</a>'
+                    
+                    html +='</li>';
+                }
+            }
+            return html;
+        }
+
+
+    });
+</script>
+<!-- END JAVASCRIPTS -->

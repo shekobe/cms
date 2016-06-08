@@ -1,0 +1,378 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<!-- <link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/> -->
+
+<style type="text/css">
+    .homeedit .tabs-left{padding:10px 0 20px 0;}
+    .homeedit .tabs-left.nav-tabs > li.active > a{border-left:4px solid #3598dc;}
+</style>
+{% endblock %}
+
+
+{% block container %}
+<h3 class="page-title">页面内容配置</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="/admin/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="/admin/template">模板列表</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="/admin/home">页面内容管理</a>
+        </li>
+    </ul>
+              
+</div>
+<div class="row">
+    <div class="col-md-12 homeedit">
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>首页内容管理
+            </div>
+            <ul class="nav nav-tabs" id="topmenu_tool">
+                <li class="active">
+                    <a href="#tab_1_0" data-toggle="tab" aria-expanded="true">首页发布管理 </a>
+                </li>
+                <li>
+                    <a href="#tab_1_1" data-toggle="tab" aria-expanded="false">顶部菜单配置 </a>
+                </li>
+                <li>
+                    <a href="#tab_1_2" data-toggle="tab" aria-expanded="false">左侧类目配置</a>
+                </li>
+                <li >
+                    <a href="#tab_1_3" data-toggle="tab" aria-expanded="false">PC首页内容配置</a>
+                </li>
+            </ul>
+        </div>
+        <div class="portlet-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_0">
+                    <div class="table-toolbar">
+                        <div class="col-md-12">
+                            <div class="row clearfix">
+                                <h4 class="block">网站菜单管理</h4>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green getwebsitemenu">
+                                     <i class="fa fa-plus"></i> 生成网站菜单
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green freshwebsitemenu">
+                                     <i class="fa fa-refresh"></i> 刷新网站菜单缓存
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row clearfix">
+                                <h4 class="block">首页内容管理</h4>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green getwebsiteindex">
+                                     <i class="fa fa-plus"></i> 生成网站首页
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green freshwebsiteindex">
+                                     <i class="fa fa-refresh"></i> 刷新首页缓存
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab_1_1">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green topmenuadd">
+                                    <i class="fa fa-plus"></i> 新添
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green topmenureload">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                    </a>
+                                </div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                    <!--  topmenu table -->
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="dataTables_info table-scrollable" id="menu_editTable"></div>
+                    </div>
+                    </div>
+                    <!-- 分页 -->
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="dataTables_info" id="menu_editTable_info"></div>
+                        </div>
+                        <div class="col-md-7 text-right">
+                            <div class="dataTables_paginate paging_simple_numbers" id="menu_editTable_paginate">
+                                
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="tab_1_2">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green categoryadd">
+                                    <i class="fa fa-plus"></i> 新添
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green categoryreload">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                    </a>
+                                </div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                    <!-- category table -->
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="dataTables_info table-scrollable" id="category_editTable"></div>
+                    </div>
+                    </div>
+                    <!-- category 分页 -->
+                    <div class="row">
+                        <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="dataTables_info" id="category_editTable_info"></div>
+                        </div>
+                        <div class="col-md-7 text-right">
+                            <div class="dataTables_paginate paging_simple_numbers" id="category_editTable_paginate">
+                                
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab_1_3">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green indexpageadd">
+                                    <i class="fa fa-plus"></i> 新添内容
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn green indexpageload">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                    </a>
+                                </div>
+                                    
+                            </div>
+                            <!-- 分类 -->
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <label>查询条件:</label>
+                                    <label>
+                                        <select name="search_type" class="form-control form-filter input-sm">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </label>
+                                    <label><a href="javascript:;" class="btn green search_submit"><i class="fa fa-search"></i> 查询</a></label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                     <div class="row">
+                    <div class="col-md-12">
+                        <div class="dataTables_info table-scrollable" id="index_editTable">
+                            
+                        </div>
+                    </div>
+                    </div>
+                    <!-- category 分页 -->
+                    <div class="row">
+                        <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="dataTables_info" id="index_editTable_info"></div>
+                        </div>
+                        <div class="col-md-7 text-right">
+                            <div class="dataTables_paginate paging_simple_numbers" id="index_editTable_paginate">
+                                
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<div class="modal fade" role="dialog" id="menu_edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h3 class="modal-title">菜单编辑</h3>
+            </div>
+            <div class="modal-body form-horizontal">
+                <div class="blue">
+                    <div class="form-group">
+                        <label class="control-label col-md-3" >菜单名称：<span class="required" aria-required="true"> * </span></label>
+                        <div class="col-md-7">
+                            <input type="text" name="menu_name" class="form-control" placeholder="请输入菜单名称、商品广告标题">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">添加类型：<span class="required" aria-required="true"> * </span></label>
+                        <div class="col-md-7"> 
+                        <select class="form-control menu_type">
+                            <option value="menu">顶部菜单</option>
+                            <option value="category">左侧类目</option>
+                            <option value="index">首页内容</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">菜单链接地址：<span class="required" aria-required="true"> * </span></label>
+                        <div class="col-md-7"> 
+                            <input type="text" name="menu_href" class="form-control" placeholder="链接地址，无连接时为 javascript:;">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">父级菜单：<span class="required" aria-required="true"> * </span></label>
+                        <div class="col-md-7"> 
+                        <select class="form-control menu_parent">
+                            <option value="0">一级分类，无父级</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">链接打开方式：<span class="required" aria-required="true"> * </span></label>
+                        <div class="col-md-7"> 
+                        <select class="form-control menu_target">
+                            <option value="_self">本页面打开(默认)</option>
+                            <option value="_blank">新窗口打开</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">排序：<span class="required" aria-required="true"> * </span></label>
+                        <div class="col-md-7"> 
+                            <input type="text" name="menu_sort" class="form-control" placeholder="由大到小，越大越靠前">
+                            <span class="help-block">由大到小，越大越靠前</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">备注信息：<span class="required" aria-required="true"> * </span></label>
+                        <div class="col-md-7"> 
+                            <input type="text" name="menu_info" class="form-control" placeholder="菜单说明,所属分类说明">
+                            <!-- <span class="help-block">一二级菜单，所属分类名称</span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="success">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">图片地址：</label>
+                        <div class="col-md-7"> 
+                        <input type="text" name="menu_pic" class="form-control" placeholder="商品、广告等图片地址">
+                        <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">商品价格：</label>
+                        <div class="col-md-7"> 
+                        <input type="text" name="menu_price" class="form-control" placeholder="category或商品的价格,可以填写 起">
+                        <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">菜单图标：</label>
+                        <div class="col-md-7"> 
+                         <input type="text" name="menu_icon" class="form-control" placeholder="左侧导航图标，或商品标语">
+                         <span class="help-block">category 的一级菜单属性</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">其他信息：</label>
+                        <div class="col-md-7"> 
+                        <input type="text" name="menu_other" class="form-control" placeholder="购买链接或副标题或广告">
+                        <span class="help-block">category的购买连接，首页商品的副标题说明，广告请输入advertise</span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="menu_id" value="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button type="button" class="btn green">确定</button>
+                        <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  menu edit template -->
+<script type="text/html" id="menu_edit_html">
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr><th>序 号</th><th>名 称</th><th>链接地址</th><th>菜单图标</th><th>父级菜单</th><th>打开方式</th><th>备注信息</th><th>排序id</th><th>价格</th><th>图片链接</th><th>其他信息</th><th>修改时间</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+    {{if data.count > 0}}
+        {{each data.data as value i}}
+        <tr data-type="{{value.type}}" data-parent="{{value.parent}}" data-id="{{value._id}}">
+            <td>{{i+1}}</td>
+            <td>{{value.name}}</td>
+            <td>{{value.href}}</td>
+            <td>{{value.icon}}</td>
+            <td>{{if value.parent == '0'}}一级菜单{{else}} {{value.parent}} {{/if}}</td>
+            <td data-target="{{value.target}}">{{if value.target =='_blank' }}新开窗口{{else}}本窗口{{/if}}</td>
+            <td>{{value.info}}</td>
+            <td>{{value.sort}}</td>
+            <td>{{value.price}}</td>
+            <td>{{value.pic}}</td>
+            <td>{{value.other}}</td>
+            <td>{{dateFormat(value.time,'yyyy-MM-dd hh:mm:ss')}}</td>
+            <td><a class="btn btn-xs green menuedit" href="javascript:;"><i class="fa fa-edit"></i>修改</a><a class="btn btn-xs red menudel" href="javascript:;"><i class="fa fa-times"></i>删除 </a></td>
+        </tr>
+        {{/each}}
+    {{else}}
+        <tr><td colspan="13" align="center">暂无数据</td></tr>
+    {{/if}}
+    </tbody>
+</table>
+</script>
+<!-- / menu edit template 
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>-->
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/jquery.bootpag.min.js"></script>
+<script type="text/javascript" src="/static/admin/js/home_index.js"></script>
+{% endblock %}
+

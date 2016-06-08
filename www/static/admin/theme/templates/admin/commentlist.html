@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.4
+Version: 3.9.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8"/>
+        <title>文件更新</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+        <!--<link href="../../assets/global/css/loaders.css.min.css" rel="stylesheet" type="text/css"/>-->
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME STYLES -->
+        <link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+        <link id="style_color" href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+
+        <link href="../../assets/admin/pages/css/timeline.css" rel="stylesheet" type="text/css"/>
+        <!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <style>
+            /*.panel:hover {*/
+            /*border: 1px solid #3598dc;*/
+            /*}*/
+
+        </style>
+        <style>
+            .j_contentBox .timeline:before {
+                background: #fff;
+            }
+
+            .page-container-bg-solid .timeline:before
+
+            .timeline-badge-userpic {
+                border-color: #fff;
+            }
+
+
+            .timeline-body {
+                background-color: #fff;
+            }
+
+            .timeline-body-arrow {
+                border-color: transparent #fff transparent transparent;
+            }
+
+            .portlet-body{
+                background: #f1f3fa !important;
+            }
+            .timeline-yellow{
+                background: #4b8df8 !important;
+                color: #fff !important;
+            }
+            .timeline-body-title{
+                font-weight: normal!important;
+            }
+            .timeline-body a{
+                color: #fff !important;
+            }
+            .timeline-body a.btn-g{
+                color: #fff;
+                border: 2px solid #fff;
+                font-weight: bolder;
+                font-size: 16px;
+            }
+            .timeline-yellow .timeline-body-arrow{
+                border-color: transparent #4b8df8 transparent transparent !important;
+            }
+            .timeline-yellow .panel{
+                background-color: #4b8df8 !important;
+            }
+            .timeline-green{
+                background: #35aa47 !important;
+                color: #fff !important;
+            }
+            .timeline-green .panel{
+                background-color: #35aa47 !important;
+            }
+            .timeline-green .timeline-body-arrow{
+                border-color: transparent #35aa47 transparent transparent !important;
+            }
+            .timeline-red{
+                background: #e02222 !important;
+                color: #fff !important;
+            }
+            .timeline-red .panel{
+                background-color: #e02222 !important;
+            }
+            .timeline-red .timeline-body-arrow{
+                border-color: transparent #e02222 transparent transparent !important;
+            }
+            /*.panel-group{*/
+            /*margin-bottom: 0!important;*/
+            /*}*/
+        </style>
+        <script src="../../assets/admin/layout/scripts/socket.io.js"></script>
+        <script src="../../assets/global/scripts/md5.js"></script>
+    </head>
+    <!-- END HEAD -->
+    <!-- BEGIN BODY -->
+    <!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+    <!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+    <!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+    <!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+    <!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+    <!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+    <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+    <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+    <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+    <body class="page-header-fixed page-quick-sidebar-over-content " style="background-color:#f1f3fa;">
+
+
+        <!-- BEGIN CONTAINER -->
+        <div class="">
+
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <div class="">
+                    <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+                    <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Modal title</h4>
+                                </div>
+                                <div class="modal-body" style="">
+                                    Widget settings form goes here
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn blue">Save changes</button>
+                                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                    <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+                    <!-- BEGIN STYLE CUSTOMIZER -->
+
+                    <!-- BEGIN PAGE HEADER-->
+
+                    <!-- END PAGE HEADER-->
+                    <!-- BEGIN PAGE CONTENT-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN PORTLET-->
+                            <div class="portlet box">
+
+                                <div class="portlet-body">
+
+
+                                    <div class="row">
+
+
+                                        <div class="col-md-12">
+                                            <div  class="tab-content j_contentBox">
+
+                                            </div>
+                                        </div>
+                                        <!-- responsive -->
+                                        <div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">发布文件</h4>
+                                            </div>
+                                            <div class="modal-body" style="background-color: rgb(29, 29, 29);color: rgb(255, 255, 255);">
+                                                <div class="row">
+
+                                                    <div class="col-md-12">
+                                                        <ul style="height: 500px;margin: 0;overflow-y: scroll;padding: 10px 20px 10px 20px;" class="messages">
+
+                                                            <li class="message">
+                                                                <span class="messageBody">sdfsdfds</span>
+                                                            </li>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                                                <!--<button type="button" class="btn blue">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                        <div id="responsiveCDN" class="modal fade" tabindex="-1" data-width="760">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">更新cdn</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        返回结果：
+                                                    </div>
+                                                    <div class="col-md-10">
+
+                                                        <iframe style="border: 1px solid red;" src="" title="" name="ifr" tabindex="0" frameborder="0" width="100%" height="100%" id="ifr_content" class=""></iframe>
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        下面是对返回结果做解释：
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <b>成功</b> <br>当返回内容为success append purge tasks... 时，表示任务提交成功。
+                                                        <br><b>MD5校验失败</b>
+                                                        <br> 当返回内容为 *** md5 validate failure...时，其中***是用户名，表示MD5校验错误，请确认MD5的校验的内容，或者确认密码是否正确；(友情提示：密码是推送密码，不是登录密码)
+                                                        <br><b>url错误</b>
+                                                        <br> 当返回内容为invalid url[...]（其中省略号表示具体的URL，多个URL用逗号分隔），表示要更新的url错误,一般为URL不符合规范引起； 当返回内容为can't purge channel[…]（其中省略号表示具体的域名，多个域名用逗号分隔），表明您可能提交了一个不属于您用户下的域名url，请确认一下您所推送的url是否正确。
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                                                <!--<button type="button" class="btn blue">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT-->
+                </div>
+                <!-- BEGIN CONTENT -->
+            </div>
+            <!-- END CONTENT -->
+
+        </div>
+        <style>
+            .timeline-time span.date {
+                font-size: 12px;
+                color: #aaa;
+                display: block;
+                font-weight: 300;
+            }
+            .timeline-time span {
+                display: block;
+                text-align: right;
+            }
+            .timeline-time span.time {
+                color: #35aa47;
+            }
+            .timeline-time span.time {
+                font-weight: 300;
+                font-size: 38px;
+                line-height: 38px;
+            }
+            .timeline-time span {
+                display: block;
+                text-align: right;
+            }
+            .timeline-body {
+                margin-left: 240px !important;
+            }
+            .j_contentBox .timeline:before {
+
+                margin-left: 172px !important;
+            }
+            .timeline-time{
+                float: left;
+                position: relative;
+                padding-right: 30px;
+                padding-top: 10px;
+                height: 80px;
+                width: 134px;
+            }
+            .timeline-body-content {
+                margin-top: 15px !important;
+            }
+
+            .panel-group {
+                margin-bottom: 0px !important;
+            }
+
+            .timeline-body{
+                padding:10px 10px 10px 20px !important;
+
+            }
+        </style>
+        <!-- END CONTAINER -->
+        <script id="userlist" type="text/html">
+            {{if data == null}}
+            暂无更新数据。
+            {{/if}}
+
+            <div class="timeline">
+                {{each data as value i}}
+
+                <!-- TIMELINE ITEM -->
+                <div class="timeline-item">
+                    <div class="timeline-time">
+								<span class="date">
+									 {{value.time | dateFormat}}
+							</span>
+								<span class="time">
+								{{value.time | dateFormat2}} </span>
+                    </div>
+                    <div class="timeline-badge">
+                        <img class="timeline-badge-userpic" src="../../assets/admin/pages/media/users/{{value.user}}.jpg">
+
+                    </div>
+                    {{if value.status == 'close'}}
+                    <div class="timeline-body timeline-green">
+                        {{else if value.status == 'close27'}}
+                        <div class="timeline-body timeline-yellow">
+                            {{else if value.status == 'open'}}
+                            <div class="timeline-body timeline-red">
+                                {{/if}}
+
+                                <div class="timeline-body-arrow">
+                                </div>
+                                <!--<div class="timeline-body-head">-->
+                                <!--<div class="timeline-body-head-caption">-->
+                                <!--<span class="timeline-body-title ">{{value.user}}</span>-->
+                                <!--<span class="timeline-body-time">{{value.time | dateFormatTime}}</span>-->
+                                <!--</div>-->
+
+                                <!--</div>-->
+                                <div class="timeline-body-content">
+
+                                    <div id="tab_{{i}}" class="tab-pane active">
+                                        <div id="accordion{{i}}" class="panel-group">
+
+
+                                            <div class="panel ">
+                                                <div class="panel collapsed" data-toggle="collapse" data-parent="#accordion{{i}}" href="#accordion1_{{i}}" aria-expanded="false">
+
+                                                    <h4 class="panel-title" style="font-weight: bolder;">
+                                                        {{value.msg}}
+                                                    </h4>
+
+                                                    <div style="float: right">
+
+
+                                                        <a class="j_submit btn btn-g" data-status="{{value.status}}" data-id="{{value._id}}" data-toggle="modal" href="#responsive" data-con="{{value.con}}">发布到测试</a>
+
+                                                        <a data-status="{{value.status}}" data-toggle="modal" href="#responsive" class="j_submit2 btn btn-g" id="{{value._id}}" data-id="{{value._id}}" data-con="{{value.con}}">发布到生产</a>
+
+                                                        <a data-toggle="modal" class="j_pushcdn btn btn-g" href="#responsiveCDN" id="{{value._id}}" target="_blank" data-id="{{value._id}}" data-con="{{value.con}}">推送CDN</a>
+                                                        <a style="visibility: hidden" class="j_del btn default red" data-id="{{value._id}}">删除</a>
+                                                    </div>
+                                                    <div style="padding-top: 10px;">
+								<span>
+
+									{{if value.operator}}
+
+									by <img class="timeline-badge-userpic" style="width: 50px;height: 50px;" src="../../assets/admin/pages/media/users/{{value.operator}}.jpg"> {{value.operator}}
+									{{/if}}
+
+
+								   <!--{{if value.status == 'open'}}-->
+									<!--未处理-->
+									<!--{{else if value.status == 'close'}}-->
+									<!--{{value.operator}}-->
+									<!--{{else if value.status == 'close27'}}-->
+									<!--{{value.operator}}-->
+									<!--{{/if}}-->
+
+
+
+								</span>
+                                                    </div>
+                                                </div>
+                                                <div id="accordion1_{{i}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                    <div class="panel-body">
+                                                        {{value.con | dateFormatCon}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END TIMELINE ITEM -->
+
+                        {{/each}}
+                    </div>
+
+        </script>
+        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <!-- BEGIN CORE PLUGINS -->
+        <!--[if lt IE 9]>
+        <script src="../../assets/global/plugins/respond.min.js"></script>
+        <script src="../../assets/global/plugins/excanvas.min.js"></script>
+        <![endif]-->
+        <script src="../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+        <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+        <script src="../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+        <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+        <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+        <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+        <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+        <script src="../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
+        <script src="../../assets/admin/layout/scripts/template.js"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <script>
+            jQuery(document).ready(function () {
+//				// initiate layout and plugins
+//				Metronic.init(); // init metronic core components
+//				Layout.init(); // init current layout
+//				QuickSidebar.init(); // init quick sidebar
+//				Demo.init(); // init demo features  // set current page
+//				ComponentsKnobDials.init();
+
+                UIExtendedModals.init();
+                template.helper('dateFormat', function (dateTime,from) {
+
+                    var oldStr = new Date(dateTime);
+                    var arr = [oldStr.getFullYear(),oldStr.getMonth()+1,oldStr.getDate()];
+                    arr[1] = parseInt(arr[1]) < 10 ? '0'+arr[1] : arr[1];
+                    var weekArray = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+                    var week_i = new Date(arr[0]+'/'+arr[1]+'/'+arr[2]).getDay();
+                    var week = weekArray[week_i];
+                    return arr[0]+'/'+arr[1]+'/'+arr[2]+' '+week;
+
+                });
+                template.helper('dateFormat2', function (dateTime,from) {
+
+
+                    var oldStr = new Date(dateTime);
+
+                    return oldStr.getHours()+':'+oldStr.getMinutes();
+
+
+                });
+                template.helper('dateFormatCon', function (str, from) {
+
+                    var str = str.substring(1, str.length - 1);
+                    var arr = str.split(',');
+                    var str2 = '';
+                    for (var i = 0; i < arr.length; i++) {
+                        str2 += '<div class="path">' + arr[i] + '</div>';
+                    }
+                    return str2;
+
+                });
+                template.helper('dateFormatTime', function (str, from) {
+
+                    var oldStr = new Date(str);
+
+                    return 'at '+(oldStr.getMonth()+1)+'/'+oldStr.getDate()+' '+oldStr.getHours()+':'+oldStr.getMinutes();
+
+                });
+                // Initialize varibles
+                var $window = $(window);
+                var $messages = $('.messages'); // Messages area
+                var socket = io();
+
+                function checklogin(){
+                    if($.cookie('user')){
+                        return true;
+                    }else{
+                        return false;
+                    }
+
+                }
+                if(!checklogin()){
+                    window.parent.location.reload();
+                    return;
+                }
+                window.console && console.log('5555555555555');
+                initData();
+                function initData() {//getuserbyname
+                    $.ajax({
+                        url: '/admin/user/getuserbyname3',
+                        type: 'POST',
+                        cache: false,
+                        complete: function (xhr, textStatus) {
+                            if (textStatus == 'success' && xhr.status == '200') {
+                                var response = eval("(" + xhr.responseText + ")");
+                                window.console && console.log('get $.cookie(qiku)data', response,$.cookie('user'));
+                                if (response.errno == 0) {//返回数据正常
+                                    socket.emit('updateall', {
+                                        user: $.cookie('user')
+                                    });
+                                    var str = template('userlist', response);
+                                    $('.j_contentBox').html(str);
+                                    $('.j_textarea').val('');
+                                } else {
+
+                                }
+
+                            } else {
+                                window.console && console.log('error', xhr, textStatus);
+                            }
+                        }
+                    });
+
+                }
+
+                //下载数据j_download    /admin/user/download
+                var cflag = true;
+                $(document).on('click', '.j_download', function (e) {
+                    if(!checklogin()){
+                        window.parent.location.reload();
+                        return;
+                    }
+                    if (!cflag) {
+                        return;
+                    }
+                    cflag = false;
+                    e.stopPropagation();
+                    var t = $(this);
+                    var str = $.trim(t.attr('data-con'));
+                    //t.html('<img height="15" width="56" src="/static/theme/assets/admin/layout/img/loadingbg.gif">');
+                    t.html('<div class="loader" style="height: 20px;overflow: hidden;width: 70px;"><div class="loader-inner pacman"><div></div><div></div><div></div><div></div><div></div></div></div>');
+                    window.console && console.log('str', str);
+                    //return;
+
+                    setTimeout(function () {
+                        socket.emit('downloadlist', {
+                            id: t.attr('data-id'),
+                            dom: t,
+                            str: t.attr('data-con')
+                        });
+
+                    }, 300);
+
+                });
+                //推送CDN
+                $(document).on('click', '.j_pushcdn', function (e) {
+                    if(!checklogin()){
+                        window.parent.location.reload();
+                        return;
+                    }
+                    e.stopPropagation();
+                    var url = '';
+
+                    var t = $(this);
+                    var id = t.attr('data-id');
+                    var str = $.trim(t.attr('data-con'));
+                    var arr = str.substring(1, str.toString().length - 1);
+                    window.console && console.log('arr', arr);
+                    var reg = /[^,]+(?=.html|.css|.jpg|.gif|.png|.jpeg|.js|.mp4|.mp3|.ogv|.webm|.eot|.ttf|.woff)[^,]+/g;//获取所有html、 资源的文件
+                    var result = arr.match(reg) || [];
+
+                    var str2 = '';
+                    if (result.length) {
+                        for (var i = 0; i < result.length; i++) {
+
+                            window.console && console.log('result[i]',result[i]);
+                            if ( /\.(html|mp4|mp3|ogv|webm|eot|ttf|woff|)$/.test(result[i])) {//
+
+                                if(/\/wap\/m_activity\.html$/.test(result[i])){
+                                    result[i] = 'm.qiku.com' + result[i];
+                                    //window.console && console.log('true:',result[i]);
+                                }
+                                else{
+                                    result[i] = 'www.qiku.com' + result[i];
+                                    //window.console && console.log('false:',result[i]);
+                                }
+
+                                str2 += result[i] + ';';
+                            }
+                            if (/\.js$/.test(result[i])) {//
+                                result[i] = 'js.qiku.com' + result[i];
+                                str2 += result[i] + ';';
+                            }
+                            if (/\.css$/.test(result[i])) {//
+                                result[i] = 'css.qiku.com' + result[i];
+                                str2 += result[i] + ';';
+                            }
+                            if (/\.(jpg|gif|png|jpeg)$/.test(result[i])) {//
+                                result[i] = 'res.qiku.com' + result[i];
+                                str2 += result[i] + ';';
+                            }
+
+
+
+                        }
+                        if (str2) {
+                            str2 = str2.substring(0, str2.length - 1);
+                        }
+
+                    } else {
+                        alert('当前没有要更新cdn的文件');
+                        return;
+                    }
+                    if (!str2) {
+                        alert('当前没有要更新cdn的文件');
+                        return;
+                    }
+                    window.console && console.log('str2',str2);
+                    var passwd = hex_md5('qikuQiku123@' + str2);
+                    url = 'http://wscp.lxdns.com:8080/wsCP/servlet/contReceiver?username=qiku&passwd=' + passwd + '&url=' + str2;
+                    $('#ifr_content').attr("src", '');
+
+                    setTimeout(function () {
+                        $('#ifr_content').attr("src", url);
+
+                    }, 500);
+                    window.console && console.log('url', url);
+                });
+                var showflag = -1;
+                $(document).on('mouseenter','.timeline-body-content',function(){
+                    var t = $(this);
+                    clearTimeout(showflag);
+                    showflag = setTimeout(function(){
+                        t.find('.j_del').css('visibility','visible');
+                    },300);
+                });
+                $(document).on('mouseleave','.timeline-body-content',function(){
+                    var t = $(this);
+                    clearTimeout(showflag);
+                    t.find('.j_del').css('visibility','hidden');
+                });
+                //删除数据
+                $(document).on('click', '.j_del', function (e) {
+                    if(!checklogin()){
+                        window.parent.location.reload();
+                        return;
+                    }
+                    e.stopPropagation();
+                    var id = $(this).attr('data-id');
+                    if(confirm("确定要删除数据吗？"))
+                    {
+                        $.ajax({
+                            url: '/admin/user/deldata',
+                            type: 'POST',
+                            data: {
+                                id: id
+                            },
+                            cache: false,
+                            complete: function (xhr, textStatus) {
+                                if (textStatus == 'success' && xhr.status == '200') {
+                                    var response = eval("(" + xhr.responseText + ")");
+                                    window.console && console.log('res', response);
+                                    if (response.errno == 0) {//返回数据正常
+                                        initData();
+
+                                    } else {
+
+                                    }
+
+                                } else {
+                                    window.console && console.log('error', xhr, textStatus);
+                                }
+                            }
+                        });
+                    }
+
+
+
+                });
+                //发布到27测试环境
+                $(document).on('click', '.j_submit', function (e) {
+                    if(!checklogin()){
+                        window.parent.location.reload();
+                        return;
+                    }
+                    e.stopPropagation();
+                    $messages.empty();
+                    var t = $(this);
+                    var str = $.trim(t.attr('data-con'));
+                    //window.console && console.log('str',str);
+                    var arr = str.substring(1, str.toString().length - 1);
+                    window.console && console.log('arr', arr);
+                    var reg = /[^,]+(?=.html|.jsp)[^,]+/g;//获取所有.html的文件
+                    var reg2 = /[^,]+(?=.css|.jpg|.gif|.png|.jpeg|.js|.mp4|.mp3|.ogv|.webm|.eot|.ttf|.woff)[^,]+/g;//获取所有非.html的文件
+                    var result = arr.match(reg) || [];
+                    var result2 = arr.match(reg2) || [];
+                    window.console && console.log('result', result);
+                    window.console && console.log('result2', result2);
+
+                    var str2 = '';
+                    var str3 = '';
+                    if (result.length) {
+                        for (var i = 0; i < result.length; i++) {
+                            if (/\.(html|jsp|mp4|mp3|ogv|webm|eot|ttf|woff|)$/.test(result[i])) {//
+                                str2 += result[i] + ',';
+                            }
+                        }
+                        str2 = str2.substring(0, str2.length - 1);
+                        if (str2) {
+                            str2 = "{" + str2 + "}";
+                        }
+                    }
+                    if (result2.length) {
+                        for (var i = 0; i < result2.length; i++) {
+                            if ( /\.(js|css|jpg|gif|png|jpeg)$/.test(result2[i])) {//
+                                str3 += result2[i] + ',';
+                            }
+
+                        }
+                        str3 = str3.substring(0, str3.length - 1);
+                        if (str3) {
+                            str3 = "{" + str3 + "}";
+                        }
+
+                    }
+
+                    window.console && console.log('str2', str2);
+                    window.console && console.log('str3', str3);
+                    setTimeout(function () {
+                        socket.emit('addlist', {
+                            id: t.attr('data-id'),
+                            res: str3,
+                            status: t.attr('data-status'),
+                            username:$.cookie('user'),
+                            html: str2
+                        });
+
+                    }, 300);
+
+                });
+                //发布到99生产环境
+                $(document).on('click', '.j_submit2', function (e) {
+                    if(!checklogin()){
+                        window.parent.location.reload();
+                        return;
+                    }
+                    e.stopPropagation();
+                    $messages.empty();
+                    var t = $(this);
+                    var str = $.trim(t.attr('data-con'));
+                    //window.console && console.log('str',str);
+                    var arr = str.substring(1, str.toString().length - 1);
+                    window.console && console.log('arr', arr);
+                    var reg = /[^,]+(?=.html|.jsp)[^,]+/g;//获取所有.html的文件
+                    var reg2 = /[^,]+(?=.css|.jpg|.gif|.png|.jpeg|.js|.mp4|.mp3|.ogv|.webm|.eot|.ttf|.woff)[^,]+/g;//获取所有非.html的文件
+                    var result = arr.match(reg) || [];
+                    var result2 = arr.match(reg2) || [];
+                    window.console && console.log('result', result);
+                    window.console && console.log('result2', result2);
+
+                    var str2 = '';
+                    var str3 = '';
+                    if (result.length) {
+                        for (var i = 0; i < result.length; i++) {
+                            if (/\.(html|jsp|mp4|mp3|ogv|webm|eot|ttf|woff|)$/.test(result[i])) {//
+                                str2 += result[i] + ',';
+                            }
+                        }
+                        str2 = str2.substring(0, str2.length - 1);
+                        if (str2) {
+                            str2 = "{" + str2 + "}";
+                        }
+                    }
+                    if (result2.length) {
+                        for (var i = 0; i < result2.length; i++) {
+                            if ( /\.(js|css|jpg|gif|png|jpeg)$/.test(result2[i])) {//
+                                str3 += result2[i] + ',';
+                            }
+
+                        }
+                        str3 = str3.substring(0, str3.length - 1);
+                        if (str3) {
+                            str3 = "{" + str3 + "}";
+                        }
+
+                    }
+
+
+                    window.console && console.log('str2', str2);
+                    window.console && console.log('str3', str3);
+                    setTimeout(function () {
+                        socket.emit('addlist2', {
+                            id: t.attr('data-id'),
+                            res: str3,
+                            status: t.attr('data-status'),
+                            username:$.cookie('user'),
+                            html: str2
+                        });
+
+                    }, 300);
+
+                });
+                socket.on('downloadpath', function (data) {
+
+                    window.console && console.log('downloadpath', data.path);
+                    var obj = $('#' + data.id);
+                    obj.html('下载压缩包');
+                    //window.console && console.log('obj',obj,obj.length,obj.siblings('a.j_dd').length);
+                    //obj.siblings('a.j_dd').addClass('btn blue').attr('href','/admin/user/download?name='+data.path).html('点击下载');
+                    location.href = '/admin/user/download?name=' + data.path;
+                    cflag = true;
+
+                });
+                socket.on('abc', function (data) {
+                    //window.console && console.log('get socket message',data.message);
+                    setCon(data.message)
+                });
+
+//				socket.on('updataDataList', function (data) {
+//					window.console && console.log('commentlist get socket',data);
+//				});
+
+                //发布成功后的回调
+                socket.on('result', function (data) {
+                    window.console && console.log('get result message', data);
+                    $.ajax({
+                        url: '/admin/user/updatedata',
+                        type: 'POST',
+                        cache: false,
+                        data: {
+                            id: data.id,
+                            status: data.status,
+                            oldstatus: data.oldstatus,
+                            username: $.cookie('user')
+                        },
+                        complete: function (xhr, textStatus) {
+                            if (textStatus == 'success' && xhr.status == '200') {
+                                var response = eval("(" + xhr.responseText + ")");
+                                window.console && console.log('get data', response);
+                                if (response.errno == 0) {//返回数据正常
+                                    initData();
+                                } else {
+
+                                }
+
+                            } else {
+                                window.console && console.log('error', xhr, textStatus);
+                            }
+                        }
+                    });
+                });
+
+                function setCon(data) {
+                    var $messageBodyDiv = $('<span class="messageBody">')
+                            .html(data);
+                    var $messageDiv = $('<li class="message"/>')
+                            .append($messageBodyDiv);
+                    var $el = $($messageDiv);
+                    $messages.append($el);
+                    $messages[0].scrollTop = $messages[0].scrollHeight;
+                }
+
+            });
+        </script>
+        <!-- END JAVASCRIPTS -->
+    </body>
+    <!-- END BODY -->
+</html>

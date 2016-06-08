@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8"/>
+        <title>360奇酷项目管理系统</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="/static/admin/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/bootstrap-toastr/toastr.min.css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGIN STYLES 
+        <link href="/static/admin/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>-->
+        <!-- END PAGE LEVEL PLUGIN STYLES -->
+        <!-- BEGIN PAGE STYLES -->
+        <link href="/static/admin/theme/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE STYLES -->
+        <!-- BEGIN THEME STYLES -->
+        <link href="/static/admin/theme/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/admin/theme/assets/admin/layout/css/themes/{$ name $}.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="/static/admin/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+        <!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="/static/admin/theme/assets/global/img/icon2.ico"/>
+        <!-- BEGIN PAGE OF STYLESHEET EXTENT -->
+        {% block css %}
+		    {% endblock %}
+        <!-- BEGIN PAGE OF STYLESHEET EXTENT -->
+    </head>
+    <!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+  <!-- PAGE HEADER -->
+  {% include "./header.html" %}
+  <!-- PAGE CONTENT -->
+  <div class="page-container">
+    {% include "./sidebar.html" %}
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+      <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                Widget settings form goes here
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn blue">Save changes</button>
+                <button type="button" class="btn default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN STYLE CUSTOMIZER -->
+        <div class="theme-panel hidden-xs hidden-sm">
+          <div class="toggler hidden">
+          </div>
+          <div class="toggler-close">
+          </div>
+          <div class="theme-options">
+            <div class="theme-option theme-colors clearfix"><span>换皮肤 </span>
+              <ul>
+                <li class="color-default tooltips" data-style="default" data-container="body" data-original-title="Default">
+                </li>
+                <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue">
+                </li>
+                <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue">
+                </li>
+                <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey">
+                </li>
+                <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light">
+                </li>
+                <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2">
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+        <!-- END STYLE CUSTOMIZER -->
+        <div class="j_content row-fluid" style="min-height: 950px;">
+         {% block container %}
+         
+         {% endblock %}
+        </div>
+      </div>
+    </div>
+    <!-- END CONTENT -->
+
+  </div>
+  <!-- PAGE FOOTER -->
+  {% include "./footer.html" %}
+  <!-- BEGIN PAGE OF JAVASCRIPT EXTENT -->
+	{% block script %}
+	{% endblock %}
+  <!-- END PAGE OF JAVASCRIPT EXTEND -->
+</body>
+</html>

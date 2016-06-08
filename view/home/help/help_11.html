@@ -1,0 +1,32 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/help/help.css">
+{% endblock %}
+{% block container %}
+<div class="container">
+{% include "./help_silder.html" %}
+
+  <div class="helparticle" >
+     <h2>支付方式</h2>
+     <div class="helpmain">
+       <dl>
+         <dd>
+           <h4>奇酷商城提供支付宝等第三方平台支付，同时支持国内多家主流银行机构的储蓄卡、信用卡的网上付款。暂时不支持货到付款和线下汇款，请您购买时留意，避免影响您正常收货。</h4>
+           <h3>银行网银支付方式</h3>
+           <h4>第一步：订单成功提交后，请选择在线支付方式-银行网银，选中“招商银行”，直接跳转到招商银行支付界面</h4>
+           <p><br /><img src="//res.qiku.com/images/help_center/help_9_13.png" /><br /></p>
+           <h4>第二步：在网银支付界面按网银提示进行操作</h4>
+           <p><br /><img src="//res.qiku.com/images/help_center/help_center_wy3.png" style="padding-left: 1.8em;" /><br /></p>
+           <h3>支付宝支付方式</h3>
+           <h4>第一步：填写核对订单信息-支付方式选择</h4>
+           <p><br /><img src="//res.qiku.com/images/help_center/help_9_132.png" /><br /></p>
+           <h4>第二步：订单成功提交后，请选择在线支付方式，选中“支付宝”，直接跳转到支付宝支付界面</h4>
+           <p><br /><img src="//res.qiku.com/images/help_center/help_9_133.png" style="padding-left: 1.8em;" /><br /></p>
+         </dd>
+       </dl>
+     </div>     
+  </div>
+ 
+</div>
+{% endblock %}

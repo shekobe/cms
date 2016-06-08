@@ -1,0 +1,141 @@
+{
+    "menu": [{
+        "_id":"1",
+        "name": "首页",
+        "url": "http://www.qiku.com/index.html",
+        "icons": "",
+        "target": "_self"
+    }, {
+        "_id":"2",
+        "name": "360手机",
+        "url": "http://www.qiku.com/zt/jike/index.html",
+        "icons": "",
+        "target": "_self"
+    }, {
+        "_id":"3",
+        "name": "High购季",
+        "url": "http://www.qiku.com/hd/201602/kx.html",
+        "icons": "icons-hot",
+        "target": "_self"
+    }, {
+        "_id":"4",
+        "name": "Q码通道",
+        "url": "http://god.qiku.com/godCode/godCode.htm",
+        "icons": "icons-hot",
+        "target": "_self"
+    }, {
+        "_id":"5",
+        "name": "360 OS",
+        "url": "http://www.qiku.com/360os/index.html",
+        "icons": "",
+        "target": "_self"
+    }, {
+        "_id":"6",
+        "name": "社区",
+        "url": "http://bbs.360shouji.com",
+        "icons": "",
+        "target": "_blank"
+    }, {
+        "_id":"7",
+        "name": "服务",
+        "url": "http://www.qiku.com/help-4.html",
+        "icons": "",
+        "target": "_self"
+    }],
+    "category": [{
+        "child": [{
+            "name": "极客版",
+            "url": "http://www.qiku.com/zt/jike/index.html"
+        }, {
+            "name": "旗舰版",
+            "url": "http://item.qiku.com/item/selectPhone.html?typeId=1353"
+        }, {
+            "name": "青春版",
+            "url": "http://item.qiku.com/item/selectPhone.html?typeId=1373"
+        }],
+        "name": "360手机",
+        "url": "http://www.qiku.com/zt/jike/index.html"
+    }, {
+        "child": [{
+            "name": "大神Note3",
+            "url": "http://item.qiku.com/item/selectPhone.html?typeId=709"
+        }, {
+            "name": "大神X7",
+            "url": "http://item.qiku.com/item/selectPhone.html?typeId=1013"
+        }, {
+            "name": "大神F2",
+            "url": "http://item.qiku.com/item/selectPhone.html?typeId=868"
+        }, {
+            "name": "合约机",
+            "url": "http://www.qiku.com/heyue/index.htm"
+        }],
+        "name": "大神手机",
+        "url": "http://www.qiku.com/goodsSortList-622-2-0-0-1-1.html?type=1"
+    }, {
+        "child": [{
+            "name": "儿童手表",
+            "url": "http://www.qiku.com/goods/4238.html"
+        }, {
+            "name": "行车记录仪",
+            "url": "http://www.qiku.com/goods/4570.html"
+        }, {
+            "name": "安全路由",
+            "url": "http://www.qiku.com/goods/4568.html"
+        }],
+        "name": "360智能硬件",
+        "url": "javascript:;"
+    }, {
+        "child": [{
+            "name": "皮套",
+            "url": "http://www.qiku.com/goodsSortList-481-3-0-0-1-1.html?type=1"
+        }, {
+            "name": "保护膜",
+            "url": "http://www.qiku.com/goodsSortList-445-3-0-0-1-1.html?type=1"
+        }, {
+            "name": "后壳",
+            "url": "http://www.qiku.com/goodsSortList-1079-3-0-0-1-1.html?type=1"
+        }],
+        "name": "保护类",
+        "url": "http://www.qiku.com/goodsSortList-435-2-0-0-1-1.html?type=1"
+    }, {
+        "child": [{
+            "name": "电池",
+            "url": "http://www.qiku.com/goodsSortList-486-3-0-0-1-1.html?type=1"
+        }, {
+            "name": "移动电源",
+            "url": "http://www.qiku.com/goodsSortList-484-3-0-0-1-1.html?type=1"
+        }],
+        "name": "能源类",
+        "url": "http://www.qiku.com/goodsSortList-436-2-0-0-1-1.html?type=1"
+    }, {
+        "child": [{
+            "name": "线控耳机",
+            "url": "http://www.qiku.com/goodsSortList-482-3-0-0-1-1.html?type=1"
+        }],
+        "name": "耳机与音箱",
+        "url": "http://www.qiku.com/goodsSortList-438-2-0-0-1-1.html?type=1"
+    }, {
+        "child": [{
+            "name": "大学生分期购",
+            "url": "http://www.qiku.com/qufenqi.html"
+        }, {
+            "name": "以旧换新",
+            "url": "http://www.qiku.com/huanxin.html"
+        }],
+        "name": "奇酷特色",
+        "url": "javascript:;"
+    }, {
+        "child": [{
+            "name": "数码配件",
+            "url": "http://www.qiku.com/goodsSortList-505-3-0-0-1-1.html?type=1"
+        }, {
+            "name": "创意配件",
+            "url": "http://www.qiku.com/goodsSortList-564-3-0-0-1-1.html?type=1"
+        }, {
+            "name": "智能硬件",
+            "url": "http://www.qiku.com/goodsSortList-562-3-0-0-1-1.html?type=1"
+        }],
+        "name": "个性化配件",
+        "url": "http://www.qiku.com/goodsSortList-504-2-0-0-1-1.html?type=1 "
+    }]
+}

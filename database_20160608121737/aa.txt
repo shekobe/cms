@@ -1,0 +1,3 @@
+﻿./mongodump -h 10.100.7.18 -d qiku -o /app/mongodb/sugy2  -u qiku -p 123456   备份
+/usr/local/mongodb/bin/mongodump -h 10.100.7.18 -d qiku -o /app/mongodb/sugy2  -u qiku -p 123456   备份2
+./mongorestore -h 10.100.7.18 -d qiku /app/mongodb/sugy/qiku -u qiku -p 123456 还原

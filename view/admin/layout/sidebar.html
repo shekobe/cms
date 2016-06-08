@@ -1,0 +1,57 @@
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper page-sidebar-fixed" >
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse " >
+
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu j_leftsidebar" data-auto-scroll="true" data-slide-speed="200">
+            <canvas style=" position: absolute;z-index: -1" id="spiders" class="hidden-xs"></canvas>
+            <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+            <li class="sidebar-toggler-wrapper">
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler">
+                </div>
+                <!-- END SIDEBAR TOGGLER BUTTON -->
+            </li>
+            <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+            <li class="sidebar-search-wrapper hidden-xs">
+                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+                <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+            
+                <!-- END RESPONSIVE QUICK active open SEARCH FORM -->
+            </li>
+           <!--  <div id="tree_left" class="tree-demo">
+            </div> -->
+
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+</div>
+
+<script id="leftmenu" type="text/html">
+    {{each list as value i}}
+    <li class="j_leftLi j_outli">
+        <a href="javascript:;">
+            <i class="icon-user"></i>
+            <span class="title">{{value.name}}</span>
+            <span class="selected"></span>
+        </a>
+        {{each value.children as value3 j}}
+        <ul class="sub-menu">
+            <li class="j_leftLi" data-v="{{i}}-{{j}}" data-url="{{value3.href}}">
+                <a href="javascript:;">
+                    <i class="icon-bar-chart"></i>
+                    {{value3.name}}</a>
+            </li>
+        </ul>
+        {{/each}}
+    </li>
+    {{/each}}
+
+</script>
+<!-- END SIDEBAR -->
+
+
+

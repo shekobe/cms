@@ -1,0 +1,85 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/help/help.css">
+{% endblock %}
+
+{% block container %}
+<div class="container">
+    {% include "./help_silder.html" %}
+    <div class="helparticle">
+        <h2>购物流程</h2>
+        <div class="helpmain">
+          <dl id="help-reg">
+               <dt><h3>用户注册</h3></dt>
+               <dd>
+                    <p>第一步：点击“注册”，进入账号注册页面</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_2.png" /><br /></p>
+               </dd>
+               <dd>
+                    <p>1、手机注册：输入手机号、图片验证码，点击“获取短信校验码”，收到校验码后，输入“短信校验码”，设置密码，阅读“奇酷商城网站用户注册协议”，勾选“同意注册条款”，点击“立即注册”。</p>
+                    <p style="text-align: center;"><img src="//res.qiku.com/images/help_center/help_3.png" /><br /></p>
+               </dd>
+               <dd>
+                    <p>2、邮箱注册：输入邮箱名称、密码、验证码，阅读“奇酷商城网站用户注册协议”，勾选“同意注册条款”，点击“立即注册”。</p>
+                    <p style="text-align: center;"><img src="//res.qiku.com/images/help_center/help_4.png" /><br></p>
+               </dd>
+          </dl>
+          <dl id="help-process">
+               <dt>
+                    <h3>购物流程</h3>
+               </dt>
+               <dd>
+                    <p>01.选择需要购买的商品点击立即购买。</p>
+                    <p style="text-align: center;"><img src="//res.qiku.com/images/help_center/help_5_13.jpg" /><br></p>
+               </dd>
+               <dd>
+                    <p>02.选择优惠套餐或裸机点击下一步。</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_6_13.png" /><br></p>
+               </dd>
+               <dd>
+                    <p>03.可选择心怡的配件，点击去结算。</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_7_131.png" /><br></p>
+               </dd>
+               <dd>
+                    <p>04.如果担心手机意外损坏无法保修，可勾选购买手机保障服务，点击去结算。</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_7_132.png" /><br></p>
+               </dd>
+               <dd>
+                    <p>05. 请您正确填写相关信息，依次为收货人姓名、手机号码、收货地址、在线支付、发票信息，填写完成后请仔细核对确保所填写信息正确完整，点击立即下单。</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_8_13.png" /><br>
+                       <img src="//res.qiku.com/images/help_center/help_8_14.png" /><br>
+                    </p>
+               </dd>
+               <dd>
+                    <p>06.提交订单后，选择适合自己的支付方式完成支付。</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_8_15.png" /><br></p>
+               </dd>
+               <dd>
+                    <p>07.支付完成后，订单转入商城处理。</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_8_16.png" /><br></p>
+               </dd>
+          </dl>
+          <dl id="help-order">
+               <dt><h3>查看订单</h3></dt>
+               <dd>
+                    <p>1、订单提交成功支付后，在我的订单点击“查看”即可了解具体订单信息</p>
+                    <p><img src="//res.qiku.com/images/help_center/help_9_135.png" /><br></p>
+               </dd>
+          </dl>
+          <dl id="help-notice">
+               <dt><h3>签收须知</h3></dt>
+               <dd>
+                    <p>为保障您的切身利益，我们在此提醒您，收到商品时请注意以下事项：</p>
+                    <p>1．收到商品时请当场验货，检查外包装是否完好。如果发现包装有破损，请您在快递单签收栏写明“外包装破损”。</p>
+                    <p>2. 由于快递公司不支持签收前拆包验货，无论外包装破损与否，签收后请务必要求投递员在场共同检验包裹。如您发现商品破损、数量不符、错发、漏发、发票金额与订单不符等情况，请您拍照存证，在签收栏写明异常原因，让投递员将包裹寄回奇酷商城；之后请您尽快在“我的订单”页面提交退换货申请，我们将为您换货或退款，邮费由奇酷商城承担。</p>
+                    <p>3．如您没有按以上描述操作，快递员离开后，奇酷商城有权不接受以物流损坏、漏发、错发为理由的退换货。</p>
+                    <p>4. 在本人不能亲自签收的情况下，请委托他人签收并严格按照第一项和第二项内容操作。被委托人的签收视为收货人本人签收。</p>
+                    <p>5．手机产品只支持开箱清点产品及数量，不支持打开内包装开机、充电或试用。</p>
+               </dd>
+          </dl>
+          
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.4
+Version: 3.9.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+	<!--<![endif]-->
+	<!-- BEGIN HEAD -->
+	<head>
+		<meta charset="utf-8"/>
+		<title>Metronic | UI Components - Knob Circle Dials</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta content="" name="description"/>
+		<meta content="" name="author"/>
+		<!-- BEGIN GLOBAL MANDATORY STYLES -->
+		<link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+		<!-- END GLOBAL MANDATORY STYLES -->
+		<!-- BEGIN PAGE LEVEL STYLES -->
+		<link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+		<!-- END PAGE LEVEL STYLES -->
+		<!-- BEGIN THEME STYLES -->
+		<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+		<link id="style_color" href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+		<!-- END THEME STYLES -->
+		<link rel="shortcut icon" href="favicon.ico"/>
+		<script src="../../assets/admin/layout/scripts/socket.io.js"></script>
+	</head>
+	<!-- END HEAD -->
+	<!-- BEGIN BODY -->
+	<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+	<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+	<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+	<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+	<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+	<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+	<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+	<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+	<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+	<body class="page-header-fixed page-quick-sidebar-over-content ">
+
+
+		<!-- BEGIN CONTAINER -->
+		<div class="">
+
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<div class="">
+					<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+					<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+									<h4 class="modal-title">Modal title</h4>
+								</div>
+								<div class="modal-body" style="">
+									Widget settings form goes here
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn blue">Save changes</button>
+									<button type="button" class="btn default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal -->
+					<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+					<!-- BEGIN STYLE CUSTOMIZER -->
+
+					<!-- BEGIN PAGE HEADER-->
+
+					<!-- END PAGE HEADER-->
+					<!-- BEGIN PAGE CONTENT-->
+					<div class="row">
+						<div class="col-md-12">
+							<!-- BEGIN PORTLET-->
+							<div class="portlet box red">
+
+								<div class="portlet-body">
+
+									<!--<div class="form-group">-->
+										<!--<label class="control-label col-md-2">设置svn项目路径:</label>-->
+										<!--<div class="col-md-7">-->
+											<!--<div class="input-group" style="text-align:left">-->
+												<!--<input type="text" class="form-control j_svnul" name="username1" id="username1_input">-->
+												<!--<span class="input-group-btn">-->
+												<!--<a href="javascript:;" class="btn green j_savesvn" id="username1_checker" data-original-title="" title="">-->
+													<!--<i class="fa fa-check"></i> 保存 </a>-->
+												<!--</span>-->
+											<!--</div>-->
+											<!--<div class="help-block">-->
+												<!--svn 路径, 比如 D:\Program Files\TortoiseSVN\bin\TortoiseProc.exe-->
+											<!--</div>-->
+										<!--</div>-->
+									<!--</div>-->
+
+									<div class="row">
+										<div class="col-md-12">
+											<a class="btn default green j_showlog" href="javascript:;">
+												显示svn showlog </a>
+											</div>
+										<div class="col-md-12">
+											<textarea class="form-control j_textarea autosizeme" rows="4" placeholder="粘贴 svn showlog文件列表即可..." data-autosize-on="true" style="overflow-y: hidden; resize: horizontal; height: 94px;"></textarea>
+											<p class="help-block">
+												要提交的svn showlog文件列表
+											</p>
+										</div>
+										<div class="clearfix col-md-12" style="margin: 0px 0px 15px 0px;">
+											<a class="btn default red j_submit" href="javascript:;">
+												提交 </a>
+											<!--<a class="btn default red j_submit" data-toggle="modal" href="#responsive">-->
+												<!--提交 </a>-->
+										</div>
+
+										<div class="col-md-12">
+											<div class="tab-content j_contentBox">
+
+
+											</div>
+										</div>
+										<!-- responsive -->
+										<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+												<h4 class="modal-title">实时状态</h4>
+											</div>
+											<div class="modal-body" style="background-color: rgb(29, 29, 29);color: rgb(255, 255, 255);">
+												<div class="row">
+
+													<div class="col-md-12">
+														<ul style="height: 500px;margin: 0;overflow-y: scroll;padding: 10px 20px 10px 20px;" class="messages">
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li>
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li>
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li>
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li>
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li>
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li><li class="message">
+															<span class="messageBody">sdfsdfds</span>
+														</li><li class="message">
+															<span class="messageBody">sdfsdfds</span>
+														</li><li class="message">
+															<span class="messageBody">sdfsdfds</span>
+														</li>
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li>
+
+
+
+															<li class="message">
+																<span class="messageBody">sdfsdfds</span>
+															</li>
+														</ul>
+
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+												<!--<button type="button" class="btn blue">Save changes</button>-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT-->
+				</div>
+				<!-- BEGIN CONTENT -->
+			</div>
+			<!-- END CONTENT -->
+
+		</div>
+		<!-- END CONTAINER -->
+		<script id="userlist" type="text/html">
+
+			{{each data as value i}}
+			<div id="tab_{{i}}" class="tab-pane active">
+				<div id="accordion{{i}}" class="panel-group">
+					{{if value.status == 'open'}}
+					<div class="panel panel-default">
+					{{else}}
+					<div class="panel panel-success">
+					{{/if}}
+
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion{{i}}" href="#accordion1_{{i}}" aria-expanded="false">
+									{{i+1}}、{{value.data}} ，状态：
+								   {{if value.status == 'open'}}
+									未处理
+									{{else}}
+									已处理
+									{{/if}}
+								</a>
+								<a class="j_del btn default red" data-id="{{value._id}}">删除</a>
+							</h4>
+						</div>
+						<div id="accordion1_{{i}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+							<div class="panel-body">
+								{{value.con}}
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			{{/each}}
+
+			</script>
+		<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+		<!-- BEGIN CORE PLUGINS -->
+		<!--[if lt IE 9]>
+		<script src="../../assets/global/plugins/respond.min.js"></script>
+		<script src="../../assets/global/plugins/excanvas.min.js"></script>
+		<![endif]-->
+		<script src="../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+		<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+		<script src="../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+		<!-- END CORE PLUGINS -->
+		<!-- BEGIN PAGE LEVEL PLUGINS -->
+		<script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+		<script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+		<!-- END PAGE LEVEL PLUGINS -->
+		<!-- BEGIN PAGE LEVEL SCRIPTS -->
+		<script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+		<script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+		<script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+		<script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+		<script src="../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
+		<script src="../../assets/admin/layout/scripts/template.js"></script>
+		<!-- END PAGE LEVEL SCRIPTS -->
+		<script>
+			jQuery(document).ready(function() {
+//				// initiate layout and plugins
+//				Metronic.init(); // init metronic core components
+//				Layout.init(); // init current layout
+//				QuickSidebar.init(); // init quick sidebar
+//				Demo.init(); // init demo features  // set current page
+//				ComponentsKnobDials.init();
+				UIExtendedModals.init();
+				window.console && console.log('svnul',window.parent.$('body').attr('data-svnurl'));
+				$('.j_svnul').val(window.parent.$('body').attr('data-svnurl'));
+				// Initialize varibles
+				var $window = $(window);
+				var $messages = $('.messages'); // Messages area
+				var socket = io();
+				initData();
+				function initData(){//getuserbyname
+					$.ajax({
+						url:'/admin/user/getuserbyname2',
+						type:'POST',
+						cache: false,
+						complete:function(xhr, textStatus){
+							if(textStatus == 'success' && xhr.status == '200'){
+								var response = eval("("+xhr.responseText+")");
+								window.console && console.log('init get data',response);
+								if(response.errno == 0){//返回数据正常
+									window.console && console.log('do updateall');
+									socket.emit('updateall', 'test');
+									var str = template('userlist',response);
+									$('.j_contentBox').html(str);
+									$('.j_textarea').val('');
+
+								}else{
+
+								}
+
+							}else{
+								window.console && console.log('error',xhr, textStatus);
+							}
+						}
+					});
+
+				}
+				//删除数据
+				$(document).on('click','.j_del',function () {
+					var id = $(this).attr('data-id');
+					window.console && console.log('del',id);
+					$.ajax({
+						url:'/admin/user/deldata',
+						type:'POST',
+						data:{
+							id:id
+						},
+						cache: false,
+						complete:function(xhr, textStatus){
+							if(textStatus == 'success' && xhr.status == '200'){
+								var response = eval("("+xhr.responseText+")");
+								window.console && console.log('res',response);
+								if(response.errno == 0){//返回数据正常
+									initData();
+
+								}else{
+
+								}
+
+							}else{
+								window.console && console.log('error',xhr, textStatus);
+							}
+						}
+					});
+
+				});
+				//提交数据
+				$('.j_submit').on('click',function () {
+					var str =$.trim($('.j_textarea').val());
+					if(!str){
+						return;
+					}
+
+					str = str.replace(/\n/g,",");
+					str = str.replace(/\/branches\/founder\/WebContent/g,"");
+					window.console && console.log('str',str);
+					$.ajax({
+						url:'/admin/user/addlist2',
+						type:'POST',
+						data:{
+							str:str,
+							username:$.cookie('user') || $('.j_username').html()
+						},
+						cache: false,
+						complete:function(xhr, textStatus){
+							if(textStatus == 'success' && xhr.status == '200'){
+								var response = eval("("+xhr.responseText+")");
+								window.console && console.log('res',response);
+								if(response.errno == 0){//返回数据正常
+									initData();
+
+								}else{
+
+								}
+
+							}else{
+								window.console && console.log('error',xhr, textStatus);
+							}
+						}
+					});
+
+				});
+
+				//showlog
+				$('.j_showlog').on('click',function () {
+					var str =$.trim($('.j_svnul').val());
+					if(!str){
+						return;
+					}
+
+					window.console && console.log('str',str);
+					$.ajax({
+						url:'/admin/user/showlog',
+						type:'POST',
+						data:{
+							str:str,
+							username:$.cookie('user') || $('.j_username').html()
+						},
+						cache: false,
+						complete:function(xhr, textStatus){
+							if(textStatus == 'success' && xhr.status == '200'){
+								var response = eval("("+xhr.responseText+")");
+								window.console && console.log('res',response);
+								if(response.errno == 0){//返回数据正常
+									initData();
+
+								}else{
+
+								}
+
+							}else{
+								window.console && console.log('error',xhr, textStatus);
+							}
+						}
+					});
+
+				});
+				//保存svn路径
+				$('.j_savesvn').on('click',function () {
+					var str =$.trim($('.j_svnul').val());
+					if(!str){
+						return;
+					}
+
+					window.console && console.log('str',str);
+					$.ajax({
+						url:'/admin/user/updatasvnurl',
+						type:'POST',
+						data:{
+							str:str,
+							username:$.cookie('user') || $('.j_username').html()
+						},
+						cache: false,
+						complete:function(xhr, textStatus){
+							if(textStatus == 'success' && xhr.status == '200'){
+								var response = eval("("+xhr.responseText+")");
+								window.console && console.log('res',response);
+								if(response.errno == 0){//返回数据正常
+									initData();
+
+								}else{
+
+								}
+
+							}else{
+								window.console && console.log('error',xhr, textStatus);
+							}
+						}
+					});
+
+				});
+
+//				$('.j_submit').on('click',function () {
+//					$messages.empty();
+//					var t = $(this);
+//					var str =$.trim($('.j_textarea').val());
+//
+//					str = str.replace(/\n/g,",");
+//					str = str.replace(/\/branches\/founder\/WebContent/g,"");
+//					str = "{" +str+ "}";
+//					window.console && console.log('str',str);
+//					//return;
+//
+//
+//					setTimeout(function(){
+//						socket.emit('addlist', 'test');
+//						window.console && console.log('123456');
+//					},300);
+//
+//				});
+//				socket.on('abc', function (data) {
+//					window.console && console.log('get socket message',data.message);
+//					setCon(data.message)
+//				});
+//				socket.on('updataDataList', function (data) {
+////					location.reload();
+////					//initData();
+//					window.console && console.log('frontend get socket updataDataList',data);
+//				});
+
+
+				function setCon(data) {
+					var $messageBodyDiv = $('<span class="messageBody">')
+							.html(data);
+					var $messageDiv = $('<li class="message"/>')
+							.append($messageBodyDiv);
+					var $el = $($messageDiv);
+					$messages.append($el);
+					$messages[0].scrollTop = $messages[0].scrollHeight;
+				}
+
+			});
+		</script>
+		<!-- END JAVASCRIPTS -->
+	</body>
+	<!-- END BODY -->
+</html>  

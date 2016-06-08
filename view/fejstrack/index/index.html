@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>页面回溯系统</title>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<!-- END PAGE LEVEL STYLES -->
+<link href="/static/admin/theme/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+
+
+<style>
+body{background-color: #f4f4f4;}
+.wrap{width: 1000px;margin:0 auto;}
+.page-container{width:98%; min-width: 1000px;margin: 0 auto;position: relative;}
+.content{width:100%;position: relative;margin-top: 20px;}
+#sample_editable_1 .table tr th{width:6.66%;}
+#sample_editable_1 .table tr td{word-break: break-all;}
+#sample_editable_1 .table tr td span{padding:2px 4px;font-size:12px;color:#333;background:#ccc;}/*收集*/
+#sample_editable_1 .table .doing span{color:#fff;background:#428bca;}/*处理中-*/
+#sample_editable_1 .table .pending span{color:#fff;background:#89C4F4;}/*准备处理(挂起)*/
+#sample_editable_1 .table .untest span{color:#fff;background:#dfba49;}/*待验证-*/
+#sample_editable_1 .table .difficult span{color:#fff;background:#F3565D;}/*疑难问题-*/
+#sample_editable_1 .table .nottodo span{color:#333;background:#c1c1c1;}/*不需处理-*/
+#sample_editable_1 .table .done span{color:#fff;background:#666;}/*已处理-*/
+#sample_editable_1 .table .err{padding:2px 4px;background:#F11B25;color:#fff;}
+</style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="content">
+      <!-- 操作 -->
+      <div class="rows">
+        <div class="col-md-12">
+          <div class="portlet box blue">
+              <div class="portlet-title">
+                <div class="caption">
+                  <i class="fa fa-edit"></i>前端js bug 收集展示系统
+                </div>
+              </div>
+              <div class="portlet-body">
+                <div class="rows table-toolbar">
+                    <div class="col-md-12 text-right">
+                      <div class="btn-group">
+                        <label>查询条件:</label>
+                        <label>
+                        <select name="search_type" class="form-control form-filter input-sm">
+                            <option value="" selected="selected">无</option>
+                            <option value="msg">错误信息</option>
+                            <option value="file">错误文件</option>
+                            <option value="url">错误页面</option>
+                            <option value="ref">错误页面来源</option>
+                        </select>
+                        </label>
+                        <label>
+                        <input type="text" name="search_msg" class="form-control input-sm">
+                        </label>
+                      </div>
+                      <div class="btn-group">
+                        <label>
+                        <select name="status_type" class="form-control form-filter input-sm">
+                            <option value="" selected="selected">显示状态类型：</option>
+                            <option value="other">未处理</option>
+                            <option value="doing">处理中</option>
+                            <option value="pending">准备处理(挂起)</option>
+                            <option value="untest">已处理，待验证</option>
+                            <option value="difficult">疑难问题</option>
+                            <option value="nottodo">不需处理</option>
+                            <option value="done">已处理</option>
+                            <option value="del">删除(仅用于修改)</option>
+                        </select></label>
+                         <label><a href="javascript:;" class="btn green search_submit"><i class="fa fa-search"></i> 查询</a></label>
+                         <label><a href="javascript:;" class="btn green update_submit"><i class="fa fa-edit"></i> 修改</a></label>
+                      </div>
+                    </div>
+                </div>
+                <div class="rows">
+                  <!-- 数据 -->
+                  <div class="dataTables_info table-scrollable" id="sample_editable_1"></div>
+                </div>
+                <!-- 分页 -->
+                <div class="row">
+                      <div class="col-md-5 col-sm-12">
+                          <div class="dataTables_info" id="sample_editable_1_info"></div>
+                      </div>
+                      <div class="col-md-7 col-sm-12">
+                          <div class="dataTables_paginate paging_simple_numbers" id="sample_editable_1_paginate">
+                              
+                          </div>
+                      </div>
+                </div>
+                
+              </div>
+          </div>
+        </div>
+      </div>
+       <input type="hidden" name="current_type" id="current_type" value="">
+    </div>
+  </div>
+<input type="hidden" name="qktoken" value="{$ qktoken $}">
+
+  <!-- 模块对话框信息 -->
+  <div class="modal fade" role="dialog" id="logs_dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h3 class="modal-title">状态修改</h3>
+            </div>
+            <div class="modal-body form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-3" >BUG 序号：<span class="required" aria-required="true"> * </span></label>
+                    <div class="col-md-7">
+                        <input type="text" name="logs_name" class="logs_name form-control" value="" disabled="" >
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" >bugs Id：<span class="required" aria-required="true"> * </span></label>
+                    <div class="col-md-7">
+                        <input type="text" name="logs_id" class="logs_id form-control" value="" disabled="" >
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">状态：<span class="required" aria-required="true"> * </span></label>
+                    <div class="col-md-7"> 
+                    <select class="form-control logs_status">
+                        <option value="">采集</option>
+                        <option value="doing">处理中</option>
+                        <option value="pending">准备处理(挂起)</option>
+                        <option value="untest">已处理，待验证</option>
+                        <option value="difficult">疑难问题</option>
+                        <option value="nottodo">不需处理</option>
+                        <option value="done">已处理</option>
+                    </select>
+                    </div>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button type="button" class="btn green">确定</button>
+                        <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- 对话框结束 -->
+<script type="text/html" id="logs_html">
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+          <th style="width:2%">序 号</th>
+          <th style="width:43%">错误相关信息</th>
+          <th style="width:12%">浏览器信息</th>
+          <th>其他信息</th>
+          <th>上报时间</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{if data.count > 0}}
+        {{each data.data as value i}}
+        <tr data-id="{{value._id}}">
+            <td>{{i+1}}</td>
+            <td>
+            <p><span>[{{value.profile}}:]</span> {{value.msg}}</p>
+            <p><span>[错误文件:]</span> {{value.file}} {{if value.line}}<span class="err">第{{value.line}}行</span>{{/if}} {{if value.num}}<span class="err">第{{value.num}}个字符</span>{{/if}}</p>
+            <p><span>[堆栈信息:]</span> {{if value.stack}} {{value.stack}} {{else}} 无 {{/if}}</p>
+            <p><span>[错误页面:]</span> {{value.url}}</p>
+            <p><span>[页面来源:]</span> {{if value.ref =="-"}}本页刷新{{else}}{{value.ref}}{{/if}}</p>
+            </td>
+            <td><p><span>[简写:]</span>{{value.clnt}}</p>
+                {{if value.ua}}<p><span>[全称:]</span>{{value.ua}}</p>{{/if}}
+                {{if value.cookie}}<p><span>[用户:]</span>{{value.cookie}}</p>{{/if}}
+            </td>
+            <td>{{value.lost}}</td>
+            <td><p><span>[用户时间:]</span>{{dateFormat(value.time,'yyyy-MM-dd hh:mm:ss')}}</p>
+                {{if value.servertime}}<p><span>[标准时间:]</span>{{dateFormat(value.servertime,'yyyy-MM-dd hh:mm:ss')}}</p>{{/if}}</td>
+            <td class="status {{value.status}}"><span>{{if value.status==""}}采集{{else if value.status=="done"}}已处理{{else if value.status=="nottodo"}}不需处理{{else if value.status=="difficult"}}疑难问题{{else if value.status=="untest"}}待验证{{else if value.status=="pending"}}准备处理{{else if value.status=="doing"}}处理中{{/if}}</span></td>
+            <td><a class="btn btn-xs green edit" href="javascript:;"><i class="fa fa-edit"></i>修改</a></td>
+        </tr>
+        {{/each}}
+    {{else}}
+        <tr><td colspan="15" align="center"> 暂无数据</td></tr>
+    {{/if}}
+    </tbody>
+</table>
+</script>
+<script src="/static/admin/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/admin/theme/assets/admin/layout/scripts/artTemplate.js"></script>
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/jquery.bootpag.min.js"></script>
+
+<script type="text/javascript">
+  function getlist(page,type,search,msg){
+    $.getJSON('/fejstrack/index/getlogs/',{"page":page||1,"type":type||"","search":search||'',"msg":msg||""},function(data){
+      if(data.data){
+          //返回数据正常
+          var str = template('logs_html', data);
+          $('#sample_editable_1').html(str);
+          //赋值
+          $('#current_type').val(type||"");
+          //基础信息
+          $('#sample_editable_1_info').text("第"+data.data.currentPage+"/"+data.data.totalPages+"页，共"+data.data.count+"条")
+          //分页信息
+          $('#sample_editable_1_paginate').bootpag({
+             total: data.data.totalPages,
+             page: data.data.currentPage,
+             maxVisible: 10
+          })
+      }
+    })
+  }
+  $(function(){
+    $.ajaxSetup({data: {qktoken: $('input[name="qktoken"]').val()}});
+    //初始化
+    getlist(1);
+    //修改对话框
+    $('#sample_editable_1').delegate('.edit','click',function(){
+        var _this = $(this),
+            _modal = $('#logs_dialog'),
+            type = _this.parents('tr').find('.status').attr('class'),
+            id = _this.parents('tr').attr('data-id'),
+            name = _this.parents('tr').children('td').eq(0).text();
+          type = $.trim(type.replace(/status/ig,''));
+        //展示
+        _modal.find('.logs_id').val(id);
+        _modal.find('.logs_name').val(name);
+        _modal.find('.logs_status').val(type);
+        _modal.modal();
+    });
+    //确认修改
+    $('#logs_dialog button.green').on('click', function(){
+      var _modal = $('#logs_dialog'),
+          id = _modal.find('.logs_id').val(),
+          type = _modal.find('.logs_status').val();
+          if(!id ){
+            alert('系统错误请重试');return false;
+          }
+        $.getJSON('/fejstrack/index/updatelog/',{"id": id, "type": type}, function(data){
+          if(data.data){
+            $('#logs_dialog').modal('hide');
+            $('#sample_editable_1 tr').each(function(i){
+              if($(this).attr('data-id') == id){
+                var m = $(this).find('.status')
+                  if(type=="done"){
+                    m.attr("class","status done").children('span').text('已处理');
+                  }else if(type=="nottodo"){
+                    m.attr("class","status nottodo").children('span').text('不需处理');
+                  }else if(type=="difficult"){
+                    m.attr("class","status difficult").children('span').text('疑难问题');
+                  }else if(type=="untest"){
+                    m.attr("class","status untest").children('span').text('待验证');
+                  }else if(type=="pending"){
+                    m.attr("class","status pending").children('span').text('准备处理');
+                  }else if(type=="doing"){
+                    m.attr("class","status doing").children('span').text('处理中');
+                  }else{
+                    m.attr("class","status").children('span').text('采集');
+                  }
+                  return false; 
+              }
+            });
+            
+          }
+        })
+    });
+    //查询
+    $('.search_submit').on('click', function(){
+      var val = $('select[name="status_type"]').val();
+      var search_type = $('select[name="search_type"]').val();
+      var msg = $('input[name="search_msg"]').val();
+      if(search_type != '' && msg !=''){
+        getlist(1,val,search_type,msg);
+      }else{
+        getlist(1,val);
+      }
+    });
+    //修改
+    $('.update_submit').on('click', function(){
+      var val = $('select[name="status_type"]').val();
+      var search_type = $('select[name="search_type"]').val();
+      var msg = $.trim($('input[name="search_msg"]').val());
+      if(search_type == '' || msg ==''){
+        alert('查询条件不能为空');
+        return false;
+      }
+      $.getJSON('/fejstrack/index/updatetype/',{"type": val,"search":search_type,"msg":msg}, function(data){
+        if(data.errno == 0){
+          alert("修改成功,删除 "+data.data+" 条数据");
+          $('select[name="status_type"]').val('');
+          $('select[name="search_type"]').val('');
+          $('input[name="search_msg"]').val('');
+        }else{
+          alert("修改失败,"+data.errmsg);
+        }
+      });
+    });
+    //翻页
+    $('#sample_editable_1_paginate').on('page', function(event, page){
+        var type = $('#current_type').val();
+        var search_type = $('select[name="search_type"]').val();
+        var msg = $('input[name="search_msg"]').val();
+        if(search_type != '' && msg !=''){
+          getlist(page,type,search_type,msg);
+        }else{
+          getlist(page,type);
+        }
+    });
+  });
+
+</script>
+</body>
+</html>

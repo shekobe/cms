@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!--响应终端宽度-->
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="yes" name="apple-touch-fullscreen" />
+<meta content="telephone=no" name="format-detection"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="viewport" content="width=device-width,user-scalable=yes" />
+<link type="image/x-icon" href="//res.306shouji.com/favicon.ico" rel="shortcut icon" />
+{% block header %}
+<title>{$ title|default('360手机商城，提供360智能手机、大神手机、360智能硬件等产品的购买和预约') $}</title>
+{% endblock %}
+<meta name="keywords" content="商品抢购系统,360手机，奇酷手机，大神手机，奇酷商城，奇酷官网，360 f4，360手机社区，360手机助手，360手机安全卫士，360手机游戏">
+<meta name="description" content="360手机商城是360旗下的手机业务电子商务平台官网，提供正品奇酷手机、大神手机、360 f4系列、奇酷旗舰版、奇酷青春版、奇酷极客版、大神Note3、大神Note3高配版、360智能硬件等产品的预约和购买，官方正品，全国联保！">
+<link rel="stylesheet" type="text/css" href="//css.360shouji.com/css/build/common.min.css" />
+{% block css %}  {% endblock %}
+
+<script src="//js.360shouji.com/js/lib/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+<div id="mod_header"></div>
+<!-- 内容区域 -->
+<div id="maincontent">
+    {% block container %}
+    <div class="container">
+    </div>
+    {% endblock %}
+</div>
+ <div id="mod_footer">
+    <div class="loading-mod l-m-large"></div>
+</div>
+<script type="text/javascript" src="//js.360shouji.com/js/build/commonall.min.js"></script>
+{% block script %}
+{% endblock %}
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-74233494-1', 'auto');ga('send', 'pageview');</script>
+</body>
+</html>

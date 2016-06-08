@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.4
+Version: 3.9.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8"/>
+        <title>Metronic | Data Tables - Editable Datatables</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>-->
+        <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>
+        <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME STYLES -->
+        <link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+        <link id="style_color" href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+        <!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <script src="../../assets/admin/layout/scripts/socket.io.js"></script>
+
+        <link rel="stylesheet" href="../../assets/global/plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+        <style type="text/css">
+            .ztree li span.button.add { margin-left: 2px; margin-right: -1px; background-position: -144px 0; vertical-align: top; *vertical-align: middle }
+            ul.ztree {
+                margin-top: 10px;
+                border: 1px solid #617775;
+                background: #f0f6e4;
+                overflow-y: scroll;
+                overflow-x: auto;
+            }
+            .red {
+                margin-right: 6px;
+                font-family: SimSun;
+                font-size: 14px;
+                color: #f00;
+            }
+        </style>
+    </head>
+    <!-- END HEAD -->
+    <!-- BEGIN BODY -->
+    <!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+    <!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+    <!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+    <!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+    <!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+    <!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+    <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+    <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+    <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+    <body class="page-header-fixed page-quick-sidebar-over-content " style="background-color: #fff;">
+
+        <div class="clearfix">
+        </div>
+        <!-- BEGIN CONTAINER -->
+        <div class="">
+
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <div>
+
+                    <!-- BEGIN PAGE CONTENT-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet box blue">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-edit"></i>菜单管理
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-toolbar">
+                                        <div class="row">
+                                            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                                                <div class="zTreeDemoBackground left">
+                                                    <ul id="treeDemo" class="ztree"></ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-5 col-md-5 yellow col-sm-6 col-xs-12">
+                                                <div class="portlet box j_rightContent yellow">
+                                                    <div class="portlet-title">
+                                                        <div class="caption j_title">
+                                                            修改菜单信息:客户系统
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="portlet-body form">
+                                                        <!-- BEGIN FORM-->
+                                                        <form action="#" class="form-horizontal">
+
+                                                            <div class="form-body">
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 col-sm-6 control-label"><span class="red">*</span>菜单名称：</label>
+
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                        <input type="text" class="form-control j_name" placeholder="Enter text">
+                                                                        <input type="hidden" class="j_id"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 col-sm-6 control-label">链接地址：</label>
+
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                        <input type="text" class="j_href form-control" placeholder="Enter text">
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 col-sm-6 control-label">菜单序号：</label>
+
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                        <input type="text" class="j_sortId form-control" placeholder="Enter text">
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 col-sm-6 control-label">上级ID：</label>
+
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                        <input type="text" class="j_pid form-control" placeholder="Enter text">
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 col-sm-6 control-label">菜单备注：</label>
+
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                <textarea class="form-control j_info" placeholder="Enter text">
+                     </textarea>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-actions fluid">
+                                                                <div class="row">
+                                                                    <div class="col-md-offset-3 col-md-9">
+                                                                        <button type="button" class="j_submit btn green">保存</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <!-- END FORM-->
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- END EXAMPLE TABLE PORTLET-->
+                            </div>
+
+                        </div>
+                        <!-- END PAGE CONTENT -->
+
+
+                    </div>
+                </div>
+                <!-- END CONTENT -->
+
+            </div>
+            <!-- END CONTAINER -->
+            <!-- BEGIN FOOTER -->
+
+
+            <script id="userlist" type="text/html">
+                <thead>
+                <tr>
+                    <th>
+                        编号
+                    </th>
+                    <th>
+                        页面名称
+                    </th>
+                    <!--<th>-->
+                    <!--页面标题-->
+                    <!--</th>-->
+                    <th>
+                        输出路径
+                    </th>
+                    <!--<th>-->
+                    <!--发布类型-->
+                    <!--</th>-->
+                    <!--<th>-->
+                    <!--发布状态-->
+                    <!--</th>-->
+                    <th>
+                        修改日期
+                    </th>
+                    <th>
+                        修改人
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {{each data as value i}}
+                <tr data-id="{{value._id}}">
+                    <td>
+                        {{value._id}}
+                    </td>
+                    <td>
+                        {{value.pageName}}
+                    </td>
+                    <!--<td>-->
+                    <!--{{value.pageTitle}}-->
+                    <!--</td>-->
+                    <td>
+                        {{value.path}}
+                    </td>
+                    <!--<td>-->
+                    <!--{{value.releaseType}}-->
+                    <!--</td>-->
+                    <!--<td>-->
+                    <!--{{value.releaseStatus}}-->
+                    <!--</td>-->
+                    <td>
+                        {{value.timeformat}}
+                    </td>
+                    <td>
+                        {{value.updateBy}}
+                    </td>
+
+                    <td>
+                        <a href="javascript:;" class="j_rease btn btn-danger" data-id="{{value._id}}">发布</a>
+                        <a data-id="{{value._id}}" data-pagename="{{value.pageName}}" data-path="{{value.path}}" data-content="{{value.content}}" data-toggle="modal" class="edit btn default green" href="#retest">
+                            修改 </a>
+                        <a data-id="{{value._id}}" target="_blank" class="btn j_preview default green" href="/static/admin/template{{value.path}}">
+                            预览 </a>
+                        <a data-id="{{value._id}}" class="delete btn default red" href="javascript:;">
+                            删除 </a>
+                    </td>
+
+                </tr>
+                {{/each}}
+                </tbody>
+
+
+
+            </script>
+
+            <!-- END FOOTER -->
+            <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+            <!-- BEGIN CORE PLUGINS -->
+            <!--[if lt IE 9]>
+            <script src="../../assets/global/plugins/respond.min.js"></script>
+            <script src="../../assets/global/plugins/excanvas.min.js"></script>
+            <![endif]-->
+            <script src="../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+            <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+            <script src="../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+            <!-- END CORE PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script type="text/javascript" src="../../assets/global/plugins/select2/select2.min.js"></script>
+            <script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+            <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+
+            <script type="text/javascript" src="../../assets/global/plugins/zTree_v3/js/jquery.ztree.core-3.5.js"></script>
+            <script type="text/javascript" src="../../assets/global/plugins/zTree_v3/js/jquery.ztree.excheck-3.5.js"></script>
+            <script type="text/javascript" src="../../assets/global/plugins/zTree_v3/js/jquery.ztree.exedit-3.5.js"></script>
+
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+            <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+            <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+            <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+            <script src="../../assets/admin/layout/scripts/template.js"></script>
+
+            <script src="../../assets/admin/pages/scripts/table-editable_temp.js"></script>
+            <script src="../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
+
+            <script src="/static/admin/theme/assets/admin/layout/scripts/template.js"></script>
+
+            <SCRIPT type="text/javascript">
+                <!--
+                $(function(){
+                    var setting = {
+                        view: {
+                            addHoverDom: addHoverDom,
+                            removeHoverDom: removeHoverDom,
+                            selectedMulti: false
+                        },
+                        edit: {
+                            enable: true,
+                           // editNameSelectAll: true,
+                            showRemoveBtn: showRemoveBtn,
+                            showRenameBtn: showRenameBtn
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        callback: {
+                            onRemove: onRemove,
+                            onClick: onClick,
+                            beforeDrag: beforeDrag,
+                            beforeRemove: beforeRemove,
+                            beforeMouseUp:beforeMouseUp
+                        }
+                    };
+                    getMenu();
+                    var zNodes = [
+
+//                        {id: 102, pId: 12, name: "102", level: 2},
+//                        {id: 105, pId: 12, name: "105", level: 2},
+//                        {id: 103, pId: 12, name: "103", level: 2},
+//                        {id: 12, pId: 1, name: "运维管理", href: 'bb',info:'',sortId:2},
+                        {id: 1, pId: 0, name: "左侧菜单列表", open: true}
+//                        {id: 11, pId: 1, name: "前端管理", href: 'aa',info:'',sortId:1},
+//
+//                        {id: 13, pId: 1, name: "测试管理", href: 'cc',info:'',sortId:3}
+
+                    ];
+                    function resetzNodes(){
+                        zNodes.length = 0;
+                        zNodes = [
+                            {id: 1, pId: 0, name: "左侧菜单列表", open: true}
+                        ];
+                    }
+                    var $title = $('.j_title');
+                    var $name = $('.j_name');
+                    var $href = $('.j_href');
+                    var $sortId = $('.j_sortId');
+                    var $id = $('.j_id');
+                    var $pid = $('.j_pid');
+                    var $info =$('.j_info');
+
+                    function onClick(event, treeId, treeNode) {
+                        window.console && console.log('onClick', treeId, treeNode);
+                        if(treeNode.pId){
+                            setRightContent(treeNode);
+                        }
+                    }
+
+                    //点击左侧菜单时，设置左侧表单内容
+                    function setRightContent(treeNode){
+
+                        $title.text('修改菜单信息:'+treeNode.name+'(ID:'+treeNode.id+')');
+                        $name.val(treeNode.name);
+                        $href.val(treeNode.href);
+                        $sortId.val(treeNode.sortId);
+                        $pid.val(treeNode.pId);
+                        $id.val(treeNode.id);
+                        $info.val(treeNode.info);
+
+                        if(treeNode.pId == 1){
+                            $pid.attr('disabled',true);
+                        }else{
+                            $pid.attr('disabled',false);
+                        }
+
+                    }
+                    //获取全局菜单josn数据
+                    function getTreeObj(){
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        return treeObj.getNodes()[0].children;
+                    }
+
+                    function setTreeObj(obj){
+                        for(var i=0;i<zNodes.length;i++){
+                            if(zNodes[i].id == obj.id){
+                                zNodes[i].name = obj.name;
+                                zNodes[i].href = obj.href;
+                                zNodes[i].pId = obj.pId;
+                                zNodes[i].sortId = obj.sortId;
+                                zNodes[i].info = obj.info;
+                            }
+                            if(zNodes[i].level == 1){
+                                zNodes[i].open = true;
+                            }
+                        }
+                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+//                        beforeMouseUp('','',function(){
+//                            window.console && console.log('callback ');
+//                            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+//                        });
+                    }
+                    function beforeDrag(treeId, treeNodes) {
+                        return false;
+                    }
+                    //点击左侧菜单时同步jtree内部数据到zNodes
+                    function beforeMouseUp(treeId, treeNode,call){
+                        setTimeout(function(){
+                            var treeObj = getTreeObj() || {};
+                            zNodes = [];
+                            for(var i=0;i<treeObj.length;i++){
+                                var obj = {
+                                    name:treeObj[i].name,
+                                    id:treeObj[i].id,
+                                    level:treeObj[i].level,
+                                    href:treeObj[i].href,
+                                    pId:treeObj[i].pId,
+                                    sortId:treeObj[i].sortId,
+                                    info:treeObj[i].info
+                                };
+                                zNodes.push(obj);
+                                if(treeObj[i].children && treeObj[i].children.length){
+                                    treeObj[i].open = true;
+                                    for(var j=0;j<treeObj[i].children.length;j++){
+                                        var obj2 = {
+                                            name:treeObj[i].children[j].name || '',
+                                            id:treeObj[i].children[j].id || '',
+                                            level:treeObj[i].children[j].level || '',
+                                            href:treeObj[i].children[j].href || '',
+                                            pId:treeObj[i].children[j].pId || '',
+                                            sortId:treeObj[i].children[j].sortId || '',
+                                            info:treeObj[i].children[j].info || ''
+                                        };
+
+                                        zNodes.push(obj2);
+
+                                    }
+                                }
+                            }
+                            zNodes.unshift( {id: 1, pId: 0, name: "左侧菜单列表", open: true});
+                            return call;
+                        },500);
+
+                    }
+
+
+                    $('.j_submit').on('click',function(){
+
+                        if(!$name.val()){
+                            alert('菜单名称不能为空');
+                            return;
+                        }
+                        var obj = {
+                            name:$name.val(),
+                            id:$id.val(),
+                            href:$href.val() || '',
+                            pId:$pid.val() || 0,
+                            sortId:$sortId.val() || '',
+                            info:$info.val() || ''
+                        };
+                        updateMenu(obj,function(o){
+                            setTreeObj(obj);
+                        });
+
+                    });
+
+                    function onRemove(e, treeId, treeNode) {
+                        delMenu(treeNode.id,treeNode.pId,function(o){
+                            if(o){
+                                resetzNodes();
+                                getMenu();
+                            }else{
+                                alert('删除失败！');
+                            }
+                        });
+
+                    }
+
+                    function beforeRemove(treeId, treeNode) {
+
+                        return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+                    }
+
+
+                    function showRemoveBtn(treeId, treeNode) {
+                        //window.console && console.log('showRemoveBtn',treeId, treeNode);
+                        return treeNode.pId == null ? false : true;
+                        //return !treeNode.isFirstNode;
+                    }
+                    function showRenameBtn(treeId, treeNode) {
+                        //window.console && console.log('showRenameBtn',treeId, treeNode);
+                        return false;
+                        //return treeNode.pId == null ? false:true;
+                        //return !treeNode.isLastNode;
+                    }
+
+
+                    var newCount = 1;
+                    function addHoverDom(treeId, treeNode) {
+                        var sObj = $("#" + treeNode.tId + "_span");
+                        if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+                        if (treeNode.level == 2) return;
+                        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                                + "' title='add node' onfocus='this.blur();'></span>";
+                        sObj.after(addStr);
+                        var btn = $("#addBtn_" + treeNode.tId);
+                        if (btn) btn.bind("click", function () {
+                            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                            //todo 添加菜单 存数据库
+                            addMenu({
+                                pId: treeNode.id,
+                                name: "new node" + (newCount++)
+                            },function(o){
+                                zTree.addNodes(treeNode, {
+                                    id: o._id,
+                                    pId: o.pId,
+                                    name: o.name
+                                });
+                            });
+
+
+                            return false;
+                        });
+                    }
+                    function delMenu(id,pid,callback){
+                        $.ajax({
+                            url: '/admin/menu/deldata',
+                            type: 'POST',
+                            cache: false,
+                            data:{
+                                id:id,
+                                pId:pid
+                            },
+                            complete: function (xhr, textStatus) {
+                                if (textStatus == 'success' && xhr.status == '200') {
+                                    var response = eval("(" + xhr.responseText + ")");
+                                    if (response.errno == 0) {//返回数据正常
+
+                                    } else {
+                                        alert('删除失败');
+                                    }
+                                    callback(response);
+                                } else {
+                                    callback();
+                                }
+                            }
+                        });
+                    }
+
+                    function getMenu(){
+                        $.ajax({
+                            url: '/admin/menu/getlist',
+                            type: 'POST',
+                            cache: false,
+                            complete: function (xhr, textStatus) {
+                                if (textStatus == 'success' && xhr.status == '200') {
+                                    var response = eval("(" + xhr.responseText + ")");
+                                    window.console && console.log('response',response);
+                                    if (response.errno == 0) {//返回数据正常
+                                        var arr = response.data || [];
+                                        for(var i=0;i<arr.length;i++){
+                                            arr[i].id = arr[i]._id;
+                                            if(arr[i].pId == 1){
+                                                arr[i].open = true;
+                                            }
+                                            zNodes.push(arr[i]);
+                                        }
+
+                                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                    } else {
+                                        alert('更新失败');
+                                    }
+
+                                } else {
+                                    window.console && console.log('error', xhr, textStatus);
+                                }
+                            }
+                        });
+                    }
+
+
+                    function updateMenu(obj,callback){
+                        $.ajax({
+                            url: '/admin/menu/updatedata',
+                            type: 'POST',
+                            cache: false,
+                            data:obj,
+                            complete: function (xhr, textStatus) {
+                                if (textStatus == 'success' && xhr.status == '200') {
+                                    var response = eval("(" + xhr.responseText + ")");
+                                    if (response.errno == 0) {//返回数据正常
+                                        callback(response.data);
+                                    } else {
+                                        alert('更新失败');
+                                    }
+
+                                } else {
+                                    window.console && console.log('error', xhr, textStatus);
+                                }
+                            }
+                        });
+                    }
+                    function addMenu(obj,callback){
+                        var datajson = {
+                            pId: obj.pId,
+                            name: obj.name
+                        };
+                        $.ajax({
+                            url: '/admin/menu/addlist',
+                            type: 'POST',
+                            cache: false,
+                            data:datajson,
+                            complete: function (xhr, textStatus) {
+                                if (textStatus == 'success' && xhr.status == '200') {
+                                    var response = eval("(" + xhr.responseText + ")");
+                                    if (response.errno == 0) {//返回数据正常
+                                        callback(response.data);
+                                    } else {
+                                        alert('添加失败');
+                                    }
+
+                                } else {
+                                    window.console && console.log('error', xhr, textStatus);
+                                }
+                            }
+                        });
+                    }
+                    function removeHoverDom(treeId, treeNode) {
+                        $("#addBtn_" + treeNode.tId).unbind().remove();
+                    }
+
+                });
+                //-->
+            </SCRIPT>
+    </body>
+    <!-- END BODY -->
+</html>

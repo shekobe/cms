@@ -1,0 +1,302 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+
+<link href="/static/admin/theme/assets/admin/pages/css/inbox.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>系统角色菜单授权
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 yellow col-sm-6 col-xs-12">
+                            <div class="portlet box j_rightContent green">
+                                <div class="portlet-title">
+                                    <div class="caption j_title">
+                                       角色的授权菜单
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body form">
+                                    <!-- BEGIN FORM-->
+
+                                        <div class="form-body inbox">
+                                            <h5>所有系统角色:</h5>
+
+                                            <ul class="inbox-nav j_inbox margin-bottom-10">
+                                                <!--<li class="inbox active">-->
+                                                    <!--<a href="javascript:;" class="btn">-->
+                                                        <!--Inbox(3) </a>-->
+                                                    <!--<b></b>-->
+                                                <!--</li>-->
+
+
+                                            </ul>
+                                        </div>
+                                        <div class="form-actions fluid">
+                                            <div class="row">
+                                                <div class="col-md-offset-3 col-md-9">
+                                                    <button type="button" class="j_submit btn green">保存授权</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- END FORM-->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                            <div id="tree_3" class="tree-demo">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT -->
+
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script id="userlist" type="text/html">
+    {{each data as value i}}
+
+    {{if i == 0}}
+    <li class="inbox">
+    {{else}}
+    <li class="inbox">
+    {{/if}}
+
+        <a href="javascript:;" data-id="{{value._id}}" data-mids="{{value.menuIds}}" class="btn">
+           {{value.roleName}}</a>
+        <b></b>
+    </li>
+    {{/each}}
+
+    </script>
+<script src="/static/admin/theme/assets/global/plugins/jstree/dist/jstree.js"></script>
+<script type="text/javascript">
+    <!--
+    $(function(){
+        $('.inbox-nav').on('click','li',function(){
+            var t = $(this);
+            setTitle(t.find('a').html());
+            setNode(t.find('a').attr('data-mids'));
+            $.cookie("roleId", t.find('a').attr('data-id'),{expires: 7, path: '/admin/role/menu'});
+            t.addClass('active').siblings().removeClass('active');
+        });
+
+
+
+
+
+
+        function getRoleList(){
+            $.ajax({
+                url:'/admin/role/getlist',
+                type:'GET',
+                cache: false,
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        //window.console && console.log('getRoleList',response);
+                        if(response.errno == 0){//返回数据正常
+                            //window.console && console.log('do updateall');
+                            var str = template('userlist',response);
+                            $('.j_inbox').html(str);
+                            var roleId = $.cookie('roleId') || 0;
+                            var $li = null;
+                            if(roleId){
+                                var a =$('.j_inbox').find('li').find('a[data-id="'+roleId+'"]');
+                                $li = a.closest('li');
+                                setTitle($('.j_inbox').find('li').find('a[data-id="'+roleId+'"]').html());
+                            }else{
+                                $li =$('.j_inbox').find('li').eq(0);
+                                setTitle($('.j_inbox').find('li').eq(0).find('a').html());
+                            }
+                            $li.addClass('active').trigger('click');
+
+                        }else{
+
+                        }
+
+                    }else{
+                        //window.console && console.log('error',xhr, textStatus);
+                    }
+                }
+            });
+        }
+
+        function setTitle(str){
+            $('.j_title').html(str+':'+'角色的授权菜单');
+        }
+
+        function setNode(menuids){
+            for(var j=0;j<zNodes.length;j++){
+                zNodes[j].state = { "selected" : false };
+            }
+            if(menuids){
+                var arr = menuids.split(',');
+                if(arr.length){
+                    for(var i=0;i<arr.length;i++){
+                        for(var j=0;j<zNodes.length;j++){
+                            if(zNodes[j].id == arr[i]){
+                                zNodes[j].state = { "selected" : true };
+                            }
+                        }
+                    }
+                }
+            }
+            initTree();
+
+        }
+
+        var instance = null;
+        var zNodes = [
+//            { "id" : "1", "parent" : "#", "text" : "左侧菜单列表"}
+        ];
+        //初始化菜单
+        function initTree(){
+            if(instance){
+                var ref = $('#tree_3').jstree(true);
+                ref.destroy();
+            }
+            instance = $("#tree_3").jstree({
+                "checkbox" : {
+                    "keep_selected_style" : true,
+                    three_state: false,//不级联
+                    cascade: ""
+                },
+                "core" : {
+                    "themes" : {
+                        "responsive": false
+                    },
+                    // so that create works
+                    'check_callback' : function (operation, node, node_parent, node_position, more) {
+                        // operation can be 'create_node', 'rename_node', 'delete_node', 'move_node' or 'copy_node'
+                        // in case of 'rename_node' node_position is filled with the new node name
+                        //window.console && console.log('====',operation, node);
+                        return true;
+
+
+                    },
+                    'data' :zNodes
+                },
+                "types" : {
+                    "default" : {
+                        "icon" : "fa fa-folder icon-state-warning icon-lg"
+                    },
+                    "file" : {
+                        "icon" : "fa fa-file icon-state-warning icon-lg"
+                    }
+                },
+                "plugins" : [ "checkbox",  "types"]//,"sort"
+            }).on("ready.jstree", function (e, data) {
+                data.instance.open_all();
+            });
+        }
+
+        getMenu();
+        function getMenu(){
+            $.ajax({
+                url: '/admin/menu/getlist',
+                type: 'GET',
+                cache: false,
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        //window.console && console.log('response',response);
+                        if (response.errno == 0) {//返回数据正常
+                            var arr = response.data || [];
+                            for(var i=0;i<arr.length;i++){
+                                if (arr[i].parent == '1') {
+                                    arr[i].parent = '#';
+                                }
+                                arr[i].id = arr[i]._id;
+                                zNodes.push(arr[i]);
+                            }
+                            //initTree();
+                        } else {
+                            toastr.error('获取左侧菜单数据失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                    getRoleList();
+                }
+            });
+        }
+
+        $('.j_submit').on('click',function(){
+
+            var ref = $('#tree_3').jstree(true),
+                    sel = ref.get_checked();
+            var arr = [];
+            for(var i=0;i<sel.length;i++){
+                if(sel[i] && (sel[i] != '1' || sel[i] != '#')){
+                    arr.push(sel[i]);
+                }
+            }
+            //window.console && console.log('ref',sel);
+            //window.console && console.log('arr',arr);
+
+            $.ajax({
+                url:'/admin/role/updatedatarole',
+                type:'POST',
+                cache: false,
+                data:{
+                    id: $('.inbox-nav').find('li.active').find('a').attr('data-id'),
+                    menuIds:arr.toString() || ''
+                },
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        //window.console && console.log('updatedatarole data',response);
+                        if(response.errno == 0){//返回数据正常
+
+                            $('.inbox-nav').find('li.active').find('a').attr('data-mids',arr.toString());
+
+                            toastr.success('授权成功')
+                        }else{
+
+                        }
+
+                    }else{
+                        //window.console && console.log('error',xhr, textStatus);
+                    }
+
+                }
+            });
+
+
+        });
+
+
+    });
+    //-->
+</script>
+{% endblock %}
+

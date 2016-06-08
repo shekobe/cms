@@ -1,0 +1,142 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>模板设置
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-group">
+                                <a href="/admin/template/detail?releaseType=home" class="btn green">
+                                    新增 <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="btn-group">
+                                <form class="form-inline pull-right" action="/admin/template/">
+                                    <!--<select name="template_type" class="form-control form-filter input-sm">-->
+                                        <!--<option value="">请选择类型</option>-->
+                                        <!--<option value="default">默认模板</option>-->
+                                        <!--<option value="home">前端模板</option>-->
+                                        <!--<option value="admin">后台模板</option>-->
+                                    <!--</select>-->
+                                    <input type="hidden" name="template_type" value="home"/>
+                                    <div class="input-group input-medium">
+                                        <input type="text" class="form-control searchinput" placeholder="关键字">
+                                        <span class="input-group-btn">
+                                        <a href="javascript:;" class="btn green search_submit"><i class="fa fa-search"></i> 查询</a>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+
+                </table>
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info"></div>
+                    </div>
+                    <div class="col-md-7 col-sm-12">
+                        <div class="dataTables_paginate paging_simple_numbers" id="sample_editable_1_paginate">
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<!-- 富文本框 -->
+<div class="modal container fade" id="retest" tabindex="-1">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"></h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-body">
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-sm-2"><font color="red">*</font>页面名称：</label>
+
+                    <div class="col-md-4">
+                        <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input j_pagename select2-default" placeholder="" style="width: 276px;">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-sm-2"><font color="red">*</font>输出路径：</label>
+                    <div class="col-md-4">
+                        <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input j_path select2-default" id="" placeholder="" style="width: 276px;">
+                        <label><font color="red">例如：/test.html、/aa/bb/test.html</font></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+        </div>
+        <script id="editor" type="text/plain" style="width:auto;height:400px;"></script>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+        <button type="button" class="btn j_save blue">保存</button>
+
+    </div>
+</div>
+<!--/ end 富文本框 -->
+<script id="userlist" type="text/html">
+<thead>
+    <tr><th>序号</th><th>页面名称</th><th>输出路径</th><th>修改日期</th><th>修改人</th><th>操作</th></tr>
+</thead>
+<tbody>
+{{if data.data.length >0}}
+    {{each data.data as value i}}
+    <tr data-id="{{value._id}}">
+        <td>{{(data.currentPage - 1) * data.numsPerPage + i + 1}}</td>
+        <td>{{value.pageName}}</td>
+        <td>{{value.path}}</td>
+        <td>{{value.timeformat}}</td>
+        <td>{{value.updateBy}}</td>
+        <td>
+            <a href="javascript:;" class="j_rease btn btn-danger" data-id="{{value._id}}">发布</a>
+            <a data-pagename="{{value.pageName}}" data-path="{{value.path}}"  data-toggle="modal" class="j_edit edit btn default green" href="/admin/template/detail?id={{value._id}}">
+                修改 </a>
+            <a data-id="{{value._id}}" target="_blank" href="/admin/template/previewhome?pageId={{value._id}}" data-path="{{value.path}}" class="btn green"> 预览 </a>
+            <a data-id="{{value._id}}" class="delete btn default red" href="javascript:;">
+                删除 </a>
+        </td>
+    </tr>
+    {{/each}}
+{{else}}
+    <tr> 暂无数据 </tr>
+{{/if}}
+</tbody>
+</script>
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/jquery.bootpag.min.js"></script>
+
+<script src="/static/admin/js/template_index.js"></script>
+{% endblock %}
+

@@ -1,0 +1,120 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+    {% if template.releaseType == "home" %}
+    <link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/codemirror/codemirror.css"/>
+    {% endif %}
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>页面编辑
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <input type="hidden" name="_id" value="{$ template._id $}">
+                <input type="hidden" name="releaseType" value="{$ template.releaseType $}">
+                <div class="row-fluid form-body">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="javascript:history.go(-1);" class="btn green">
+                                        <i class="icon-arrow-left"></i> 返回 
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a href="javascript:;" class="btn blue j_save">
+                                        <i class="fa fa-save"></i> 保存 
+                                    </a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right"><label class="control-label">页面名称:</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" name="pageName" autocomplete="off" class="form-control j_pagename" placeholder="" {% if template.pageName %}value="{$ template.pageName $}" {% endif %}><span class="help-block">&nbsp;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right"><label class="control-label">输出名称:</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" name="path" autocomplete="off" class="form-control j_path" id="" placeholder="" {% if template.path %}value="{$ template.path $}" disabled="true" {% endif %}><span class="help-block">&nbsp;</span>
+                                </div>
+                            </div>                            
+                        </div>
+                        {% if template.releaseType == "default" %}
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-md-6 text-right"><label class="control-label">使用公共头底部:</label></div>
+                                <div class="col-md-6">
+                                    <input type="checkbox" name="useLayout" class="j_uselayout" placeholder="" {% if template.useLayout == '1' %}checked="checked" {% endif %}>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <!--/span-->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if template.releaseType == "home" %}
+                                <textarea id="editor" style="height:600px;">{$ template.content | safe $}</textarea>
+                            {% else %}
+                            <script name="content" id="editor" type="text/plain" style="width:auto;height:600px;">{$ template.content | safe $}</script>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <a href="javascript:history.go(-1);" class="btn btn-default"><i class="icon-arrow-left"></i> 取消 </a>
+                            <button type="button" class="btn j_save blue"> <i class="fa fa-save"></i>保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% if template.releaseType == "home" %}
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/codemirror/codemirror.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/codemirror/combin.js"></script>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+      lineNumbers: true,
+      mode: "text/html",
+      matchBrackets: true
+    });
+    editor.setSize('auto','600px');
+  </script>
+{% else %}
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var editor = UE.getEditor('editor',{zIndex:99});
+</script>
+{% endif %}
+<script src="/static/admin/js/template_detail.js"></script>
+{% endblock %}
+

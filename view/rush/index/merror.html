@@ -1,0 +1,187 @@
+{% extends "../layout/layoutmobile.html" %}
+
+{% block css %}
+<style type="text/css">
+.error_404{width: 1000px;height:670px;background: url("//res.360shouji.com/images/cart/404.png") no-repeat center 0;margin:0 auto;text-align: center;}
+.error_500{width:815px;height:397px;margin:0 auto;background-image:url("//res.360shouji.com/images/500_new.jpg");background-position:center top;background-repeat:no-repeat;}
+.error_other .errorbg{background:url('//res.360shouji.com/images/newindex/tips.jpg') no-repeat 0 0;position: relative;display:inline-block;margin:0 auto;}
+.container_error{width:100%;position: relative;}
+.error_pic{width:94%;margin:0 auto;position: relative;padding:2em 0;}
+.error_pic img{width:auto;max-width:90%;height:auto;margin: 2em 0;}
+.error_other{width:100%;height:auto;position:relative;padding-top:2em;padding-bottom:1em;}
+.error_other h2{font-size:2em;color:#50555b;margin:1em;line-height:1.5;}
+.error_other .p{position:relative;visibility: visible;margin:0 auto;width:90%;text-align:center;font-size: 1.5em;height:1.5em;line-height: 1.5em;}
+.error_other .p span{color:#e14d4f;}
+.error_other .p .title{font-size:1.6em;color:#87888c;margin-top:0.8em;}
+.error_other .errorbg{background:url('//res.360shouji.com/images/newindex/tips.png') no-repeat 0 0;position: relative;display:inline-block;margin:60px auto 20px;}
+.error_other .common_err{width:750px;height:192px;}
+.error_other .queue_err{width:781px;height:195px;background-image:url('//res.360shouji.com/images/newindex/tips.gif');}
+.go-back{display:inline-block;padding:0.5em 1.2em;text-align:center;font-size:1.6em;border-radius:0.4em;background:#fff;color:#50555b;margin-top:1.1em;border:0.1em solid #bbbbbb;margin-bottom:1em;}
+.red{color:#ff4a00;}
+    div{text-align: center;}
+
+</style>
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <section class="error_pic">
+            {% if (errornum == 500 or errornum == 404) %}
+            <div class="error_{$ errornum $}"></div>
+            <div class="btn-div">
+                <a class="go-back" href="//www.360shouji.com/zt/f4/m_index.html">前往购买360手机f4</a>
+                <a class="go-back" href="//m.360shouji.com/wap/m_index.html">首页</a>
+            </div>
+            {% else %}
+            <div class="error_other">
+                {% if (errornum == 510) %}
+                {% if msg %}<h2>{$ msg $}</h2><p class="p"></p>{% endif%}
+                <img src="//res.360shouji.com/images/newindex/tips.gif" width="100%">
+                {% elif (errornum == 423 or errornum == 411 or errornum == 412 or errornum == 416) %}
+                {% if msg %}<h2><i class="warming"></i>{$ msg $}</h2>{% endif%}
+                <img src="//res.360shouji.com/images/newindex/tips.png" width="100%">
+                {% else %}
+                {% if msg %}<h2><i class="warming"></i>{$ msg $}</h2>{% endif%}
+                <img src="//res.360shouji.com/images/newindex/tips.png" width="100%">
+                {% endif %}
+                <div class="btn-div">
+                    <a class="go-back" href="//www.360shouji.com/zt/f4/m_index.html">前往购买360手机f4</a>
+                    <a class="go-back" href="//m.360shouji.com/wap/m_index.html">首页</a>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+
+
+    </div>
+<input type="hidden" class="qktoken" value="{$ qktoken $}">
+{% endblock %}
+
+{% block script %}
+{% if (errornum == 510) %}
+<script type="text/javascript">
+    var time  = -1;
+    var time2 = -1;
+    function getUrlParam(name) {
+        //构造一个含有目标参数的正则表达式对象
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        //匹配目标参数
+        var queryUrl = window.location.search.substr(1);
+        var r = queryUrl.match(reg);
+        if (r != null)
+            return r[2];
+        return null; //返回参数值
+    }
+    $(function(){
+//        $("<iframe width='0' height='0' name='ifr1' id='ifr1'></iframe>").prependTo('body');
+//        $("#ifr1").attr("src", "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val());
+        var iframe = document.createElement("iframe");
+        iframe.src = "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val()+'&goodsId='+getUrlParam('goodsId');
+        iframe.id = 'ifr1';
+        iframe.name = 'ifr1';
+        iframe.width = 0;
+        iframe.height = 0;
+
+        if (iframe.attachEvent){
+            iframe.attachEvent("onload", function(){
+                clearInterval(time);
+                getIframeValue();
+            });
+        } else {
+            iframe.onload = function(){
+                clearInterval(time);
+                getIframeValue();
+            };
+        }
+
+        document.body.appendChild(iframe);
+
+        clearInterval(time2);
+        time2 = setInterval(function(){
+            setIframe();
+            getIframeValue();
+        },60*1000);
+
+
+    });
+
+    function getIframeValue(){
+        var str = $.trim($(window.frames['ifr1'].document).find('body').text());
+        if(str){
+            var data = JSON.parse(str);
+            window.console && console.log('data',data);
+            if(data){
+                if(data.url){
+                    window.location.href=data.url+'&token='+$('.qktoken').val();
+                }else if(data.errno && data.errno != 0){
+                    var url = null;
+                    if(/^(http:|https:)\/\/[\w\-]+\.(qiku|360shouji)\.com/ig.test(document.referrer)) url = document.referrer;
+                    m_gotoLogin(url);
+                }else{
+                    if(data.status == 'soldout'){
+                        soldout();
+                    }else if(data.status == 'error'){
+                        alert(data.msg);
+                    }else{
+                        if(data.queue){
+
+                            var l = '';
+                            if(data.queue > 20000){
+                                data.queue = 20000;
+
+                            }else if(data.queue > 10000){
+                                data.queue = 10000;
+                            }else if(data.queue > 5000){
+                                data.queue = 5000;
+                            }else if(data.queue > 1000){
+                                data.queue = 1000;
+                            }else if(data.queue > 500){
+                                data.queue = 500;
+                            }
+                            l="您的前面还有<span>"+data.queue+"</span>位用户在等待,请不要关闭当前页面...";
+                            $('.error_other p').html(l);
+                        }
+                        clearInterval(time);
+                        time = setInterval(function(){
+                            setIframe();
+                            getIframeValue();
+                        },3000);
+                    }
+                }
+            }else{
+                soldout();
+            }
+        }else{
+            soldout();
+        }
+
+
+
+    }
+
+    function setIframe(){
+        // var src = $(window.frames['ifr1']).attr('src');
+        //  $(window.frames['ifr1']).attr('src',src);
+        window.frames['ifr1'].location.reload(true);
+    }
+
+
+    function soldout(){
+        var html ='<h2><i class="warming"></i>您购买的商品已经售罄!下次再来哦</h2>'
+                +'<div class="errorbg error"></div>'
+                +'<div class="btn-div">'
+                +'    <a class="go-back" href="//www.360shouji.com/hd/201606/m_618.html">前往商城618主页面</a>'
+                +'    <a class="go-back" href="//item.jd.com/2830798.html">前往京东看看</a>'
+                +'</div>';
+        $('.error_other').html(html)
+    }
+
+    function m_gotoLogin(o) {
+        var e = window.location.href;
+        null  != o && "" != o && (e = o),
+                e = base64Encode(e),
+                window.location.href = getPath("coolyun") + "/mobile?appid=1010009&callback=" + encodeURIComponent(getPath("www") + "/coolyunCallBack.htm?redirectUrl=" + e)
+    }
+</script>
+{% endif%}
+{% endblock %}

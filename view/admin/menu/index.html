@@ -1,0 +1,499 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+<style>
+    .jstree-folder,.jstree-del,.jstree-rename {
+        background: url("/static/admin/theme/assets/global/plugins/jstree/dist/themes/default/32px.png") no-repeat !important;
+        display: inline-block !important;
+    }
+    .jstree-folder{
+        background-position: -260px 0 !important;
+    }
+    .jstree-del{
+        background-position: -37px -62px !important;
+    }
+    .jstree-rename{
+        background-position: -260px -30px !important;
+    }
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>菜单管理
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                            <div id="tree_3" class="tree-demo">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-md-5 yellow col-sm-6 col-xs-12">
+                            <div class="portlet box j_rightContent yellow">
+                                <div class="portlet-title">
+                                    <div class="caption j_title">
+                                        修改菜单信息:客户系统
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body form">
+                                    <!-- BEGIN FORM-->
+                                    <form action="#" class="form-horizontal">
+
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label"><span class="red">*</span>菜单名称：</label>
+
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="text" class="form-control j_name" placeholder="Enter text">
+                                                    <input type="hidden" class="j_id"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">链接地址：</label>
+
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="text" class="j_href form-control" placeholder="Enter text">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">菜单图标：</label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="text" class="j_icon form-control" placeholder="Enter text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="display: none;">
+                                                <label class="col-md-4 col-sm-6 control-label">菜单序号：</label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="text" class="j_sortId form-control" placeholder="Enter text">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group" style="display: none;">
+                                                <label class="col-md-4 col-sm-6 control-label">上级ID：</label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="text" class="j_pid form-control" placeholder="Enter text">
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">菜单备注：</label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <textarea class="form-control j_info" placeholder="Enter text"></textarea>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-actions fluid">
+                                            <div class="row">
+                                                <div class="col-md-offset-3 col-md-9">
+                                                    <button type="button" class="j_submit btn green">保存</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- END FORM-->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT -->
+
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/theme/assets/global/plugins/jstree/dist/jstree.js"></script>
+<script type="text/javascript">
+    <!--
+    $(function(){
+        var newId = '';
+        var $title = $('.j_title');
+        var $name = $('.j_name');
+        var $href = $('.j_href');
+        var $sortId = $('.j_sortId');
+        var $id = $('.j_id');
+        var $pid = $('.j_pid');
+        var $info =$('.j_info');
+        var $icon =$('.j_icon');
+        var jsdeset = {
+            "create" : {
+                "separator_before"	: false,
+                "separator_after"	: true,
+                "_disabled"			: false, //(this.check("create_node", data.reference, {}, "last")),
+                "label"				: "新建",
+                "icon"				: "jstree-folder",
+                "action"			: function (data) {
+                    var inst = $.jstree.reference(data.reference),
+                            obj = inst.get_node(data.reference);
+                    inst.create_node(obj, {}, "last", function (new_node) {
+                        setTimeout(function () { inst.edit(new_node); },0);
+                    });
+
+
+                }
+            },
+//            "rename" : {
+//                "separator_before"	: false,
+//                "separator_after"	: false,
+//                "_disabled"			: false, //(this.check("rename_node", data.reference, this.get_parent(data.reference), "")),
+//                "label"				: "重命名",
+//                "icon"				: "jstree-rename",
+//                "action"			: function (data) {
+//                    //window.console && console.log('rename',data);
+//                    var inst = $.jstree.reference(data.reference),
+//                            obj = inst.get_node(data.reference);
+//                    obj.text = 'ttttttttt';
+//                    //window.console && console.log('rename obj',obj);
+//                    inst.edit(obj);
+//                }
+//            },
+            "remove" : {
+                "separator_before"	: false,
+                "separator_after"	: false,
+                "_disabled"			: false, //(this.check("delete_node", data.reference, this.get_parent(data.reference), "")),
+                "label"				: "删除",
+                "icon"				: "jstree-del",
+                "action"			: function (data) {
+                    if (confirm("确定要删除"+$.jstree.reference(data.reference).get_node(data.reference).text+"吗？")) {
+                        var inst = $.jstree.reference(data.reference),
+                                obj = inst.get_node(data.reference);
+                        if(inst.is_selected(obj)) {
+                            inst.delete_node(inst.get_selected());
+                        }
+                        else {
+                            inst.delete_node(obj);
+                        }
+                    }
+
+                }
+            }
+        };
+        $.jstree.defaults.contextmenu.items = function (o, cb) { // Could be an object directly
+            //window.console && console.log('o,cb',o,cb);
+            if(o.parent == "#"){
+                jsdeset.remove._disabled = true;
+            }else{
+                jsdeset.remove._disabled = false;
+            }
+            return jsdeset;
+        };
+        var instance = null;
+        var zNodes = [
+            { "id" : "1", "parent" : "#", "text" : "左侧菜单列表"}
+        ];
+        //初始化菜单
+        function initTree(){
+            if(instance){
+                var ref = $('#tree_3').jstree(true);
+                ref.destroy();
+            }
+            instance = $("#tree_3").jstree({
+                "core" : {
+                    'multiple':false,//取消多选
+                    "themes" : {
+                        "responsive": false
+                    },
+                    // so that create works
+                    'check_callback' : function (operation, node, node_parent, node_position, more) {
+                        // operation can be 'create_node', 'rename_node', 'delete_node', 'move_node' or 'copy_node'
+                        // in case of 'rename_node' node_position is filled with the new node name
+                        //window.console && console.log('====',operation, node);
+                        if(operation == 'create_node'){//新增结点
+                            addMenu({
+                                parent: node_parent.id,
+                                text: node.text
+                            },function(o){
+                                if(o){
+                                    zNodes.push({
+                                        id: o._id,
+                                        parent: o.parent,
+                                        text: o.text
+                                    });
+                                    newId = o._id;
+                                    return true;
+                                }else{
+                                    return false;
+                                }
+
+                            });
+
+                        }else if(operation == 'rename_node'){
+                           return true;
+                        }else if(operation == 'delete_node'){
+
+                            var idArr = [];
+                            idArr.push(node.id);
+                            if(node.children_d.length){
+                                for(var i=0;i<node.children_d.length;i++){
+                                    idArr.push(node.children_d[i]);
+                                }
+                            }
+                            delMenu(idArr,function(o){
+                                if(o){
+                                    return true;
+                                }else{
+                                    return false;
+                                }
+                            });
+
+                        }
+
+
+                    },
+                    'data' :zNodes
+//                    'data' : [
+//                        { "id" : "1", "parent" : "#", "text" : "左侧菜单列表"},
+//                        { "id" : "2", "parent" : "1", "text" : "Child 1",href:"dddd","info":"sdf",sortId:1 },
+//                        { "id" : "3", "parent" : "1", "text" : "Child 2" ,href: 'cccc',info:'ggg',sortId:2}
+//                    ]
+                },
+                "types" : {
+                    "default" : {
+                        "icon" : "fa fa-folder icon-state-warning icon-lg"
+                    },
+                    "file" : {
+                        "icon" : "fa fa-file icon-state-warning icon-lg"
+                    }
+                },
+                "plugins" : [ "contextmenu",  "types"]//,"sort"
+            }).on("ready.jstree", function (e, data) {
+                data.instance.open_all();
+            }).on('select_node.jstree',function(e,data){//data.node.original
+                var obj = $.extend({},data.instance.get_node(data.node.original.id),data.node.original);
+                setRightContent(obj);
+
+            }).on('create_node.jstree',function(e,data){
+                data.instance.set_id(data.node,newId);
+                data.node.original.id = newId;
+            }).on('rename_node.jstree',function(e,data){
+                data.instance.set_text(data.node,data.text);
+                data.node.original.text = data.text;
+                var obj = {
+                    text:data.text,
+                    id:data.node.id
+                };
+
+                updateMenu_text(obj,function(o){
+                });
+            });
+        }
+
+        function delMenu(ids,callback){
+            $.ajax({
+                url: '/admin/menu/deldata',
+                type: 'POST',
+                cache: false,
+                data:{
+                    id:ids.toString()
+                },
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+
+                        } else {
+                            toastr.error('删除失败');
+                        }
+                        callback(response);
+                    } else {
+                        callback();
+                    }
+                }
+            });
+        }
+
+
+        $('.j_submit').on('click',function(){
+            var ref = $('#tree_3').jstree(true),
+                    sel = ref.get_selected();
+            if(!sel.length){
+                return;
+            }else{
+                if(sel[0] == '1'){
+                    return;
+                }
+            }
+            if(!$name.val()){
+                toastr.error('菜单名称不能为空');
+                return;
+            }
+            //window.console && console.log('ref',ref.get_json());
+            var obj = {
+                text:$name.val(),
+                id:$id.val(),
+                href:$href.val() || '',
+                parent:$pid.val() || 0,
+                sortId:$sortId.val() || '',
+                info:$info.val() || '',
+                icon:$icon.val() || ''
+            };
+            updateMenu(obj,function(o){
+                setTreeObj(obj,ref);
+            });
+
+        });
+
+        function updateMenu(obj,callback){
+            obj.qktoken = $('input[name="qktoken"]').val();
+            $.ajax({
+                url: '/admin/menu/updatedata',
+                type: 'POST',
+                cache: false,
+                data:obj,
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            callback(response.data);
+                            toastr.success('保存成功');
+                        } else {
+                            toastr.error('保存失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        }
+
+        function updateMenu_text(obj,callback){
+            obj.qktoken = $('input[name="qktoken"]').val();
+            $.ajax({
+                url: '/admin/menu/updatedatatext',
+                type: 'POST',
+                cache: false,
+                data:obj,
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            callback(response.data);
+                        } else {
+                            toastr.error('更新失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        }
+
+        function setTreeObj(obj,ref){
+            //window.console && console.log('setTreeObj',obj,ref.get_node(obj.id));
+            var node = ref.get_node(obj.id);
+            node.original.href = obj.href;
+            node.original.text = obj.text;
+            node.original.sortId = obj.sortId;
+            node.original.parent = obj.parent;
+            node.original.info = obj.info;
+            ref.set_text(node,obj.text);
+        }
+
+        //点击左侧菜单时，设置左侧表单内容
+        function setRightContent(treeNode){
+            //window.console && console.log('setRightContent',treeNode);
+            //$title.text('修改菜单信息:'+treeNode.text+'(ID:'+treeNode.id+')');
+            $title.text('修改菜单信息:'+treeNode.text);
+            $name.val(treeNode.text);
+            $href.val(treeNode.href);
+            $sortId.val(treeNode.sortId);
+            $pid.val(treeNode.parent);
+            $id.val(treeNode.id);
+            $info.val(treeNode.info);
+            $icon.val(treeNode.icon);
+
+            if(treeNode.parent == 1){
+                $pid.attr('disabled',true);
+            }else{
+                $pid.attr('disabled',false);
+            }
+
+        }
+        function addMenu(obj,callback){
+            var datajson = {
+                parent: obj.parent,
+                text: obj.text
+            };
+
+            $.ajax({
+                url: '/admin/menu/addlist',
+                type: 'POST',
+                async:false,
+                cache: false,
+                data:datajson,
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            callback(response.data);
+                        } else {
+                            toastr.error('添加失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        }
+        getMenu();
+        function getMenu(){
+            $.ajax({
+                url: '/admin/menu/getlist',
+                type: 'GET',
+                cache: false,
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        //window.console && console.log('response',response);
+                        if (response.errno == 0) {//返回数据正常
+                            var arr = response.data || [];
+                            for(var i=0;i<arr.length;i++){
+                                arr[i].id = arr[i]._id;
+                                zNodes.push(arr[i]);
+                            }
+                            initTree();
+                        } else {
+                            toastr.error('获取左侧菜单数据失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        }
+
+
+    });
+    //-->
+</script>
+{% endblock %}
+

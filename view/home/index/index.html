@@ -1,0 +1,145 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+{% endblock %}
+
+{% block container %}
+<div class="container">
+  <!-- banner -->
+  <div class="product-img-show">
+    <div class="banner-index" id="banner-slide">
+        <div class="banner-box imgloading">
+            <ul>
+            {% for bannerval in banner %}
+              <li {% if (loop.index == 0) %} class="on"{% endif %} >
+                <a href="{$ bannerval.url $}" target="_blank" title="{$ bannerval.alt $}">
+                  <img src="{$ bannerval.src $}" alt="{$ bannerval.alt $}" width="100%"/>
+                </a>
+              </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <a href="javascript:;" class="btn_arrow btn_prev">&nbsp;</a>
+      <a href="javascript:;" class="btn_arrow btn_next">&nbsp;</a>
+      <ul class="banner-num">
+        {% for bannerval2 in banner %}
+          <li{% if (loop.index == 0) %} class="on"{% endif %}></li>
+        {% endfor %}
+        </ul>
+    </div>
+    <ul class="banner-small">
+      {% for smallbanner in banner_small %}
+      <li>
+        <a target="_blank" href="{$ smallbanner.url $}" title="{$ smallbanner.alt $}">
+          <img src="{$ smallbanner.src $}" alt="{$ smallbanner.alt $}">
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <!-- 新品推荐 -->
+  <h4 class="product-explore-title">新品推荐</h4>
+  <div class="sp-product clearfix" id="sp_product">
+    {% for prod_new in prod_new_sale %}
+    <div class="tebieduijian">
+      <!-- <div class="prod-flag-text">新品上市</div> -->
+      <a href="{$ prod_new.url $}" target="_blank">
+        <img src="{$ prod_new.src $}" alt="{$ prod_new.alt $}">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <h4 class="product-explore-title"><span class="gift-box"><img src="http://res.qiku.com/images/newindex/gift-box.png" width="35" height="23" /></span> 畅销商品
+    <div class="more prod-good-sale-1">
+      <a href="javascript:;" class="arrow_prev J_prev"></a><a href="javascript:;" class="arrow_next J_next"></a>
+    </div>
+  </h4>
+  <div class="prod-good-sale" id="prod_good_sale">
+    <div id="prod-good-sale-list">
+        {% for prod_hot in prod_hot_sale %}
+        <div class="p-g-s-lists">
+            {% if (prod_hot.oldPr-prod_hot.prodPr) > 0  %}
+                <div class="prod-flag-text">直降{$ prod_hot.oldPr-prod_hot.prodPr $}元</div>
+            {% elif (prod_hot.goodsType != '')  %}
+                <div class="prod-flag-num"><img src="{$ prod_hot.goodsType $}" alt=""></div>
+            {% endif %}
+            <a href="{$ prod_hot.url $}" class="p-g-s-lists-a" target="_blank">
+            <img src="{$ prod_hot.src $}" alt="{$ prod_hot.alt $}">
+            <b>{$ prod_hot.alt $}</b><br>
+            <p><i>{$ prod_hot.prodPr $}元</i>{% if(prod_hot.oldPr > prod_hot.prodPr)  %}<del>{$ prod_hot.oldPr $}元</del>{% endif %}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+  <h4 class="product-explore-title"><span class="gift-box"><img src="http://res.qiku.com/images/newindex/gift-box.png" width="35" height="23" /></span>精美配件</h4>
+  <div class="prod-good-lingjian">
+    <div class="prod-good-lingjian-left" id="prod_good_lingjian">
+      {% for hot_comment in prod_hot_comt %}
+        {% if (loop.index == 0) %}
+        <span class="dazen-baby">
+          <a class="dazen-baby-a" target="_blank" href="{$ hot_comment.url $}" title="{$ hot_comment.alt $}">
+            <div class="dazen-baby-l">
+                <h3 class="dazen-baby-h3">{$ hot_comment.name $}</h3>
+                <p  class="dazen-baby-ext">{$ hot_comment.alt $}</p>
+                <p  class="dazen-baby-yen">{$ hot_comment.prodPr $}元</p>
+            </div>
+            <div class="dazen-baby-r">
+                <img src="{$ hot_comment.src $}" alt="{$ hot_comment.alt $}">
+            </div>
+          </a>
+        </span>
+        {% else %}
+          <span>
+            <a class="jinping-a" target="_blank" href="{$ hot_comment.url $}" title="{$ hot_comment.alt $}">
+              <div class="imgs">
+                  <img src="{$ hot_comment.src $}" alt="{$ hot_comment.alt $}">
+              </div>
+              <p class="jinping-tit">{$ hot_comment.name $}</p>
+              <p class="jinping-yen">{$ hot_comment.prodPr $}元</p>
+            </a>
+          </span>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="prod-good-lingjian-right">
+      <span class="p-g-lj-r-title"></span>
+      <ul id="prod_good_lingjian_ph">
+        {% for hot_ranking in  prod_tk_yl %}
+        <li>
+            <a href="{$ hot_ranking.url $}" title="{$ hot_ranking.alt $}" target="_blank">
+              <img src="{$ hot_ranking.src $}" alt="{$ hot_ranking.alt $}">
+                <b{% if loop.index < 3 %} class="sp"{% endif %}>{$ loop.index+1 $}</b>
+              <span>{$ hot_ranking.alt $}<br><em><i>{$ hot_ranking.prodPr $}</i>元</em></span>
+            </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <h4 class="product-explore-title">特价商品</h4>
+  <div class="prod-tejia" id="prod_tejia">
+    {% for bargain in prod_sp_sale %}
+    <div class="tebieshangping">
+      {% if(bargain.oldPr-bargain.prodPr) > 0 %} <div class="prod-flag-text">直降{$ bargain.oldPr-bargain.prodPr $}元</div> {% endif %}
+        <a target="_blank" href="{$ bargain.url $}" title="{$ bargain.alt $}">
+        <span>{$ bargain.alt $}</span><br>
+        {% if (bargain.oldPr== 0 or bargain.oldPr== null or bargain.prodPr==bargain.oldPr) %}
+          <i><b>{$ bargain.prodPr $}</b>元</i>
+        {% else %}
+          <i><b>{$ bargain.prodPr $}</b>元</i><em>{$ bargain.oldPr $}元</em>
+        {% endif %}
+        <div class="prod-tejia-img"><img src="{$ bargain.src $}" alt="{$ bargain.alt $}"></div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/js/lib/jquery.carousel.js"></script>
+<script type="text/javascript" src="/static/js/lib/jquery.slider.js"></script>
+<script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock %}

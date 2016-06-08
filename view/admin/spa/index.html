@@ -1,0 +1,504 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<!-- <link href="/static/css/hd/bootstrap-combined.min.css" rel="stylesheet"> -->
+<link href="/static/css/hd/layoutit.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block container %}
+<div class="edit editcontainer">
+<div class="container-fluid">
+  <input type="hidden" id="spa_pageid" val="{$ pagetemp._id $}">
+  <!-- function of  nav  menu -->
+  <div class="row">
+      <div class="col-md-12">
+          <div id="menu-layoutit" class="box portlet-body">
+            <div class="btn-group" data-toggle="buttons-radio">
+              <button type="button" class="btn btn-primary active" id="edit"><i class="fa fa-edit"></i> 编辑</button>
+              <button type="button" class="btn btn-primary" id="layoutedit"><i class="fa fa-table"></i> 布局编辑</button>
+              <button type="button" class="btn btn-primary" id="topreview"><i class="fa fa-eye"></i> 预览</button>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" data-target="#downloadModal" rel="/build/downloadModal" role="button" data-toggle="modal"><i class="fa fa-download"></i> 下载</button>
+              <button class="btn btn-primary" role="button" data-toggle="modal" data-target="#saveModal"><i class="fa fa-save"></i> 保存</button>
+              <button class="btn btn-primary" href="#clear" id="clear"><i class="fa fa-trash-o"></i> 清空</button>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-primary" href="#undo" id="undo" ><i class="fa fa-undo"></i> 撤销</button>
+              <button class="btn btn-primary" href="#redo" id="redo" ><i class="fa fa-repeat"></i> 重做</button>
+            </div>
+          </div>
+      </div>
+  </div>
+  <!-- /End function of nav menu -->
+  <!-- Activepage  -->
+  <div class="row-fluid">
+    <!-- sidebar of activepage  -->
+        <div class="sidebar-nav page-sidebar navbar-collapse collapse" style="width:190px !important;">
+            <ul class="page-sidebar-menu" data-slide="false" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="width:190px !important;">
+                <li>
+                    <a href="javascript:;">
+                        <i class="icon-rocket"></i>
+                        <span class="title">布局设置</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="row">
+                            <div class="lyrow ui-draggable">
+                              <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a> <span class="drag label"><i class="fa fa-arrows"></i>拖动</span>
+                              <div class="preview">
+                                <input value="1240" type="text" data-type="b-center">
+                              </div>
+                              <span class="configuration">
+                                  <button type="button" class="btn btn-mini grey-cascade" data-target="#propertyModal" role="button" data-toggle="modal"><i class="fa fa-edit"></i>属性</button>
+                              </span>
+                              <div class="view">
+                                <div class="row-fluid clearfix pagecenter" style="width:1240px;">
+                                  <div class="col-md-12 column">
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+                        <li class="row">
+                           <div class="lyrow ui-draggable"> 
+                              <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a> <span class="drag label"><i class="fa fa-arrows"></i>拖动</span>
+                              <div class="preview">
+                                <input value="12" type="text">
+                              </div>
+                              <span class="configuration">
+                                  <button type="button" class="btn btn-mini grey-cascade" data-target="#propertyModal" role="button" data-toggle="modal"><i class="fa fa-edit"></i>属性</button>
+                              </span>
+                              <div class="view">
+                                <div class="row-fluid clearfix">
+                                  <div class="col-md-12 column"></div>
+                                </div>
+                              </div>
+                            </div> 
+                        </li>
+                        <li class="row">
+                            <div class="lyrow ui-draggable"> <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a> <span class="drag label"><i class="fa fa-arrows"></i>拖动</span>
+                              <div class="preview">
+                                <input value="6 6" type="text">
+                              </div>
+                              <div class="view">
+                                <div class="row-fluid clearfix">
+                                  <div class="col-md-6 column"></div>
+                                  <div class="col-md-6 column"></div>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+                        <li class="row">
+                            <div class="lyrow ui-draggable"> <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a> <span class="drag label"><i class="fa fa-arrows"></i>拖动</span>
+                              <div class="preview">
+                                <input value="4 4 4" type="text">
+                              </div>
+                              <div class="view">
+                                <div class="row-fluid clearfix">
+                                  <div class="col-md-4 column"></div>
+                                  <div class="col-md-4 column"></div>
+                                  <div class="col-md-4 column"></div>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+                        <li class="row">
+                            <div class="lyrow ui-draggable"> <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a> <span class="drag label"><i class="fa fa-arrows"></i>拖动</span>
+                              <div class="preview">
+                                <input value="3 3 3 3" type="text">
+                              </div>
+                              <div class="view">
+                                <div class="row-fluid clearfix">
+                                  <div class="col-md-3 column"></div>
+                                  <div class="col-md-3 column"></div>
+                                  <div class="col-md-3 column"></div>
+                                  <div class="col-md-3 column"></div>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                     <a href="javascript:;">
+                        <i class="fa  fa-cogs"></i>
+                        <span class="title">组件</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="row">
+                          <div class="box box-element ui-draggable">
+                            <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a>
+                            <span class="drag label"><i class="fa fa-arrows"></i>拖动</span> 
+                           <span class="configuration">
+                            <button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal"><i class="fa fa-pencil"></i>编辑</button>
+                            <span class="btn-group">
+                              <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">对齐 <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                <li class="active"><a href="#" rel="">默认</a></li>
+                                <li class=""><a href="#" rel="text-left">靠左</a></li>
+                                <li class=""><a href="#" rel="text-center">居中</a></li>
+                                <li class=""><a href="#" rel="text-right">靠右</a></li>
+                              </ul>
+                          </span>
+                          <span class="btn-group">
+                            <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">标记 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li class="active"><a href="#" rel="">默认</a></li>
+                              <li class=""><a href="#" rel="muted">禁用</a></li>
+                              <li class=""><a href="#" rel="text-warning">警告</a></li>
+                              <li class=""><a href="#" rel="text-error">错误</a></li>
+                              <li class=""><a href="#" rel="text-info">提示</a></li>
+                              <li class=""><a href="#" rel="text-success">成功</a></li>
+                            </ul>
+                            </span>
+                          </span>
+                          <div class="preview">自定义编辑</div>
+                          <div class="view">
+                            <h3 contenteditable="true">h3. 这是一套可视化布局系统.</h3>
+                          </div>
+                          </div>
+                        </li>
+                        <li class="row">
+                          <div class="box box-element ui-draggable">
+                            <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a>
+                            <span class="drag label"><i class="fa fa-arrows"></i>拖动</span> 
+                             <span class="configuration">
+                              <button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal"><i class="fa fa-pencil"></i>编辑</button>
+                              <span class="btn-group">
+                              <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">对齐 <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                <li class="active"><a href="#" rel="">默认</a></li>
+                                <li class=""><a href="#" rel="text-left">靠左</a></li>
+                                <li class=""><a href="#" rel="text-center">居中</a></li>
+                                <li class=""><a href="#" rel="text-right">靠右</a></li>
+                              </ul>
+                              </span>
+                            </span>
+                          <div class="preview">用户信息</div>
+                          <div class="view">
+                              <div class="col-md-12 column open-nav text-right clearfix">
+                                <p><a href="http://god.qiku.com/godCode/godCode.htm" target="_blank">Q码通道</a> |  <a class="pc-vip-loginState-1" href="javascript:void(0);">登录</a> |  <a class="pc-vip-loginState-2" href="javascript:void(0);">注册</a> |  <a class="entry_shop" href="http://www.qiku.com/index.html">进入商城</a> |  <a href="http://bbs.qiku.com/" target="_blank">奇酷社区</a>
+                                </p> 
+                              </div>
+                          </div>
+                        </li>
+                        <li class="row">
+                          <div class="box box-element ui-draggable">
+                            <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a>
+                            <span class="drag label"><i class="fa fa-arrows"></i>拖动</span> 
+                             <span class="configuration">
+                              <button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal"><i class="fa fa-pencil"></i>编辑</button>
+                              <span class="btn-group">
+                              <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">对齐 <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                <li class="active"><a href="#" rel="">默认</a></li>
+                                <li class=""><a href="#" rel="text-left">靠左</a></li>
+                                <li class=""><a href="#" rel="text-center">居中</a></li>
+                                <li class=""><a href="#" rel="text-right">靠右</a></li>
+                              </ul>
+                              </span>
+                            </span>
+                          <div class="preview">通栏浮动导航</div>
+                          <div class="view">
+                              <div class="col-md-12 column clearfix">
+                                <div class="menu-box mb-menu-box">
+                                    <div class="inner"><a href="javascript:void(0);">名称1</a>|<a href="javascript:void(0);">名称2</a>|<a href="javascript:void(0);">名称3</a>|<a href="javascript:void(0);">名称4</a>|<a href="javascript:void(0);">名称5</a>|<a href="javascript:void(0);">名称6</a></div> 
+                                  </div>
+                              </div>
+                          </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                     <a href="javascript:;">
+                        <i class="fa fa-cubes"></i>
+                        <span class="title">商品</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="row">
+                          <div class="box box-element ui-draggable">
+                            <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a>
+                            <span class="drag label"><i class="fa fa-arrows"></i>拖动</span> 
+                             <span class="configuration">
+                              <button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal"><i class="fa fa-pencil"></i>文案编辑</button>
+                              <button type="button" class="btn btn-mini" data-target="#productModal" role="button" data-toggle="modal"><i class="fa fa-edit"></i>配置属性</button>
+                            </span>
+                            <div class="preview">单个商品</div>
+                            <div class="view">
+                              <!-- 1-1 一行一个商品 -->
+                                <div class="pro_item_box pro_item_box-1">
+                                    <div class="pro_item">
+                                        <div class="pro_item_img">
+                                            <a href="#pro_link" target="_blank">
+                                                <img src="http://res.qiku.com/images/hd/201602/kx-n3.jpg" alt="#pro_name" />
+                                            </a>
+                                        </div>
+                                        <div class="pro_item_info">
+                                            <p class="pro_item_title">商品标题</p>
+                                            <p class="pro_item_slogan">商品销售语</p>
+                                            <p class="pro_item_tips">配件、赠送信息</p>
+                                            <div class="pro_item_gobuy item1">
+                                                <p class="pro_item_price price"><span>999</span>元起</p>
+                                                <a href="javascript:void(0);" class="btn btn-circle booking-touch Q_config" data-pid="2000" data-cid="" data-ptype="" data-presale="" style="margin:0;padding:0" data-title="Note3高配版" data-url=""  data-tip="">加载中...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="row">
+                            <div class="box box-element ui-draggable">
+                            <a href="#close" class="remove label label-important"><i class="fa fa-times"></i>删除</a>
+                            <span class="drag label"><i class="fa fa-arrows"></i>拖动</span> 
+                             <span class="configuration">
+                              <button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal"><i class="fa fa-pencil"></i>文案编辑</button>
+                              <button type="button" class="btn btn-mini" data-target="#productModal" role="button" data-toggle="modal"><i class="fa fa-edit"></i>配置属性</button>
+                            </span>
+                            <div class="preview">两个商品</div>
+                            <div class="view">
+                              <!-- 1-1 一行一个商品 -->
+                                <div class="pro_item_box pro_item_box-2">
+                                    <div class="pro_item">
+                                        <div class="pro_item_img">
+                                            <a href="#pro_link" target="_blank">
+                                                <img src="http://res.qiku.com/images/hd/201602/kx-n3.jpg" alt="#pro_name" />
+                                            </a>
+                                        </div>
+                                        <div class="pro_item_info">
+                                            <p class="pro_item_title">商品标题</p>
+                                            <p class="pro_item_slogan">商品销售语</p>
+                                            <p class="pro_item_tips">配件、赠送信息</p>
+                                            <div class="pro_item_gobuy item1">
+                                                <p class="pro_item_price price"><span>999</span>元起</p>
+                                                <a href="javascript:void(0);" class="btn btn-circle booking-touch Q_config" data-pid="2000" data-cid="" data-ptype="" data-presale="" style="margin:0;padding:0" data-title="Note3高配版" data-url=""  data-tip="">加载中...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pro_item">
+                                        <div class="pro_item_img">
+                                            <a href="#pro_link" target="_blank">
+                                                <img src="http://res.qiku.com/images/hd/201602/kx-n3.jpg" alt="#pro_name" />
+                                            </a>
+                                        </div>
+                                        <div class="pro_item_info">
+                                            <p class="pro_item_title">商品标题</p>
+                                            <p class="pro_item_slogan">商品销售语</p>
+                                            <p class="pro_item_tips">配件、赠送信息</p>
+                                            <div class="pro_item_gobuy item1">
+                                                <p class="pro_item_price price"><span>999</span>元起</p>
+                                                <a href="javascript:void(0);" class="btn btn-circle booking-touch Q_config" data-pid="2000" data-cid="" data-ptype="" data-presale="" style="margin:0;padding:0" data-title="Note3高配版" data-url=""  data-tip="">加载中...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="row">三个商品</li>
+                        <li class="row">四个商品</li>
+                        <li class="row">小商品</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <!-- /End sidebar of activepage -->
+    <!-- content main -->
+        <div class="demo ui-sortable" style="min-height: 304px; ">
+
+        </div>
+    <!-- /End content main -->
+    <!-- download page-->
+        <div id="download-layout">
+          <div class="container-fluid"></div>
+        </div>
+    <!-- /End download page -->
+  </div>
+  <!--/End Activepage --> 
+</div>
+<!--/.fluid-container-->
+
+
+</div>
+{% endblock %}
+
+
+<!--  -->
+{% block script %}
+<!-- 编辑文字 --> 
+<div class="modal container fade" role="dialog" id="editorModal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h4 class="modal-title">编辑</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div id="contenteditor"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a id="savecontent" class="btn btn-primary" data-dismiss="modal">保存</a>
+            <a class="btn" data-dismiss="modal">关闭</a>
+          </div>
+      </div>
+</div>
+<!-- 下载页面 -->
+<div class="modal fade" role="dialog" id="downloadModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+            <h3>下载</h3>
+          </div>
+          <div class="modal-body">
+            <p>已在下面生成干净的HTML, 可以复制粘贴代码到你的项目.</p>
+            <div class="btn-group">
+              <button type="button" id="fluidPage" class="active btn btn-info"><i class="icon-fullscreen icon-white"></i> 自适应宽度</button>
+              <button type="button" class="btn btn-info" id="fixedPage"><i class="icon-screenshot icon-white"></i> 固定宽度</button>
+            </div>
+            <br>
+            <br>
+            <p>
+              <textarea></textarea>
+            </p>
+          </div>
+          <div class="modal-footer"> <a class="btn" data-dismiss="modal">关闭</a> </div>
+      </div>
+    </div>
+</div>
+<!-- 保存模板 -->
+<div class="modal fade" role="dialog" id="saveModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+            <h4 class="modal-title">保存</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                  <label class="col-md-3 control-label">页面名称</label>
+                  <input class="col-md-5" id="spa_name" value="{$ pagetemp.pageName $}" type="text">
+                  <span class="help-block">&nbsp;</span>
+              </div>
+              <div class="row">
+                  <label class="col-md-3 control-label">页面访问路径</label>
+                  <input class="col-md-5" id="spa_viewpath" value="{$ pagetemp.path $}" type="text">
+                  <span class="help-block">&nbsp;</span>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+              <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+    </div>
+</div>
+<!-- 属性编辑 -->
+<div class="modal fade" role="dialog" tabindex="-1" data-focus-on="input:first" id="propertyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">属性编辑</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                  <label class="col-md-3 control-label">宽度</label>
+                  <input class="col-md-3" name="modal-width" value="" type="text">
+              </div>
+              <div class="row">
+                  <label class="col-md-3 control-label">高度</label>
+                  <input class="col-md-3" name="modal-height" value="" type="text">
+              </div>
+              <div class="row">
+                  <label class="col-md-3 control-label">背景颜色</label>
+                  <input class="col-md-3" name="modal-bgcolor" value="" type="text">
+                  <label>&nbsp; 颜色</label>
+                  <span class="label" name="modal-bgcolor-show"></span>
+              </div>
+              <div class="row">
+                  <label class="col-md-3 control-label">背景图片</label>
+                  <input class="col-md-6"  name="modal-bgimage" value="" type="text">
+              </div>
+              <div class="row skin skin-square">
+                  <label class="col-md-3 control-label">平铺方式</label>
+                  <div class="input-group">
+                    <div class="icheck-inline">
+                      <label><input type="radio" name="modal-repeat" checked class="icheck" value="no-repeat">不平铺</label>
+                      <label><input type="radio" name="modal-repeat" class="icheck" value="repeat"> 平铺 </label>
+                      <label><input type="radio" name="modal-repeat" class="icheck" value="repeat-x"> 水平平铺 </label>
+                      <label><input type="radio" name="modal-repeat" class="icheck" value="repeat-y"> 垂直平铺 </label>
+                    </div>
+                  </div>
+              </div>
+              <div class="row skin skin-square">
+                  <label class="col-md-3 control-label">对齐方式</label>
+                  <div class="input-group">
+                    <div class="icheck-inline">
+                      <label><input class="icheck" name="modal-position" type="radio" value="top center" checked="">向上居中</label>
+                      <label><input class="icheck" name="modal-position" type="radio" value="center center">居中</label>
+                      <label><input class="icheck" name="modal-position" type="radio" value="bottom center">向下居中</label>
+                      <label><input class="icheck" name="modal-position" type="radio" value="top left">左上对齐</label>
+                      <label><input class="icheck" name="modal-position" type="radio" value="bottom left">左下对齐</label>
+                      <label><input class="icheck" name="modal-position" type="radio" value="top right">右上对齐</label>
+                      <label><input class="icheck" name="modal-position" type="radio" value="bottom right">右下对齐</label>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <label class="col-md-3 control-label">其他style</label>
+                  <input class="col-md-6" name="modal-style" value="" type="text">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+              <button type="button" class="btn btn-primary">确认修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 商品属性配置 -->
+<div class="modal fade" role="dialog" tabindex="-1" data-focus-on="input:first" id="productModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">商品属性编辑</h4>
+          </div>
+          <div class="modal-body">
+            <!-- 商品tab -->
+            <div class="tabbable">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">商品1属性</a></li>
+                <li><a href="#tab2" data-toggle="tab">商品2属性</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade active in" id="tab1">
+                  <p>商品1属性</p>
+                </div>
+                <div class="tab-pane fade " id="tab2">
+                  <p>商品2属性</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+              <button type="button" class="btn btn-primary">确认修改</button>
+          </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/static/js/hd/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/static/js/hd/jquery.htmlClean.js"></script>
+<script type="text/javascript" src="/static/js/hd/scripts.js"></script>
+
+{% endblock %}
