@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-	<head>
+<!--[if lt IE 7 ]><html class="ie8 ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie8 ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie8"><![endif]-->
+<!--[if (gt IE 8)|!(IE)]><!--><html><!--<![endif]-->
+<head>
 	<meta charset="utf-8">
 	<link rel="dns-prefetch" href="//res.360shouji.com">
 	<link rel="dns-prefetch" href="//css.360shouji.com">
@@ -8,12 +11,13 @@
 	<link rel="dns-prefetch" href="//hd.360shouji.com">
 	<link rel="dns-prefetch" href="//po.360shouji.com">
 	<!--响应终端宽度-->
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<meta content="yes" name="apple-mobile-web-app-capable">
 	<meta content="yes" name="apple-touch-fullscreen">
 	<meta content="telephone=no" name="format-detection">
 	<meta content="black" name="apple-mobile-web-app-status-bar-style">
 	<meta name="viewport" content="width=device-width,user-scalable=yes" />
+	<link type="image/x-icon" href="/static/favicon.ico" rel="shortcut icon">
 	{% block header %}
 	<title>{$ title|default('360手机 - 360手机商城官网 ') $}</title>
 	<meta name="keywords" content="{$ keywords|default('360手机,奇酷手机,大神手机,奇酷青春版,奇酷旗舰版') $}">
@@ -36,7 +40,7 @@
 	{% include "./footer.html" %}
 	<!--SCRIPT_PLACEHOLDER-->
 	<script type="text/javascript" src="/static/js/common/header.js"></script>
-	<script type="text/javascript" src="/static/js/lib/seed.js"></script>
+	<!-- <script type="text/javascript" src="/static/js/lib/seed.js"></script> -->
 	{% block script %}
 	{% endblock %}
 	<!--RESOURCEMAP_PLACEHOLDER-->
