@@ -1,0 +1,501 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+<style>
+    .btn-info{
+        padding: 0;
+    }
+    table input[type=checkbox]{
+        width: 20px;
+        height: 20px;
+    }
+    table th.cob,table td.cob{
+        text-align: center;
+    }
+    #sample_editable_1 td,#sample_editable_1 th{
+        vertical-align: middle!important;
+    }
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    <div class="col-md-3" style="padding-right: 0px !important;">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption btn-group">
+                    <button type="button" id="collapseAllBtn" class="btn green">折叠</button>
+                    <button type="button" id="expandAllBtn" class="btn yellow">展开</button>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                            <div id="tree_3" class="tree-demo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+
+    </div>
+    <div class="col-md-9" style="padding-left: 0px !important;">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-home "></i><span class="j_nav">网站内容</span>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-group">
+                                <a href="/admin/article/detail?releaseType=default" class="btn j_add disabled green">
+                                    新增 <i class="fa fa-plus"></i>
+                                </a>
+
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" value="1" class="btn blue j_enable">启用</button>
+                                <button value="0" type="button" class="btn yellow j_enable">禁用</button>
+
+                                <button type="button" class="btn red j_delete">删除</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="btn-group">
+                                <form class="form-inline pull-right" action="/admin/article/">
+                                    <input type="hidden" name="template_type" value="default"/>
+                                    <div class="input-group input-medium">
+                                        <input type="text" class="form-control searchinput" placeholder="关键字">
+                                        <span class="input-group-btn">
+                                        <a href="javascript:;" class="btn green search_submit"><i class="fa fa-search"></i> 查询</a>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+
+                </table>
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info"></div>
+                    </div>
+                    <div class="col-md-7 col-sm-12">
+                        <div class="dataTables_paginate paging_simple_numbers" id="sample_editable_1_paginate">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script id="userlist" type="text/html">
+    <thead>
+    <tr><th class="cob">
+        <input id="checkAll" type="checkbox" value="" class="">
+    </th><th>序号</th><th>标题</th><th>最后更新</th><th>状态</th><th>修改人</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+    {{if data.data.length >0}}
+    {{each data.data as value i}}
+
+    <tr data-id="{{value._id}}">
+        <td class="cob">
+            <input  type="checkbox" value="{{value._id}}"  class="tablecb">
+        </td>
+        <td>{{(data.currentPage - 1) * data.numsPerPage + i + 1}}</td>
+        <td>{{value.title}}</td>
+        <td>{{value.updatetime | dateFormat}}</td>
+        <td>{{value.status | statusFormat}}</td>
+        <td>{{value.updateby}}</td>
+        <td>
+            <a class="btn green" href="/admin/article/detail?articleid={{value._id}}">编辑 </a>
+            <a data-id="{{value._id}}" target="_blank" href="/admin/article/preview?articleid={{value._id}}" data-path="view/home/news/detail.html" class="btn green"> 预览 </a>
+            <a data-id="{{value._id}}" class="delete btn red" href="javascript:;">
+                删除 </a>
+        </td>
+    </tr>
+    {{/each}}
+    {{else}}
+    <tr><td colspan="13" align="center">暂无数据</td></tr>
+    {{/if}}
+    </tbody>
+</script>
+
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/jquery.bootpag.min.js"></script>
+
+
+<script src="/static/admin/js/article_index.js"></script>
+<script src="/static/admin/theme/assets/global/plugins/jstree/dist/jstree.js"></script>
+<script type="text/javascript">
+    <!--
+    $(function(){
+
+        //全部选择
+        $(document).on('click','#checkAll',function(){
+            if(this.checked){
+                $(".tablecb").attr("checked",true);
+            }else{
+                $(".tablecb").attr("checked",false);
+            }
+        });
+
+        $(document).on('click','.tablecb',function(){
+            allchk();
+        });
+
+        function allchk(){
+            var leng = $(".tablecb").filter(function(){
+                return !$(this).attr('checked')
+            }).length;
+            if(!leng){//全选
+                $("#checkAll").attr("checked",true);
+            }else{//不全选
+                $("#checkAll").attr("checked",false);
+            }
+        }
+        //启用禁用文章 1:启用 0:禁用
+        $(document).on('click','.j_enable',function(){
+            var t = $(this);
+            setCheckboxSelected(t.val());
+        });
+
+        //多选删除
+        $(document).on('click','.j_delete',function(){
+            var valArr = [];
+            $(".tablecb:checked").each(function(i){
+                valArr[i] = $(this).val();
+            });
+            if(!valArr.length){
+                return;
+            }
+            if (confirm("确定要删除吗 ?") == false) {
+                return false;
+            }
+            var vals = valArr.join(',');
+            sesisonObj = sesisonObj || {};
+            var uname = sesisonObj.username || '';
+            $.ajax({
+                url: '/admin/article/delmuti',
+                type: 'POST',
+                cache: false,
+                data:{
+                    ids:vals,
+                    updateby:uname
+                },
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            toastr.success('OK');
+                            setTimeout(function(){
+                                location.reload();
+                            },2000);
+                        } else {
+                            toastr.error('操作失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        });
+
+        function setCheckboxSelected(num){
+            var valArr = [];
+            $(".tablecb:checked").each(function(i){
+                valArr[i] = $(this).val();
+            });
+            if(!valArr.length){
+                return;
+            }
+            var vals = valArr.join(',');
+            sesisonObj = sesisonObj || {};
+            var uname = sesisonObj.username || '';
+            $.ajax({
+                url: '/admin/article/setstatus',
+                type: 'POST',
+                cache: false,
+                data:{
+                    ids:vals,
+                    status:num,
+                    updateby:uname
+                },
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            toastr.success('OK');
+                            setTimeout(function(){
+                               location.reload();
+                            },2000);
+                        } else {
+                            toastr.error('操作失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        }
+
+        //禁用文章
+        $(document).on('click','.j_disable',function(){
+            allchk();
+        });
+
+        $('#expandAllBtn').on('click',function(){
+           if(instance){
+               var ref = $('#tree_3').jstree(true);
+               ref.open_all();
+           }
+
+        });
+        $('#collapseAllBtn').on('click',function(){
+            if(instance){
+                var ref = $('#tree_3').jstree(true);
+                ref.close_all();
+            }
+
+        });
+        var newId = '';
+        var $title = $('.j_title');
+        var $name = $('.j_name');
+        var $href = $('.j_href');
+        var $sortId = $('.j_sortId');
+        var $id = $('.j_id');
+        var $pid = $('.j_pid');
+        var $info =$('.j_info');
+        var $icon =$('.j_icon');
+        var instance = null;
+        var zNodes = [
+            { "id" : "1", "parent" : "#", "text" : "--显示所有分类--"}
+        ];
+        //初始化菜单
+        function initTree(){
+            if(instance){
+                var ref = $('#tree_3').jstree(true);
+                ref.destroy();
+            }
+            instance = $("#tree_3").jstree({
+                "core" : {
+                    'multiple':false,//取消多选
+                    "themes" : {
+                        "responsive": false
+                    },
+                    // so that create works
+                    'check_callback' : function (operation, node, node_parent, node_position, more) {
+                        // operation can be 'create_node', 'rename_node', 'delete_node', 'move_node' or 'copy_node'
+                        // in case of 'rename_node' node_position is filled with the new node name
+                        //window.console && console.log('====',operation, node);
+
+
+                    },
+                    'data' :zNodes
+                },
+                "types" : {
+                    "default" : {
+                        "icon" : "fa fa-folder icon-state-warning icon-lg"
+                    },
+                    "file" : {
+                        "icon" : "fa fa-file icon-state-warning icon-lg"
+                    }
+                },
+                "plugins" : [ "types"]//,"sort"
+            }).on("ready.jstree", function (e, data) {
+                data.instance.open_all();
+            }).on('select_node.jstree',function(e,data){//data.node.original
+                var obj = $.extend({},data.instance.get_node(data.node.original.id),data.node.original);
+                setRightContent(obj);
+
+            });
+        }
+
+
+        function updateMenu_text(obj,callback){
+            obj.qktoken = $('input[name="qktoken"]').val();
+            $.ajax({
+                url: '/admin/category/updatedatatext',
+                type: 'POST',
+                cache: false,
+                data:obj,
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            callback(response.data);
+                        } else {
+                            toastr.error('更新失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        }
+
+        //通过类型id 回返 名称
+        function getNameByCateId(_id){
+            var name = '';
+            if(zNodes.length){
+                for(var i=0;i<zNodes.length;i++){
+                    if(zNodes[i].id == _id){
+                        name = zNodes[i].text;
+                    }
+                }
+            }
+            return name;
+        }
+
+
+        //点击左侧菜单时，设置左侧表单内容
+        function setRightContent(treeNode){
+            window.console && console.log('setRightContent',treeNode);
+            //$title.text('修改菜单信息:'+treeNode.text+'(ID:'+treeNode.id+')');
+//            $title.text('修改菜单信息:'+treeNode.text);
+//            $name.val(treeNode.text);
+//            $href.val(treeNode.href);
+//            $sortId.val(treeNode.sortId);
+//            $pid.val(treeNode.parent);
+//            $id.val(treeNode.id);
+//            $info.val(treeNode.info);
+//            $icon.val(treeNode.icon);
+            var idArr = [];
+            var obj = {};
+            var navStr = '';
+            if(treeNode.children_d.length){
+                for(var i=0;i<treeNode.children_d.length;i++){
+                    idArr.push(treeNode.children_d[i]);
+                }
+
+                        obj.children_d=treeNode.children_d.toString();
+
+            }
+
+            if(treeNode.parents.length > 2){
+                for(var i=treeNode.parents.length;i >= 0;i--){
+                    if(treeNode.parents[i] != '#' && treeNode.parents[i] != '1'){
+                        navStr += getNameByCateId(treeNode.parents[i])+'/'
+                    }
+                }
+                navStr = navStr.substring(1,navStr.length);
+                navStr += treeNode.text;
+            }else{
+                navStr = treeNode.text;
+            }
+window.console && console.log('navStr',navStr);
+            if(treeNode.parent == '#'){
+                $('.j_add').addClass('disabled');
+            }else{
+                idArr.push(treeNode.id);
+                $('.j_add').removeClass('disabled').attr('href','/admin/article/detail?categoryid='+treeNode.id);
+
+            }
+            obj.id=treeNode.id;
+            obj.text=treeNode.text;
+            obj.nav = navStr;
+            if(obj){//
+                updateMenu_text(obj,function(o){
+                    location.href = '/admin/article?categoryid='+treeNode.id;
+                });
+            }else{
+                location.href = '/admin/article?categoryid='+treeNode.id;
+            }
+
+
+
+        }
+        function getUrlParam(name) {
+            //构造一个含有目标参数的正则表达式对象
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            //匹配目标参数
+            var queryUrl = window.location.search.substr(1);
+            var r = queryUrl.match(reg);
+            if (r != null)
+                return r[2];
+            return null; //返回参数值
+        }
+        getMenu();
+        function getMenu(){
+            $.ajax({
+                url: '/admin/category/getlist',
+                type: 'GET',
+                cache: false,
+                complete: function (xhr, textStatus) {
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        //window.console && console.log('response',response);
+                        if (response.errno == 0) {//返回数据正常
+                            var arr = response.data || [];
+                            for(var i=0;i<arr.length;i++){
+                                arr[i].id = arr[i]._id;
+                                arr[i].nav = arr[i].nav;
+                                zNodes.push(arr[i]);
+                            }
+                            for(var j=0;j<zNodes.length;j++){
+                                zNodes[j].state = { "selected" : false };
+                            }
+                            var arr2 = getUrlParam('categoryid') || 1;
+                            if(arr2){
+                                    for(var j=0;j<zNodes.length;j++){
+                                        if(zNodes[j].id == arr2){
+
+                                            zNodes[j].state = { "selected" : true };
+                                            if(arr2 != 1){
+                                                $('.j_add').removeClass('disabled').attr('href','/admin/article/detail?categoryid='+arr2);
+                                                $('.j_nav').text(zNodes[j].nav.replace(/\//g,' / '));
+                                            }
+                                        }
+                                    }
+                            }else{
+                                $('.j_nav').text('网站内容');
+                            }
+                            initTree();
+                            window.console && console.log('zNodes',zNodes);
+                        } else {
+                            toastr.error('获取一级菜单失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+        }
+
+
+    });
+    //-->
+</script>
+{% endblock %}
+

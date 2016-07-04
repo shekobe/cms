@@ -61,7 +61,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 text-right"><label class="control-label">使用公共头底部:</label></div>
                                 <div class="col-md-6">
-                                    <input type="checkbox" name="useLayout" class="j_uselayout" placeholder="" {% if template.useLayout == '1' %}checked="checked" {% endif %}>
+                                    <input type="checkbox" name="useLayout" class="j_uselayout" placeholder="" {% if template.useLayout == '1' %} checked="checked" {% endif %}>
 
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
   </script>
 {% else %}
 <script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
     var editor = UE.getEditor('editor',{zIndex:99});

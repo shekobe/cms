@@ -1,0 +1,238 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/admin/js/pulgins/webuploader/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/js/imageupload/style.css" />
+<style>
+    #fileList{width: 100px;}
+    #uploader .placeholder{
+        min-height: 200px;
+    }
+    #uploader .queueList{
+       margin:  0;
+    }
+    .md15{
+        margin-bottom: 15px;
+    }
+
+    .progress{
+        background-color: transparent !important;
+        margin-bottom: 0 !important;
+    }
+    #uploader .filelist div.file-panel{
+        height: auto !important;
+    }
+
+
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>
+                    <span class="j_nav">{$ template.nav | safe $}</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <input type="hidden" name="_id" value="{$ template._id | safe $}">
+                <input type="hidden" name="categoryid" value="{$ template.categoryid | safe $}">
+                <div class="row-fluid form-body">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="javascript:history.go(-1);" class="btn green">
+                                        <i class="icon-arrow-left"></i> 返回 
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a href="javascript:;" class="btn blue j_save">
+                                        <i class="fa fa-save"></i> 保存 
+                                    </a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tab-content no-space">
+                            <div class="tab-pane active" id="tab_general">
+                                <div class="form-body">
+                                    <div class=" md15">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">标题: <span class="required">
+													* </span>
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="text" name="pageName" autocomplete="off" class="form-control j_title" placeholder="" value="{$ template.title | safe $}"><span class="help-block">&nbsp;</span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class=" md15">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">关键词:
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_keywords" placeholder="" value="{$ template.keywords | safe $}"><span class="help-block">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" md15">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">描述:
+                                            </label>
+                                            <div class="col-md-10">
+
+                                                <textarea type="text" name="pageName"  class="form-control j_description" placeholder="" >{$ template.description | safe $}</textarea><span class="help-block"/>&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" md15">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">链接接地址:
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_url" placeholder="" value="{$ template.url | safe $}"><span class="help-block">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class=" md15">-->
+                                        <!--<div class="form-group">-->
+                                            <!--<label class="col-md-2 control-label">状态:-->
+                                            <!--</label>-->
+                                            <!--<div class="col-md-10">-->
+                                                <!--<input type="text" name="pageName" autocomplete="off" class="form-control j_status" placeholder="" value="{$ template.status | safe $}"><span class="help-block">&nbsp;</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class=" md15">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">排序:
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_order" placeholder="" value="{$ template.order | safe $}"><span class="help-block">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" md15">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">作者:
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_author" placeholder="" value="{$ template.author | safe $}"><span class="help-block">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" md15">
+                                    <div class="form-group">
+                                        <input type="hidden" name="cover_id" class="j_thumb" value="{$ template.thumb | safe $}">
+                                        <label class="col-md-2 control-label">封面:
+                                        </label>
+                                        <div class="col-md-10">
+                                            <!--dom结构部分-->
+                                            <div id="uploader-demo">
+                                                <!--用来存放item-->
+                                                <div id="fileList" class="uploader-list"></div>
+                                                <div id="filePicker">选择图片</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class=" md15">
+                                    <div class="form-group">
+
+                                        <label class="col-md-2 control-label">图组:
+                                        </label>
+                                        <div class="col-md-10">
+
+                                            <input type="hidden" name="pictureurls" class="form-control" id="pictureurls" value="{$ template.images | safe $}"/>
+                                            <div id="uploader" class="wu-example">
+                                                    <div class="queueList2">
+
+                                                    </div>
+                                                <div class="queueList">
+                                                    <div id="dndArea" class="placeholder">
+                                                        <div id="filePickerMulti"></div>
+                                                        <p>单次最多可选30张</p>
+                                                    </div>
+                                                </div>
+                                                <div class="statusBar" style="display:block;">
+                                                    <div class="progress">
+                                                        <span class="text">0%</span>
+                                                        <span class="percentage"></span>
+                                                    </div><div class="info"></div>
+                                                    <div class="btns">
+                                                        <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+
+                                    <div class=" md15">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">内容: <span class="required">
+													* </span>
+                                            </label>
+                                            <div class="col-md-10">
+                                                <script name="content" id="editor" type="text/plain" style="width:100%;height:500px;">{$ template.contents | safe $}</script>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                        </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <a href="javascript:history.go(-1);" class="btn btn-default"><i class="icon-arrow-left"></i> 取消 </a>
+                            <button type="button" class="btn j_save blue"> <i class="fa fa-save"></i>保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/admin/js/pulgins/webuploader/webuploader.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    jQuery.ajaxSetup({
+        data: {
+            qktoken: $('input[name="qktoken"]').val()
+        }
+    });
+    var editor = UE.getEditor('editor',{zIndex:99});
+</script>
+
+<script src="/static/admin/js/article_detail.js"></script>
+{% endblock %}

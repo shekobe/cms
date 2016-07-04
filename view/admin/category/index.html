@@ -29,7 +29,7 @@
         <div class="portlet box blue">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-edit"></i>菜单管理
+                    <i class="fa fa-edit"></i>分类管理
                 </div>
 
             </div>
@@ -45,7 +45,7 @@
                             <div class="portlet box j_rightContent yellow">
                                 <div class="portlet-title">
                                     <div class="caption j_title">
-                                        修改菜单信息:客户系统
+                                        修改分内信息
                                     </div>
 
                                 </div>
@@ -55,32 +55,52 @@
 
                                         <div class="form-body">
                                             <div class="form-group">
-                                                <label class="col-md-4 col-sm-6 control-label"><span class="red">*</span>菜单名称：</label>
+                                                <label class="col-md-4 col-sm-6 control-label"><span class="red">*</span>分类名称：</label>
 
                                                 <div class="col-md-8 col-sm-8">
                                                     <input type="text" class="form-control j_name" placeholder="Enter text">
                                                     <input type="hidden" class="j_id"/>
+                                                    <input type="hidden" class="children_d"/>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-4 col-sm-6 control-label">链接地址：</label>
+                                                <label class="col-md-4 col-sm-6 control-label">链接地址(url)：</label>
 
                                                 <div class="col-md-8 col-sm-8">
-                                                    <input type="text" class="j_href form-control" placeholder="Enter text">
+                                                    <input type="text" class="j_url form-control" placeholder="Enter text">
 
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-md-4 col-sm-6 control-label">菜单图标：</label>
+                                            <div  class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">栏目图标：</label>
                                                 <div class="col-md-8 col-sm-8">
                                                     <input type="text" class="j_icon form-control" placeholder="Enter text">
                                                 </div>
                                             </div>
-                                            <div class="form-group" style="display: none;">
-                                                <label class="col-md-4 col-sm-6 control-label">菜单序号：</label>
+                                            <div  class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">路径（dir）：</label>
                                                 <div class="col-md-8 col-sm-8">
-                                                    <input type="text" class="j_sortId form-control" placeholder="Enter text">
+                                                    <input type="text" class="j_dir form-control" placeholder="Enter text">
+                                                </div>
+                                            </div>
+                                            <div  class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">描述</label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <textarea class="j_description form-control" ></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">排序：</label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="text" class="j_order form-control" placeholder="Enter text">
 
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-6 control-label">状态：</label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="text" class="j_status form-control" placeholder="Enter text">
                                                 </div>
 
                                             </div>
@@ -91,13 +111,8 @@
                                                 </div>
 
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-md-4 col-sm-6 control-label">菜单备注：</label>
-                                                <div class="col-md-8 col-sm-8">
-                                                    <textarea class="form-control j_info" placeholder="Enter text"></textarea>
-                                                </div>
 
-                                            </div>
+
                                         </div>
                                         <div class="form-actions fluid">
                                             <div class="row">
@@ -133,13 +148,18 @@
     $(function(){
         var newId = '';
         var $title = $('.j_title');
-        var $name = $('.j_name');
-        var $href = $('.j_href');
-        var $sortId = $('.j_sortId');
         var $id = $('.j_id');
         var $pid = $('.j_pid');
-        var $info =$('.j_info');
-        var $icon =$('.j_icon');
+        var $name = $('.j_name');
+        var $icon = $('.j_icon');
+        var $href = $('.j_url');
+        var $dir = $('.j_dir');
+        var $description = $('.j_description');
+        var $order = $('.j_order');
+        var $status = $('.j_status');
+
+
+        var $children_d = $('.children_d');
         var jsdeset = {
             "create" : {
                 "separator_before"	: false,
@@ -204,7 +224,7 @@
         };
         var instance = null;
         var zNodes = [
-            { "id" : "1", "parent" : "#", "text" : "左侧菜单列表"}
+            { "id" : "1", "parent" : "#", "text" : "-------------------"}
         ];
         //初始化菜单
         function initTree(){
@@ -224,6 +244,17 @@
                         // in case of 'rename_node' node_position is filled with the new node name
                         //window.console && console.log('====',operation, node);
                         if(operation == 'create_node'){//新增结点
+                            setTimeout(function(){
+                                var obj = {
+                                    text:node_parent.text,
+                                    children_d:node_parent.children_d.toString(),
+                                    id:node_parent.id
+                                };
+
+                                updateMenu_text(obj,function(o){
+                                });
+                            },0);
+
                             addMenu({
                                 parent: node_parent.id,
                                 text: node.text
@@ -295,6 +326,7 @@
                 data.node.original.text = data.text;
                 var obj = {
                     text:data.text,
+                    children_d:data.node.children_d.toString(),
                     id:data.node.id
                 };
 
@@ -305,7 +337,7 @@
 
         function delMenu(ids,callback){
             $.ajax({
-                url: '/admin/menu/deldata',
+                url: '/admin/category/deldata',
                 type: 'POST',
                 cache: false,
                 data:{
@@ -339,17 +371,22 @@
                 }
             }
             if(!$name.val()){
-                toastr.error('菜单名称不能为空');
+                toastr.error('内容名称不能为空');
                 return;
             }
             //window.console && console.log('ref',ref.get_json());
             var obj = {
+                name:$name.val(),
                 text:$name.val(),
                 id:$id.val(),
+                url:$href.val(),
                 href:$href.val() || '',
                 parent:$pid.val() || 0,
-                sortId:$sortId.val() || '',
-                info:$info.val() || '',
+                children_d:$children_d.val() || '',
+                dir:$dir.val() || '',
+                description:$description.val() || '',
+                order:$order.val() || '',
+                status:$status.val() || '',
                 icon:$icon.val() || ''
             };
             updateMenu(obj,function(o){
@@ -361,7 +398,7 @@
         function updateMenu(obj,callback){
             obj.qktoken = $('input[name="qktoken"]').val();
             $.ajax({
-                url: '/admin/menu/updatedata',
+                url: '/admin/category/updatedata',
                 type: 'POST',
                 cache: false,
                 data:obj,
@@ -385,7 +422,7 @@
         function updateMenu_text(obj,callback){
             obj.qktoken = $('input[name="qktoken"]').val();
             $.ajax({
-                url: '/admin/menu/updatedatatext',
+                url: '/admin/category/updatedatatext',
                 type: 'POST',
                 cache: false,
                 data:obj,
@@ -410,24 +447,30 @@
             var node = ref.get_node(obj.id);
             node.original.href = obj.href;
             node.original.text = obj.text;
-            node.original.sortId = obj.sortId;
+            node.original.icon = obj.icon;
             node.original.parent = obj.parent;
-            node.original.info = obj.info;
+            node.original.dir = obj.dir;
+            node.original.description = obj.description;
+            node.original.order = obj.order;
+            node.original.status = obj.status;
             ref.set_text(node,obj.text);
         }
 
         //点击左侧菜单时，设置左侧表单内容
         function setRightContent(treeNode){
-            //window.console && console.log('setRightContent',treeNode);
+            window.console && console.log('setRightContent',treeNode);
             //$title.text('修改菜单信息:'+treeNode.text+'(ID:'+treeNode.id+')');
             $title.text('修改菜单信息:'+treeNode.text);
             $name.val(treeNode.text);
             $href.val(treeNode.href);
-            $sortId.val(treeNode.sortId);
             $pid.val(treeNode.parent);
             $id.val(treeNode.id);
-            $info.val(treeNode.info);
             $icon.val(treeNode.icon);
+            $dir.val(treeNode.dir);
+            $description.val(treeNode.description);
+            $order.val(treeNode.order);
+            $status.val(treeNode.status);
+            $children_d.val(treeNode.children_d);
 
             if(treeNode.parent == 1){
                 $pid.attr('disabled',true);
@@ -443,7 +486,7 @@
             };
 
             $.ajax({
-                url: '/admin/menu/addlist',
+                url: '/admin/category/addlist',
                 type: 'POST',
                 async:false,
                 cache: false,
@@ -463,10 +506,11 @@
                 }
             });
         }
+
         getMenu();
         function getMenu(){
             $.ajax({
-                url: '/admin/menu/getlist',
+                url: '/admin/category/getlist',
                 type: 'GET',
                 cache: false,
                 complete: function (xhr, textStatus) {
@@ -479,9 +523,10 @@
                                 arr[i].id = arr[i]._id;
                                 zNodes.push(arr[i]);
                             }
+
                             initTree();
                         } else {
-                            toastr.error('获取左侧菜单数据失败');
+                            toastr.error('获取一级菜单失败');
                         }
 
                     } else {
