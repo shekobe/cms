@@ -1,0 +1,108 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/service/service.css">
+{% endblock %}
+
+{% block container %}
+
+
+<!-- service 轮播图 -->
+<div class="service-slider">
+    <img src="/static/img/service/service.jpg" alt="服务支持">
+</div>
+<!--/ service 轮播图 -->
+
+<!-- service content list-->
+<div class="container service-cont">
+    <h2>自助服务</h2>
+    <div class="serviceblock self-service">
+        <ul>
+            <li>
+                <a href="/service/repair/">
+                    <span class="jixiu">&nbsp;</span>
+                    <p>寄修服务</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/date_to_shop/">
+                    <span class="date">&nbsp;</span>
+                    <p>预约到店</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/parts/">
+                    <span class="search-price">&nbsp;</span>
+                    <p>配件价格查询</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/outlets/">
+                    <span class="search-branch">&nbsp;</span>
+                    <p>网点查询</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/insurance/">
+                    <span class="suixinbao">&nbsp;</span>
+                    <p>随心保</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/huanxin/">
+                    <span class="huanxin">&nbsp;</span>
+                    <p>以旧换新</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/contact/">
+                    <span class="service-online">&nbsp;</span>
+                    <p>在线客服</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <h2>常见问题</h2>
+    <div class="serviceblock common-problem">
+        <ul>
+           <!--  <li>
+                <a href="#">
+                    <span class="x7">&nbsp;</span>
+                    <p>360手机X7</p>
+                </a>
+            </li> -->
+            <li>
+                <a href="/service/faq/?q=n4">
+                    <span class="n4">&nbsp;</span>
+                    <p>360手机N4</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/faq/?q=f4">
+                    <span class="f4">&nbsp;</span>
+                    <p>360手机f4</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/faq/?q=ultimate">
+                    <span class="qjb">&nbsp;</span>
+                    <p>360手机旗舰版</p>
+                </a>
+            </li>
+            <li>
+                <a href="/service/faq/?q=youth">
+                    <span class="qcb">&nbsp;</span>
+                    <p>360手机青春版</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="f2">&nbsp;</span>
+                    <p>360手机F2</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/service content list -->
+{% endblock %}

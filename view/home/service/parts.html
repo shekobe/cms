@@ -1,0 +1,103 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+ 
+<link rel="stylesheet" type="text/css" href="/static/css/service/service.css">
+{% endblock %}
+
+{% block container %}
+
+<!-- parts content list-->
+<div class="mb-line">
+    <div class="container">
+        <a href="/">首页</a>&gt;<a href="/service/">服务</a>&gt;<a href="/service/parts/" class="act">配件价格查询</a>
+    </div>
+</div> 
+ 
+<div class="container">
+    <div class="parts-inquiry-box">
+        <div class="parts-inquiry"> 
+            <h2 class="parts-title">
+                非保修常用维修配件参考价查询：<i>（提交的资料用于维修信息存档）</i>
+            </h2>
+            <div class="parts-item clearfix"> 
+                <div class="select-box Q_selectBox"> 
+                    <div class="select-son"> 
+                        <select id="productSelect" name="product" class="select">
+                           <option value="">选择产品</option>
+                           <option value="100">360手机</option>
+                        </select>
+                        <p class="tip-msg tipMsg">请选择产品!</p>
+                    </div>
+                    <div class="select-son"> 
+                        <select id="typeSelect" name="type" class="select">
+                           <option value="">选择型号</option>
+                        </select>
+                        <p class="tip-msg tipMsg">请选择型号!</p>
+                    </div>
+                    <div class="select-son"> 
+                        <select id="versionSelect" name="version" class="select">
+                           <option value="">选择版本</option>
+                        </select>
+                        <p class="tip-msg tipMsg">请选择版本!</p>
+                    </div>
+                </div>
+                <div class="btn-box">
+                    <a href="javascript:void(0);" class="btn Q_partsBtn">查询</a>
+                </div>  
+            </div> 
+            <div class="parts-result Q_partsResult"></div>
+        </div>
+    <style>
+ 
+    </style>
+        <div class="parts-repaire"> 
+            <div class="intro">
+                <h3 class="parts-title">收费说明</h3>
+                <p> 1、以上查询结果为维修配件参考价。无法查询到的维修配件价格，请咨询360手机授权服务中心。</p>
+                <p>2、以上屏幕、主板参考价为无法修复需更换的价格（建议您将更换后的故障配件取走，自行处理）。</p>
+                <p>3、非保修维修收费=维修配件价+人工费，人工收费标准如下：</p>
+
+            </div>
+            <table>
+                <tr class="title"><td  width="132">服务项目</td><td  width="400">服务内容</td><td  width="132">人工费（元）</td><td>备注</td></tr>
+                <tr><td>数据服务</td><td class="left">手机资料（通讯录、短信、短信息等）的保存，恢复以及数据同步/备份、应用软件下载、拷贝等服务</td><td>50</td><td rowspan="3"  class="left">保外维修更换的主板、屏，自维修之日起保修一个月</td></tr>
+                <tr class="sp"><td>软件升级</td><td class="left">客户要求进行升级或者解锁等服务</td><td>50</td></tr>
+                <tr><td>清洗服务</td><td class="left">对机身内部进行的清理和洁机服务（除进液等非保情况外）</td><td>50</td></tr>
+                <tr  class="sp"> <td>进液处理</td><td class="left">对产品进液，有可能发生综合性的清洁及维修，更换配件等</td><td>100</td><td  rowspan="4" style="background:#fff"  class="left">为确保您的资料安全，服务中心不得以任何理由擅自保留您的个人信息（通讯录、短信息、通话记录、图片等）易经发现，清洁严重者将追究其法律责任</td> </tr>
+                <tr> <td>一级维修</td><td class="left">非电路上元器件损坏的，不拆机或简单拆机重装维修、用肉眼能直观判断检测以及简单的数据调整</td><td>50</td>  </tr>
+                <tr  class="sp"><td>二级维修</td><td class="left">简单分立组件焊接或更换的，数据调整（需用仪表），集成块焊接。如壳件、显示屏或LCD、主板、摄像头、天线、送话器、扬声器、振子、振铃、排线等</td><td>100</td></tr>
+                <tr><td>三级维修</td><td class="left">更换主板电子元器件，如更换电阻、电容、电感、SIM卡座、充电器接口、耳机插座等电子元器件、集成性芯片</td><td>150</td> </tr>
+            </table>
+        </div>
+    </div>   
+</div>
+
+<script type="text/template" id="partsResult">
+    <h3 class="title"><i></i>非保修常用维修配件参考价</h3>
+    <table>
+        <tbody>
+            <tr>
+                {{each list as value i}}  
+                    <td>{{value[0]}}</td>
+                {{/each}}
+            <tr>
+            <tr>
+                {{each list as value i}}  
+                    <td>￥{{value[1]}}</td>
+                {{/each}}
+            <tr>
+        </tbody>
+    </table> 
+    <p class="parts-tips">注：以上价格为更换配件价格（不含人工费），360手机商城保留最终解释权。</p>
+</script>
+ 
+<!--parts content list -->
+{% endblock %}
+
+{% block script %}
+ 
+<script type="text/javascript" src="/static/js/lib/artTemplate.js"></script>    
+ 
+<script type="text/javascript" src="/static/js/service/parts.js"></script> 
+{% endblock %}

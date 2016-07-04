@@ -1,0 +1,236 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/service/service.css">
+<link rel="stylesheet" type="text/css" href="/static/css/service/outlets.css">
+{% endblock %}
+
+{% block container %}
+
+<!-- service content list-->
+<div class="mb-line">
+    <div class="container">
+        <a href="/">首页</a>&gt;<a href="/service/">服务</a>&gt;<a href="/service/outlets/" class="act">服务网点查询</a>
+    </div>
+</div>
+<div class="container">
+    <div class="search-branch">
+        
+        <div class="help_center_middle serviceshop">
+            <!-- 省份 -->
+            <div class="select-box">
+                <h2>服务网点查询</h2>
+                <!-- <h3>请选择查询的城市：</h3> -->
+                <div id="service_provice" class="service_provice">
+                    <select>
+
+                    </select>
+                    <span class="iconfont icon-drop">&#xe610;</span>
+                </div>
+                <div id="service_city" class="service_city">
+                    <select>
+                        
+                    </select>
+                    <span class="iconfont icon-drop">&#xe610;</span>
+                </div>
+            </div>
+
+            <!-- layout  -->
+            <div id="service_detail">
+                <!-- 地图 -->
+                <div class="maps" id="l-map">
+                    <div class="map_location">
+                        <a href="javascript:;" onclick="mapZoom();" class="large"><i></i></a>
+                        <a href="javascript:;" onclick="mapShrink();" class="small"><i></i></a>
+                        <a href="javascript:;" onclick="mapLocate();" class="my_location"><i></i></a>
+                    </div>
+                    <div id="allmap" style="width:100%;height:100%;">地图正在加载中...</div>
+                </div>
+            </div>
+
+            <!-- 服务网点列表 -->
+            <div id="service_list">
+                
+            </div>
+            <!-- 分页 -->
+            <div id="service_page">
+                
+            </div>
+            
+            
+            <!--获取网点评价-->
+            <div id="service_comment">
+                
+            </div>
+
+        </div>
+        <script type="text/template" id="serviceList">
+            {{each data as value}}
+            <div class="city_name">{{value.cityName}}</div>
+            <div class="service-shop" data-id="{{value.id}}" data-code="{{value.netCode}}" data-city="{{value.cityId}}" data-index="{{ $index }}">
+                <div class="service_img"><img src="{{if value.img!=''}}{{value.img}}{{else}}http://res.360shouji.com/images/help_center/service-default.png{{/if}}"></div>
+                <div class="service_info" data-lon="{{value.longitude}}" data-lat="{{value.latitude}}">
+                    <h3 class="service_name"><b>{{value.netName}}</b>{{if value.buildLevel!=''}}<i>{{value.buildLevel}}</i>{{/if}}</h3>
+                    <p class="service_address">地址：<b>{{value.businessAddress}}</b></p>
+                    <p class="service_tel">联系电话：<b>{{value.servicePhone}}</b></p>
+                    <!-- <p class="service_wtime">{{if value.businessHours}}营业时间：<b>{{value.businessHours}}{{/if}}</b></p> -->
+                </div>
+                <div class="btn-group">
+                    <a href="javascript:;" class="btn check-btn">评价</a>
+                </div>
+            </div>
+            {{/each}}
+        </script>
+        <script type="text/template" id="temp_comment">
+            <div class="shop_imgs">
+               <img src="{{img}}" alt="" />
+            </div>
+            <div class="shop_detail">
+                <h2>
+                    {{netName}}
+                </h2>
+                <div class="sd_rows">
+                    <label>电　　话：</label>
+                    <span>  {{servicePhone}}</span>
+                </div>
+                <div class="sd_rows">
+                    <label>地　　址：</label>
+                    <span>  {{businessAddress}}</span>
+                </div>
+                <div class="sd_rows">
+                    {{if businessHours}}<label>营业时间：</label>
+                    <span>   {{businessHours}}</span>{{/if}}
+                </div>
+            </div>
+        </script>
+
+        <!-- 评价网点 -->
+        <script type="text/template" id="serviceComment">
+            <!-- 查看网点评价 -->
+            <div class="user-comments">
+                <h3>{{netInfoCommentSummy.netInfoName}}</h3>
+                <a href="javascript:;" class="back-btn1 close-it close-user-comments" title="关闭">X</a>
+                <div class="star-rate">
+                    <div class="leftbox">
+                        <h2>{{netInfoCommentSummy.lvsRate5}}<b>%</b></h2>
+                        <p>五星评价率</p>
+                    </div>
+                    <div class="rightbox">
+                        <span class="icon-star icon-star-5"></span><span class="num">{{netInfoCommentSummy.lvsCnt5}}人</span>
+                        <span class="icon-star icon-star-4"></span><span class="num">{{netInfoCommentSummy.lvsCnt4}}人</span>
+                        <span class="icon-star icon-star-3"></span><span class="num">{{netInfoCommentSummy.lvsCnt3}}人</span>
+                        <span class="icon-star icon-star-2"></span><span class="num">{{netInfoCommentSummy.lvsCnt2}}人</span>
+                        <span class="icon-star icon-star-1"></span><span class="num">{{netInfoCommentSummy.lvsCnt1}}人</span>
+                    </div>
+                </div>
+                {{if comments.length > 0}}
+                    {{each comments as item }}
+                    <div class="comment-contents">
+                        <div class="user-info">
+                            <!-- <p class="user-name">{{item.memberId}}</p> -->
+                            <p class="user-eva-star"><b>维修时间</b>
+                                <span>{{if item.timeCommentLevel=='1'}}★{{else if item.timeCommentLevel=='2'}}★★{{else if item.timeCommentLevel=='3'}}★★★{{else if item.timeCommentLevel=='4'}}★★★★{{else if item.timeCommentLevel=='5'}}★★★★★{{/if}}</span>
+                                <b>服务态度</b>
+                                <span>{{if item.attitudeCommentLevel=='1'}}★{{else if item.attitudeCommentLevel=='2'}}★★{{else if item.attitudeCommentLevel=='3'}}★★★{{else if item.attitudeCommentLevel=='4'}}★★★★{{else if item.attitudeCommentLevel=='5'}}★★★★★{{/if}}</span>
+                                <b>专业性</b>
+                                <span>{{if item.professionalCommentLevel=='1'}}★{{else if item.professionalCommentLevel=='2'}}★★{{else if item.professionalCommentLevel=='3'}}★★★{{else if item.professionalCommentLevel=='4'}}★★★★{{else if item.professionalCommentLevel=='5'}}★★★★★{{/if}}</span>
+                            </p>
+                            <p class="comment-time">{{dateFormat(item.commentTime.time,'yyyy-MM-dd')}}</p>
+                        </div>
+                        <p class="user-eva-content">
+                            <span>{{item.memberName}}<b>:</b></span>{{item.content}}
+                        </p>
+                    </div>
+                    {{/each}}
+                {{else}}
+                    <div class="comment-contents">
+                        暂无评论数据！
+                    </div>
+                {{/if}}
+                <div class="page_div">
+                    <div id="Pagination" class="page">
+                    </div>
+                </div>
+
+                <!-- 网点评价 -->
+                <div class="comment-box">
+                    <div class="leftbox">
+                        <p>维修时间评星：</p>
+                        <p>服务态度评星：</p>
+                        <p>专业性评星：</p>
+                    </div>
+                    <div class="rightbox">
+                        <div class="comment-star">
+                            <div class="stars stars1 J_comment_star">
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                            </div>
+                            <div class="stars stars2 J_comment_star">
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                            </div>
+                            <div class="stars stars3 J_comment_star">
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                                <span class="icon-star-large icon-star-large-blank J_star"></span>
+                            </div>
+                        </div>
+                        <div class="J_starInfo J_starInfo1" style="height: 47px;line-height: 47px;overflow:hidden;">
+                            <div class="star_info1 hide" style="display: none;">维修时效有点渣</div>
+                            <div class="star_info1 hide" style="display: none;">维修速度一般，在预计时间内</div>
+                            <div class="star_info1 hide" style="display: none;">维修速度还行 ，超过1小时</div>
+                            <div class="star_info1 hide" style="display: none;">1小时内决绝战斗，赞</div>
+                            <div class="star_info1 hide" style="display: none;">任性！就是快！</div>
+                            <!-- <div class="star_info1 hide f-warn f-warn-star"><span>☜</span>请先评星！</div> -->
+                        </div>
+                        <div class="J_starInfo J_starInfo2" style="height: 47px;line-height: 47px;overflow:hidden;">
+                            <div class="star_info2 hide" style="display: none;">差！骂人还脏话 </div>
+                            <div class="star_info2 hide" style="display: none;">有点不耐烦</div>
+                            <div class="star_info2 hide" style="display: none;">态度一般，感受不到热情</div>
+                            <div class="star_info2 hide" style="display: none;">服务挺好，服务十分热情</div>
+                            <div class="star_info2 hide" style="display: none;">服务太棒了，考虑周到超出期望值</div>
+                            <!-- <div class="star_info2 hide f-warn f-warn-star"><span>☜</span>请先评星！</div> -->
+                        </div>
+                        <div class="J_starInfo J_starInfo3" style="height: 47px;line-height: 47px;overflow:hidden;">
+                            <div class="star_info3 hide" style="display: none;">没有解决</div>
+                            <div class="star_info3 hide" style="display: none;">解决部分问题 </div>
+                            <div class="star_info3 hide" style="display: none;">还行，就一般般</div>
+                            <div class="star_info3 hide" style="display: none;">问题解决，未达到我的预期</div>
+                            <div class="star_info3 hide" style="display: none;">完美，一次解决问题</div>
+                        </div>
+                    </div>
+                    <textarea placeholder="请发表您对该网点的评价：" rows="15" cols="20" class="comment-content" maxlength="500"></textarea>
+                    <div class="f-warn-items">
+                            <div class="star_info hide f-warn f-warn-star"><span>☝</span>请先评星！</div>
+                            <div class="star_info hide f-warn f-warn-content"><span>☝</span>评论内容不能为空！</div>
+                            <div class="star_info hide f-warn f-warn-content_less"><span>☝</span>评论内容不能少于5个字！</div>
+                            <div class="star_info hide f-warn submit-ok">评论成功！</div>
+                    </div>
+                    <input type="button" value="提交" class="btn1 submit-btn" />
+                </div>
+
+            </div>
+        </script>
+
+
+    </div>
+</div>
+<!--/service content list -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=EwoloGLFejE5PKSz12CvW7U9y9mW2XBo"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+<script type="text/javascript" src="/static/js/lib/artTemplate.js"></script>    
+<script src="http://10.100.2.92/rap.plugin.js?projectId=3"></script>
+<script type="text/javascript" src="/static/js/service/outlets.js"></script>
+{% endblock %}

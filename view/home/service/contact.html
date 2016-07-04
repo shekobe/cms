@@ -1,0 +1,38 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/service/service.css">
+{% endblock %}
+
+{% block container %}
+
+<!-- service content list-->
+<div class="mb-line">
+    <div class="container">
+        <a href="/">首页</a>&nbsp;>&nbsp;<a href="/service/">服务</a>&nbsp;>&nbsp;<a href="/service/contact/" class="act">联系客服</a>
+    </div>
+</div>
+<div class="container">
+    <div class="online-service">
+        <h3>联系客服</h3>
+        <ul>
+            <li>
+                <span class="icon-service">&nbsp;</span>
+                <p class="service-title">7X24在线服务</p>
+                <p class="service-content">在线对话，为您解决遇到的问题</p>
+                <a href="#">立即咨询</a>
+            </li>
+            <li>
+                <span class="icon-contact">&nbsp;</span>
+                <p class="service-title">400-011-1388</p>
+                <p class="service-content">周一到周日 08:00-22:00<br/>仅收市话费</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/service content list -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/js/service/service.js"></script>
+{% endblock %}
