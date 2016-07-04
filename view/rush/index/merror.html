@@ -55,6 +55,7 @@
 
     </div>
 <input type="hidden" class="qktoken" value="{$ qktoken $}">
+<input type="hidden" class="rds" value="{$ rds $}">
 {% endblock %}
 
 {% block script %}
@@ -76,7 +77,7 @@
 //        $("<iframe width='0' height='0' name='ifr1' id='ifr1'></iframe>").prependTo('body');
 //        $("#ifr1").attr("src", "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val());
         var iframe = document.createElement("iframe");
-        iframe.src = "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val()+'&goodsId='+getUrlParam('goodsId');
+        iframe.src = "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val()+'&goodsId='+getUrlParam('goodsId')+'&rds='+$('.rds').val();
         iframe.id = 'ifr1';
         iframe.name = 'ifr1';
         iframe.width = 0;

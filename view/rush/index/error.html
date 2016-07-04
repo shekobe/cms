@@ -55,7 +55,7 @@
         {% endif %}
     </div>
     <input type="hidden" class="qktoken" value="{$ qktoken $}">
-
+<input type="hidden" class="rds" value="{$ rds $}">
 {% endblock %}
 
 {% block script %}
@@ -80,7 +80,7 @@
 //        $("<iframe width='0' height='0' name='ifr1' id='ifr1'></iframe>").prependTo('body');
 //        $("#ifr1").attr("src", "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val());
         var iframe = document.createElement("iframe");
-        iframe.src = "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val()+'&goodsId='+getUrlParam('goodsId');
+        iframe.src = "http://rush.360shouji.com/rush/index/poll?qktoken="+$('.qktoken').val()+'&goodsId='+getUrlParam('goodsId')+'&rds='+$('.rds').val();
         iframe.id = 'ifr1';
         iframe.name = 'ifr1';
         iframe.width = 0;
@@ -184,7 +184,7 @@
                          +'<div class="errorbg error"></div>'
                          +'<div class="btn-div">'
                          +'    <a class="go-back" href="//www.360shouji.com/hd/201606/618.html">前往商城618主页面</a>'
-                         +'    <a class="go-back" href="//item.jd.com/2830798.html">前往京东看看</a>'
+                         +'    <a class="go-back" href="http://item.360shouji.com/item/selectPhone.html?typeId=2000000004">前往购买套餐</a>'
                          +'</div>';
                 $('.error_other').html(html)
     }
