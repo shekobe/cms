@@ -1,0 +1,145 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/news/index.css">
+<style>
+    .column .news-box ul li{
+        height: auto !important;
+    }
+    #content .column.first .line{
+        border-bottom: 1px solid #ccc;
+    }
+</style>
+{% endblock %}
+
+{% block container %}
+
+
+
+<div id="container">
+    <div id="nav">
+        <!--<a href="/">360手机</a>&nbsp;&gt;&nbsp;-->
+        <!--<a href="">企业新闻</a>&nbsp;&gt;&nbsp;-->
+        <a class="cur-title" href="/news">
+            {$ articleObj.nav | format_article_detail_nav $}</a>
+
+    </div>
+    <div id="content">
+        <div class="column first">
+            <div class="news-box">
+                <ul>
+                    <li>
+                        <h3 class="title">{$ articleObj.title | safe $}</h3>
+                        <p class="time">{$ articleObj.createtime | format_time $}</p>
+
+                        <!--{% if articleObj.thumb %}-->
+                        <!--<div class="img">-->
+                            <!--<a href="">-->
+                                <!--<img src="{$ articleObj.thumb | safe $}" alt=""/>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                        <!--{% endif %}-->
+                        <div class="detail-content">
+                            {$ articleObj.contents | safe $}
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+            <div class="line"></div>
+            <div class="next">
+                {% if preObj.title  %}
+                <p>
+                    <a href="/news/{$ preObj._id $}.html">上一篇&nbsp;&nbsp;{$ preObj.title $}</a>
+                </p>
+                {% endif %}
+                {% if nextObj.title  %}
+                <p>
+                    <a href="/news/{$ nextObj._id $}.html">下一篇&nbsp;&nbsp;{$ nextObj.title $}</a>
+                </p>
+                {% endif %}
+
+
+
+            </div>
+        </div>
+        <div class="column last">
+            <div class="news-type-box j_typebox">
+                <ul class="title">
+                    <li class="active"><a href="javascript:;">企业新闻</a></li>
+                    <li><a href="javascript:;">产品评测</a></li>
+                </ul>
+                <div class="tab-content">
+                    <ul>
+                        {% for item in articleListObj %}
+                        {% if loop.index < 4 %}
+                        <li>
+                        <a href="/news/{$ item._id $}.html" class="img">
+                        <img src="{$ item.thumb $}" alt=""/>
+                        </a>
+                        <p class="tle">
+                        <a href="/news/{$ item._id $}.html">{$ item.title $}</a>
+                        </p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                    </ul>
+
+                    <p class="more">
+                        <a href="/news">查看全部企业新闻&nbsp;&gt;</a>
+                    </p>
+                </div>
+                <div class="tab-content" style="display: none">
+
+                    <ul>
+                        {% for item in articleListObj %}
+                        {% if loop.index > 3 %}
+                        <li>
+                            <a href="/news/{$ item._id $}.html" class="img">
+                                <img src="{$ item.thumb $}" alt=""/>
+                            </a>
+                            <p class="tle">
+                                <a href="/news/{$ item._id $}.html">{$ item.title $}</a>
+                            </p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <p class="more">
+                        <a href="/news">查看全部产品评测&nbsp;&gt;</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+
+    $(function(){
+        var $jtb = $('.j_typebox');
+        $jtb.on('click','ul.title li',function(){
+            var t = $(this);
+            t.addClass('active').siblings().removeClass('active');
+            var index = t.index();
+            $jtb.find('.tab-content').hide();
+            $jtb.find('.tab-content').eq(index).show();
+        })
+    });
+
+</script>
+
+
+{% endblock %}

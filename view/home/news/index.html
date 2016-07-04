@@ -1,0 +1,140 @@
+{% extends "../layout/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/news/index.css">
+{% endblock %}
+
+{% block container %}
+
+
+
+<div id="container">
+    <div id="nav">
+        <a href="/">360手机</a>&nbsp;&gt;&nbsp;
+        <a class="cur-title" href="/news">企业新闻</a>
+        <!--&nbsp;&gt;&nbsp;-->
+        <!--<a class="cur-title" href="">360手机品牌蝶变</a>-->
+    </div>
+    <div id="content">
+        <div class="column first">
+            <div class="news-box">
+                <ul>
+                    {% for item in articleListObj2.data %}
+                    <li>
+                        <h3 class="title">
+                            <a href="/news/{$ item._id $}.html" >{$ item.title $}</a>
+                            </h3>
+                        <p class="time">{$ item.createtime | format_time $}</p>
+                        <div class="img">
+                            <a href="/news/{$ item._id $}.html">
+                                <img src="{$ item.thumb $}" alt=""/>
+                            </a>
+                        </div>
+                        <a href="/news/{$ item._id $}.html" class="link">阅读全文&nbsp;&gt;&nbsp;</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <div class="page">
+                {% if articleListObj2.currentPage == 1 %}
+                     {% if articleListObj2.totalPages == 1 %}
+                        <a class="btn-prev disabled btn-arrow" href="javascript:;">&lt;</a>1/1
+                        <a class="btn-next disabled btn-arrow" href="javascript:;">&gt;</a>
+                     {% else %}
+                <a class="btn-prev disabled btn-arrow" href="javascript:;">&lt;</a>1/{$ articleListObj2.totalPages $}
+                <a class="btn-next btn-arrow" href="/news?page=2">&gt;</a>
+                     {% endif %}
+
+                {% elif articleListObj2.currentPage == articleListObj2.totalPages %}
+                    {% if articleListObj2.totalPages == 1 %}
+                    <a class="btn-prev disabled btn-arrow" href="javascript:;">&lt;</a>1/1
+                    <a class="btn-next disabled btn-arrow" href="javascript:;">&gt;</a>
+                    {% else %}
+                    <a class="btn-prev btn-arrow" href="/news?page={$ articleListObj2.currentPage-1 $}">&lt;</a>{$ articleListObj2.currentPage $}/{$ articleListObj2.totalPages $}
+                    <a class="btn-next disabled btn-arrow" href="javascript:;">&gt;</a>
+                    {% endif %}
+                {% else %}
+                    <a class="btn-prev btn-arrow" href="/news?page={$ articleListObj2.currentPage-1 $}">&lt;</a>{$ articleListObj2.currentPage $}/{$ articleListObj2.totalPages $}
+                    <a class="btn-next btn-arrow" href="/news?page={$ articleListObj2.currentPage+1 $}">&gt;</a>
+
+                {% endif %}
+
+
+            </div>
+        </div>
+        <div class="column last">
+            <div class="news-type-box j_typebox">
+                <ul class="title">
+                    <li class="active"><a href="javascript:;">企业新闻</a></li>
+                    <li><a href="javascript:;">产品评测</a></li>
+                </ul>
+                <div class="tab-content">
+                    <ul>
+                        {% for item in articleListObj %}
+                        {% if loop.index < 4 %}
+                        <li>
+                            <a href="/news/{$ item._id $}.html" class="img">
+                                <img src="{$ item.thumb $}" alt=""/>
+                            </a>
+                            <p class="tle">
+                                <a href="/news/{$ item._id $}.html">{$ item.title $}</a>
+                            </p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                    </ul>
+
+                    <p class="more">
+                        <a href="/news">查看全部企业新闻&nbsp;&gt;</a>
+                    </p>
+                </div>
+                <div class="tab-content" style="display: none">
+
+                    <ul>
+                        {% for item in articleListObj %}
+                        {% if loop.index > 3 %}
+                        <li>
+                            <a href="/news/{$ item._id $}.html" class="img">
+                                <img src="{$ item.thumb $}" alt=""/>
+                            </a>
+                            <p class="tle">
+                                <a href="/news/{$ item._id $}.html">{$ item.title $}</a>
+                            </p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <p class="more">
+                        <a href="/news">查看全部产品评测&nbsp;&gt;</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+{% block script %}
+<script>
+
+    $(function(){
+        var $jtb = $('.j_typebox');
+        $jtb.on('click','ul.title li',function(){
+            var t = $(this);
+            t.addClass('active').siblings().removeClass('active');
+            var index = t.index();
+            $jtb.find('.tab-content').hide();
+            $jtb.find('.tab-content').eq(index).show();
+        })
+    });
+
+</script>
+
+
+{% endblock %}
