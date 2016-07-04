@@ -5,19 +5,20 @@
  */
 module.exports = {
   type: 'mongo',
-  host: '10.1.21.27',
+  host: '10.100.7.18',
   port: '27017',
   database: 'qiku',
-  user: 'qiku2',
+  user: 'qiku',
   password: '123456',
-  prefix: 'qkweb_',
+  prefix: 'qkadmin_',
+  //prefix: '',
   encoding: 'utf8',
   nums_per_page: 10,
   log_sql: true,
   log_connect: true,
   cache: {
     on: true,
-    type: '', //默认momory
+    type: '',//默认momory
     timeout: 3600
   },
   options: {

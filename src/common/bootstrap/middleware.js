@@ -6,16 +6,17 @@
 'use strict';
 
 /**
- * 
+ *
  * think.middleware('xxx', http => {
  *   
  * })
- * 
+ *
  */
 //think js debug
 import debugToolbar from 'think-debug-toolbar';
 // html 缓存
 import htmlCache from 'think-html-cache';
+import cors from 'think-cors';
 
 let conf = {
     panels: ['request', 'session', 'view', 'template', 'response', 'config', 'info'],
@@ -24,8 +25,10 @@ let conf = {
     disabled: false,
     sort: false
 };
+think.middleware("cors", cors);
 
 think.middleware('debug_toolbar', debugToolbar(conf));
+
 
 think.middleware('html_cache', htmlCache);
 

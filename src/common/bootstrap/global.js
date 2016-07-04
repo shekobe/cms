@@ -49,7 +49,7 @@
 //     return logger;
 // };
 
-  
+
 /**
  * this file will be loaded before server started
  * you can define global functions used in controllers, models, templates
@@ -62,7 +62,47 @@
  *     
  * }
  */
+import accesstokenapi from 'access-token-api';
 import QueueFun from 'queue-fun';
+import crypto from 'crypto';
+import redis from 'redis';
+
+import ioredis_config from "../../rush/config/ioredis.js";
+
+let client = '';
+//if(think.env == 'development'){
+//
+//    client = redis.createClient(ioredis_config.development.port,ioredis_config.development.host);
+//}else{
+//
+//    client = redis.createClient(ioredis_config.product[0].port,ioredis_config.product[0].host);
+//}
+global.TokenApi = new accesstokenapi({
+    storeConfig:{
+        get:function(key,callback){
+            client.GET(key,function(err,reply){
+                callback(err,reply);
+            });
+        },
+        set:function(key,data,ttl,callback){
+            client.PSETEX(key,ttl,data,function(err,reply){
+                callback(err,reply);
+            });
+        },
+        remove:function(key,callback){
+            client.DEL(key,function(err,data){
+                callback(err);
+            });
+        }
+    },
+    webTokenVarName:'encrypt_api_tokenStr',//default to encrypt_api_tokenStr
+    webInject:function(html, token, callback){
+        //if you want to custom you webtoken inject in hmlt , you can do in this function.
+        //console.log(html, token, callback);
+    }
+});
+
+
 
 let time = 170;
 let maxNum = 1;
@@ -73,38 +113,38 @@ global.queueObj = new Queues(maxNum,{
     "event_succ":function(data,obj){
         //console.log('成功')
 
-    } 
+    }
     //失败   
     ,"event_err":function(){
         // return this.http.redirect("http/");
-    }  
+    }
     //队列开始
     ,"event_begin":function(){
-         console.log('队列开始')
+        console.log('队列开始')
 
-    } 
-     //队列完成
+    }
+    //队列完成
     ,"event_end":function(){
         //glTime = new Date().getTime() - glTime;
         console.log('队列完成');
-       // glTime = 0;
+        // glTime = 0;
 
-    }   
+    }
     //有执行项添加进执行单元后执行,注意go及jump不会触发  
     ,"event_add":function(){
-       // console.log('event_add',this.isStart,this.lins.length);
+        // console.log('event_add',this.isStart,this.lins.length);
         //if(!this.isStart && this.lins.length >= 5){ //当添加了10个项后,运行队列
         //    console.log(">> 触发自动运行条件")
         //    this.start();
         //}
 
-    } 
+    }
     //队列单元出错重试次数
-    ,"retryON":0                 
+    ,"retryON":0
     //重试模式true/false(优先/搁置)执行
-    ,"retryType":0               
+    ,"retryType":0
     //<=0无超时 超时后以'timeout'为理由拒绝
-    ,"timeout":0                 
+    ,"timeout":0
 });
 //定义一个Promise风格的异步方法
 global.testfun = function(i){

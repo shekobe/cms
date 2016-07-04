@@ -106,10 +106,10 @@ export default class extends think.controller.base {
  }
  /**
  * 验证是否为智能手机
- * @ param {string} userAgent;
  * @ return {bool}
  */
- checkMobile(userAgent){
+ checkMobile(agent){
+    let userAgent = agent || this.http.userAgent();
     let flag = false;
     // mobile
     let regmobile = /iPad|iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows (CE|Phone)|Nokia|SonyEricsson|webOS|PalmOS|phone|wap|MQQBrowser|Mobile/ig;

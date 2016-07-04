@@ -20,6 +20,6 @@ module.exports = {
 		reg:/^rush/
 	},
 	home: {
-
+		
 	}
 };

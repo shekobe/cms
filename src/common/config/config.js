@@ -1,11 +1,11 @@
-'use strict';
+
 /**
  * config
  */
 export default {
   //key: value
   // host:"10.100.48.13",
-  port:80, //请求的端口
+  port:80, //请求的端口  生产上用 8630
   timeout: 45, //请求超时时间
   route_on: true,
   default_module: "home",//默认model设置
@@ -14,4 +14,9 @@ export default {
   // locale:{ // i18n
   //   default:'cn'
   // }
+  cors:{
+    origin:"*",
+    methods: 'GET,HEAD,POST',
+    preflightContinue: false
+  }
 };

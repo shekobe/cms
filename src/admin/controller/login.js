@@ -75,7 +75,8 @@ export default class extends think.controller.base {
    */
   async logoutAction(){
     //回收用户session
-    await this.session();
+    //await this.session();
+    await this.session('userinfo', null);
     return this.display('index');
   }
   /**

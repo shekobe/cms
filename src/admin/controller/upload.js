@@ -57,7 +57,7 @@ export default class extends Base {
   	}
   	 //文件路径
     let filepath = file.path;
-    console.log(filepath);
+    console.log('filepath',filepath);
     let momentpath = moment().format('YYYY/MM/DD');
     //文件上传后，存放路径
     let uploadPath = think.RESOURCE_PATH + '/static/upload/' + momentpath;
@@ -65,7 +65,7 @@ export default class extends Base {
     if(!think.isDir(uploadPath)) think.mkdir(uploadPath);
     //文件保存路径和名称
     file.path = uploadPath + '/' + path.basename(filepath);
-    console.log(file.path);
+    console.log('file.path',file.path);
     //保存文件
     fs.renameSync(filepath, file.path);
     //监测是否上传成功

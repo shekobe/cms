@@ -54,17 +54,17 @@ export default class extends think.controller.base {
         }
         //权限认证
         var msg = '抱歉，您没有权限访问此页';
-        // if (!userinfo.roles) {
-        //     return this.fail(1001, '新用户请联系管理员开通权限');
-        // }
+         if (!userinfo.roles) {
+             return this.fail(1001, '新用户请联系管理员开通权限');
+         }
         let menuArr = await this.checkroles(userinfo.roles);
-        // if (!menuArr.length) {
-        //     return this.fail(1001,msg );
-        // }
+         if (!menuArr.length) {
+             return this.fail(1001,msg );
+         }
 
-        // if(!this.checkurl(menuArr)){
-        //     return this.fail(1001, msg);
-        // }
+         if(!this.checkurl(menuArr)){
+             return this.fail(1001, msg);
+         }
         userinfo.leftMenuArr=  menuArr;
         return userinfo;
     }
@@ -79,7 +79,7 @@ export default class extends think.controller.base {
         if(pathname == '/admin/index' || pathname == '/admin/ueditor'){
             flag = true;
         }else{
-            pathname = pathname + (({"previewhome":1,'previewdefault':1,'index':1,'detail':1})[this.http.action] ? '' : '/'+this.http.action);
+            pathname = pathname + (({"preview":1,"previewhome":1,'previewdefault':1,'index':1,'detail':1})[this.http.action] ? '' : '/'+this.http.action);
             for(var i=0;i<arr.length;i++){
                 if(arr[i].href && arr[i].href == pathname ){
                     flag = true;

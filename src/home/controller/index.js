@@ -20,11 +20,6 @@ export default class extends Base {
     //将json 转换
     index = JSON.parse(index);
     this.assign(index);
-
-    // let result = await think.cache('index_page', function(){
-    //   return self.fetch()
-    // })
-    // return this.end(result);
     return this.display();
 
   }
