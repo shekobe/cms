@@ -7,6 +7,7 @@ let exec = child.exec;
 let execSync = child.execSync;
 import ansiHTML from 'ansi-html';
 import fs from 'fs';
+import path from 'path';
 import Ssh2 from 'ssh2';
 let Client = Ssh2.Client;
 import moment from 'moment';
@@ -49,7 +50,8 @@ export default class extends Base {
     }
 
     //发布到99生产环境//
-    addlist2Action(self){
+    addlist2Action(self){//todo
+
         this.emit('abc', {
             message: '更新发布中，0-2分钟，请耐心等待'
         });
@@ -63,20 +65,20 @@ export default class extends Base {
         }
         var file='',
             args=[],
-            linuxargs_res=['-c','cd /usr/local/src/WebContent_ && fis3 release rd -f fis-conf'+un+'.js'],
-            linuxargs_html=['-c','cd /usr/local/src/WebContent_ && fis3 release rd -f fis-conf'+un+'.js'],
-            winargs = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\WebContent && fis3 release rd -f fis-conf'+un+'.js'],
+            linuxargs_res=['-c','cd /usr/local/src/qikuweb_ && fis3 release rd -f fis-conf'+un+'.js'],
+            linuxargs_html=['-c','cd /usr/local/src/qikuweb_ && fis3 release rd -f fis-conf'+un+'.js'],
+            winargs = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\qikuweb && fis3 release rd -f fis-conf'+un+'.js'],
             options = {};
         if (process.platform === 'win32') {
             file = process.env.comspec || 'cmd.exe';
-            args = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\WebContent'];
+            args = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\qikuweb'];
 // Make a shallow copy before patching so we don't clobber the user's
 // options object.
             //options = util._extend({}, options);
             //options.windowsVerbatimArguments = true;
         } else {
             file = '/bin/sh';
-            args = ['-c','cd /usr/local/src/WebContent && svn update'];
+            args = ['-c','cd /usr/local/src/qikuweb'];
         }
 
 
@@ -114,6 +116,10 @@ export default class extends Base {
            // //console.log('child process exited with code ' + code,isSuccess);
             if(isSuccess){
                 if (process.platform === 'win32') {
+                    self.emit('abc', {
+                        message: '此功能不能本地项目使用！'
+                    });
+                    return;
                     //window 先动态生成fis-conf.js再推送文件
                     var strw = self.http.data.res;
                     var arrw = strw.toString().substring(1,strw.toString().length-1).split(',');
@@ -130,7 +136,7 @@ export default class extends Base {
                     ////console.log(strw);
                     var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:fis.plugin("http-push", {receiver:"http://10.1.21.201:8999/receiver",to:"/usr/local/sugy/res"})});';
                     //写入文件
-                    fs.writeFile('E:\\qikusvn\\trunk\\front-web\\WebContent\\fis-conf'+un+'.js', sendStrw, function (err) {
+                    fs.writeFile('E:\\qikusvn\\trunk\\front-web\\qikuweb\\fis-conf'+un+'.js', sendStrw, function (err) {
                         if (err) {
                             ////console.log('Error', err);
                             self.emit('abc', {
@@ -204,7 +210,7 @@ export default class extends Base {
                             ////console.log(strw_);
                             var sendStrw_ = 'fis.media("rd").set("project.files",['+arr2w_+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw_+'", {deploy:fis.plugin("http-push", {receiver:"http://10.1.21.201:8999/receiver",to:"/usr/local/sugy/html"})});';
                             //写入文件
-                            fs.writeFile('E:\\qikusvn\\trunk\\front-web\\WebContent\\fis-conf'+un+'.js', sendStrw_, function (err) {
+                            fs.writeFile('E:\\qikusvn\\trunk\\front-web\\qikuweb\\fis-conf'+un+'.js', sendStrw_, function (err) {
                                 if (err) {
                                    // //console.log('Error', err);
                                     self.emit('abc', {
@@ -291,9 +297,9 @@ export default class extends Base {
                         }
                         arr2 = arr2.substring(0,arr2.toString().length-1);
 
-                        var sendStr = 'fis.media("rd").set("project.files",['+arr2+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str+'", {deploy:fis.plugin("http-push", {receiver:"http://10.201.2.99:8999/receiver",to:"/ECDIR/resource"})});';
+                        var sendStr = 'fis.media("rd").set("project.files",['+arr2+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str+'", {deploy:fis.plugin("http-push", {receiver:"http://10.100.7.64:8999/receiver",to:"/usr/local/qikuweb"})});';
                         //写入文件
-                        fs.writeFile('/usr/local/src/WebContent_/fis-conf'+un+'.js', sendStr, function (err) {
+                        fs.writeFile('/usr/local/src/qikuweb_/fis-conf'+un+'.js', sendStr, function (err) {
                             if (err) {
                                // //console.log('Error', err);
                                 self.emit('abc', {
@@ -384,9 +390,9 @@ export default class extends Base {
                         }
                         arr2__ = arr2__.substring(0,arr2__.toString().length-1);
 
-                        var sendStr__ = 'fis.media("rd").set("project.files",['+arr2__+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str__+'", {deploy:fis.plugin("http-push", {receiver:"http://10.201.2.99:8999/receiver",to:"/ECDIR/tmpfile"})});';
+                        var sendStr__ = 'fis.media("rd").set("project.files",['+arr2__+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str__+'", {deploy:fis.plugin("http-push", {receiver:"http://10.100.7.64:8999/receiver",to:"/usr/local/qikuweb"})});';
                         //写入文件
-                        fs.writeFile('/usr/local/src/WebContent_/fis-conf'+un+'.js', sendStr__, function (err) {
+                        fs.writeFile('/usr/local/src/qikuweb_/fis-conf'+un+'.js', sendStr__, function (err) {
                             if (err) {
                                // //console.log('Error', err);
                                 self.emit('abc', {
@@ -495,10 +501,11 @@ export default class extends Base {
 
     }
 
-    //发布到27测试环境
+    //发布到102测试环境
     //静态文件、jsp推 /opt/tomcat3(123) /opt/tomcat_grap(124、131)
     //资源文件推 、/usr/local/resource(124)
-    addlistAction(self){
+    async addlistAction(self){//todo
+        console.log(5555)
         this.emit('abc', {
             message: '更新发布中，0-2分钟，请耐心等待'
         });
@@ -511,39 +518,39 @@ export default class extends Base {
             });
             return;
         }
+        var linuxcwdpath = '/usr/local/src/qikuweb';
         var file='',
             args=[],
-            linuxargs=['-c','cd /usr/local/src/WebContent && fis3 release rd -f fis-conf'+un+'.js'],
-            winargs = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\WebContent && fis3 release rd -f fis-conf'+un+'.js'],
+            linuxargs=['-c','fis3 release rd -f fis-conf'+un+'.js'],
+            winargs = ['/s', '/c', 'fis3 release rd -f fis-conf'+un+'.js'],
             options = {};
         if (process.platform === 'win32') {
             file = process.env.comspec || 'cmd.exe';
-            args = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\WebContent'];
+            args = ['/s', '/c'];
 // Make a shallow copy before patching so we don't clobber the user's
-// options object.
+// options object.  ss
             //options = util._extend({}, options);
             //options.windowsVerbatimArguments = true;
         } else {
             file = '/bin/sh';
-            args = ['-c','cd /usr/local/src/WebContent && svn update'];
+            args = ['-c','cd '+linuxcwdpath+' && svn update'];
         }
 
 
-
-        var grunt = child.spawn(file,args, {
+        var grunt = child.spawn(file,args,{cwd:path.join(think.ROOT_PATH)}, {
             env: process.env,
             maxBuffer: 500*1024 //default:200*1024
         });
 
         grunt.stdout.on('data', function (chunk) {
-            //console.log('' + chunk);
+            console.log('' + chunk);
             self.emit('abc', {
                 message: ansiHTML(('' + chunk).replace(/\r\n|\r|\n/img, '<br/>'))
             });
         });
         var isSuccess = 1;//1:发布成功 0：发布失败
         grunt.stderr.on('data', function (chunk) {
-            //console.log('stderr--' + chunk);
+            console.log('stderr--' + chunk);
             isSuccess = 0;
             self.emit('abc', {
                 message: '远端机器端口无法访问，发布失败'+chunk
@@ -551,7 +558,7 @@ export default class extends Base {
         });
 
         grunt.on('error', function (err) {
-            //console.log('child process exited with error ' + err);
+            console.log('child process exited with error ' + err);
             self.emit('abc', {
                 message: 'child process exited with error ' + err
             });
@@ -560,170 +567,206 @@ export default class extends Base {
 
         grunt.on('close', function (code) {
 
-            //console.log('child process exited with code ' + code,isSuccess);
+            console.log('child process exited with code ' + code,isSuccess);
             if(isSuccess){
                 if (process.platform === 'win32') {
+
                     //window 先动态生成fis-conf.js再推送文件
-                    var strw = self.http.data.res;
-                    var arrw = strw.toString().substring(1,strw.toString().length-1).split(',');
-                    if(arrw.length == 1){// match一个目标的时候不用加 “{　}”
-                        strw = arrw[0];
-                    }
-
-                    var arr2w = '';
-                    for(var i=0; i<arrw.length;i++){
-                        arr2w += '\"\.' + arrw[i] + '\"'+ ',';
-                    }
-                    arr2w = arr2w.substring(0,arr2w.toString().length-1);
-                    //console.log(arr2w);
-                    //console.log(strw);
-                    var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:fis.plugin("http-push", {receiver:"http://10.1.21.201:8999/receiver",to:"/usr/local/sugy/res"})});';
-                    //写入文件
-                    self.emit('abc', {
-                        message: 'username：'+self.http.data.username
-                    });
-                    fs.writeFile('E:\\qikusvn\\trunk\\front-web\\WebContent\\fis-conf'+un+'.js', sendStrw, function (err) {
-                        if (err) {
-                            //console.log('Error', err);
-                            self.emit('abc', {
-                                message: '成功配置文件出错！'
-                            });
-                            return;
+                    var allflag = 0;//1:html,res都要发，0：表示 非1
+                    function pushres(){
+                        var strw = self.http.data.res;
+                        var arrw = strw.toString().substring(1,strw.toString().length-1).split(',');
+                        if(arrw.length == 1){// match一个目标的时候不用加 “{　}”
+                            strw = arrw[0];
                         }
-                        self.emit('abc', {
-                            message: '推送文件：'+sendStrw
-                        });
+
+                        var arr2w = '';
+                        for(var i=0; i<arrw.length;i++){
+                            arr2w += '\"\.' + arrw[i] + '\"'+ ',';
+                        }
+                        arr2w = arr2w.substring(0,arr2w.toString().length-1);
+                        //console.log(arr2w);
+                        //console.log(strw);
+                        var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:[fis.plugin("http-push", {receiver:"http://10.100.21.102:8999/receiver",to:"/usr/local/qikuweb"}),fis.plugin("http-push", {receiver:"http://10.100.7.19:8999/receiver",to:"/usr/local/qikuweb"})]});';
+
+                        //写入文件
                         //self.emit('abc', {
-                        //    message: '成功生成配置文件！'
+                        //    message: 'username：'+self.http.data.username
                         //});
-                        self.emit('abc', {
-                            message: '开始推送文件'
-                        });
-                        var grunt2w = child.spawn(file, winargs, {
-                            //env: process.env
-                        });
-
-                        grunt2w.stdout.on('data', function (chunk) {
-                            //console.log('' + chunk);
-                            self.emit('abc', {
-                                message: ansiHTML(('' + chunk).replace(/\r\n|\r|\n/img, '<br/>'))
-                            });
-                        });
-                        var isSuccess2w = 1;//1:发布成功 0：发布失败
-                        grunt2w.stderr.on('data', function (chunk) {
-                            //console.log('stderr--' + chunk);
-                            isSuccess2w = 0;
-                            self.emit('abc', {
-                                message: '远端机器端口无法访问，发布失败'+chunk
-                            });
-                        });
-
-                        grunt2w.on('error', function (err) {
-                            //console.log('child process exited with error ' + err);
-                            self.emit('abc', {
-                                message: 'child process exited with error ' + err
-                            });
-
-                        });
-                        grunt2w.on('close', function (code) {
-
-                            //console.log('child process exited with code ' + code,isSuccess2w);
-                            if(isSuccess2w){
+                        fs.writeFile(path.join(think.ROOT_PATH,'fis-conf'+un+'.js'), sendStrw, function (err) {
+                            if (err) {
+                                //console.log('Error', err);
                                 self.emit('abc', {
-                                    message: '资源文件发布成功<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-ok.png"/>'
+                                    message: '成功配置文件出错！'
                                 });
-                                //self.emit('result',self.http.data.id);
-                                //通知所有客户端自动更新
-                                //self.updateallAction();
-                            }else{
-                                self.emit('abc', {
-                                    message: '资源文件发布失败<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-shibai.png"/>'
-                                });
+                                return;
                             }
-                            //发布html文件
-                            var strw_ = self.http.data.html;
-                            var arrw_ = strw_.toString().substring(1,strw_.toString().length-1).split(',');
-                            if(arrw_.length == 1){// match一个目标的时候不用加 “{　}”
-                                strw_ = arrw_[0];
-                            }
+                            //self.emit('abc', {
+                            //    message: '推送文件：'+sendStrw
+                            //});
+                            //self.emit('abc', {
+                            //    message: '成功生成配置文件！'
+                            //});
+                            self.emit('abc', {
+                                message: '开始推送文件'
+                            });
+                            var grunt2w = child.spawn(file, winargs,{cwd:path.join(think.ROOT_PATH)}, {
+                                //env: process.env
+                            });
 
-                            var arr2w_ = '';
-                            for(var i=0; i<arrw_.length;i++){
-                                arr2w_ += '\"\.' + arrw_[i] + '\"'+ ',';
-                            }
-                            arr2w_ = arr2w_.substring(0,arr2w_.toString().length-1);
-                            //console.log(arr2w_);
-                            //console.log(strw_);
-                            var sendStrw_ = 'fis.media("rd").set("project.files",['+arr2w_+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw_+'", {deploy:fis.plugin("http-push", {receiver:"http://10.1.21.201:8999/receiver",to:"/usr/local/sugy/html"})});';
-                            //写入文件
-                            fs.writeFile('E:\\qikusvn\\trunk\\front-web\\WebContent\\fis-conf'+un+'.js', sendStrw_, function (err) {
-                                if (err) {
-                                    //console.log('Error', err);
+                            grunt2w.stdout.on('data', function (chunk) {
+                                //console.log('' + chunk);
+                                self.emit('abc', {
+                                    message: ansiHTML(('' + chunk).replace(/\r\n|\r|\n/img, '<br/>'))
+                                });
+                            });
+                            var isSuccess2w = 1;//1:发布成功 0：发布失败
+                            grunt2w.stderr.on('data', function (chunk) {
+                                //console.log('stderr--' + chunk);
+                                isSuccess2w = 0;
+                                self.emit('abc', {
+                                    message: '远端机器端口无法访问，发布失败'+chunk
+                                });
+                            });
+
+                            grunt2w.on('error', function (err) {
+                                //console.log('child process exited with error ' + err);
+                                self.emit('abc', {
+                                    message: 'child process exited with error ' + err
+                                });
+
+                            });
+                            grunt2w.on('close', function (code) {
+
+                                //console.log('child process exited with code ' + code,isSuccess2w);
+                                if(isSuccess2w){
                                     self.emit('abc', {
-                                        message: '成功配置文件出错！'
+                                        message: '资源文件发布成功<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-ok.png"/>'
                                     });
-                                    return;
+                                    //self.emit('result',self.http.data.id);
+                                    //通知所有客户端自动更新
+                                    //self.updateallAction();
+                                }else{
+                                    self.emit('abc', {
+                                        message: '资源文件发布失败<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-shibai.png"/>'
+                                    });
                                 }
+                                if(allflag){
+                                    pushhtml();
+                                }
+
+                            });
+
+                        });
+
+                    }
+
+                    function pushhtml(){
+                        //发布html文件
+                        var strw_ = self.http.data.html;
+                        var arrw_ = strw_.toString().substring(1,strw_.toString().length-1).split(',');
+                        if(arrw_.length == 1){// match一个目标的时候不用加 “{　}”
+                            strw_ = arrw_[0];
+                        }
+
+                        var arr2w_ = '';
+                        for(var i=0; i<arrw_.length;i++){
+                            arr2w_ += '\"\.' + arrw_[i] + '\"'+ ',';
+                        }
+                        arr2w_ = arr2w_.substring(0,arr2w_.toString().length-1);
+                        //console.log(arr2w_);
+                        //console.log(strw_);
+                        var sendStrw_ = 'fis.media("rd").set("project.files",['+arr2w_+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw_+'", {deploy:[fis.plugin("http-push", {receiver:"http://10.100.21.102:8999/receiver",to:"/usr/local/qikuweb"}),fis.plugin("http-push", {receiver:"http://10.100.7.19:8999/receiver",to:"/usr/local/qikuweb"})]});';
+                        //写入文件
+                        fs.writeFile(path.join(think.ROOT_PATH,'fis-conf'+un+'.js'), sendStrw_, function (err) {
+                            if (err) {
+                                //console.log('Error', err);
                                 self.emit('abc', {
-                                    message: '推送文件：'+sendStrw_
+                                    message: '成功配置文件出错！'
                                 });
-                                //self.emit('abc', {
-                                //    message: '成功生成配置文件！'
-                                //});
+                                return;
+                            }
+                            //self.emit('abc', {
+                            //    message: '推送文件：'+sendStrw_
+                            //});
+                            //self.emit('abc', {
+                            //    message: '成功生成配置文件！'
+                            //});
+                            self.emit('abc', {
+                                message: '开始推送文件'
+                            });
+                            var grunt2w_ = child.spawn(file, winargs,{cwd:path.join(think.ROOT_PATH)}, {
+                                //env: process.env
+                            });
+
+                            grunt2w_.stdout.on('data', function (chunk) {
+                                //console.log('' + chunk);
                                 self.emit('abc', {
-                                    message: '开始推送文件'
+                                    message: ansiHTML(('' + chunk).replace(/\r\n|\r|\n/img, '<br/>'))
                                 });
-                                var grunt2w_ = child.spawn(file, winargs, {
-                                    //env: process.env
+                            });
+                            var isSuccess2w_ = 1;//1:发布成功 0：发布失败
+                            grunt2w_.stderr.on('data', function (chunk) {
+                                //console.log('stderr--' + chunk);
+                                isSuccess2w_ = 0;
+                                self.emit('abc', {
+                                    message: '远端机器端口无法访问，发布失败'+chunk
                                 });
+                            });
 
-                                grunt2w_.stdout.on('data', function (chunk) {
-                                    //console.log('' + chunk);
-                                    self.emit('abc', {
-                                        message: ansiHTML(('' + chunk).replace(/\r\n|\r|\n/img, '<br/>'))
-                                    });
-                                });
-                                var isSuccess2w_ = 1;//1:发布成功 0：发布失败
-                                grunt2w_.stderr.on('data', function (chunk) {
-                                    //console.log('stderr--' + chunk);
-                                    isSuccess2w_ = 0;
-                                    self.emit('abc', {
-                                        message: '远端机器端口无法访问，发布失败'+chunk
-                                    });
-                                });
-
-                                grunt2w_.on('error', function (err) {
-                                    //console.log('child process exited with error ' + err);
-                                    self.emit('abc', {
-                                        message: 'child process exited with error ' + err
-                                    });
-
-                                });
-                                grunt2w_.on('close', function (code) {
-
-                                    //console.log('child process exited with code ' + code,isSuccess2w_);
-                                    if(isSuccess2w_){
-                                        self.emit('abc', {
-                                            message: 'html或jsp文件发布成功<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-ok.png"/>'
-                                        });
-                                        self.emit('result',{
-                                            id:self.http.data.id,
-                                            oldstatus:self.http.data.status,
-                                            status:'close27'
-                                        });
-                                        //通知所有客户端自动更新
-                                        self.updateallAction();
-                                    }else{
-                                        self.emit('abc', {
-                                            message: 'html文件发布失败<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-shibai.png"/>'
-                                        });
-                                    }
+                            grunt2w_.on('error', function (err) {
+                                //console.log('child process exited with error ' + err);
+                                self.emit('abc', {
+                                    message: 'child process exited with error ' + err
                                 });
 
                             });
+                            grunt2w_.on('close', function (code) {
+
+                                //console.log('child process exited with code ' + code,isSuccess2w_);
+                                if(isSuccess2w_){
+                                    self.emit('abc', {
+                                        message: 'html或jsp文件发布成功<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-ok.png"/>'
+                                    });
+                                    self.emit('result',{
+                                        id:self.http.data.id,
+                                        oldstatus:self.http.data.status,
+                                        status:'close27'
+                                    });
+                                    //通知所有客户端自动更新
+                                    self.updateallAction();
+                                }else{
+                                    self.emit('abc', {
+                                        message: 'html文件发布失败<img width="64" height="64" src="/static/admin/theme/assets/admin/pages/img/iconfont-shibai.png"/>'
+                                    });
+                                }
+                            });
+
                         });
 
-                    });
+
+                    }
+                    if(self.http.data.res && !self.http.data.html){
+                        pushres();
+                        return;
+                    }
+                    if(!self.http.data.res && self.http.data.html){
+                        pushhtml();
+                        return;
+                    }
+                    if(!self.http.data.res && !self.http.data.html){
+                        self.emit('abc', {
+                            message: '没有可发布的资源文件与html文件'
+                        });
+                        return;
+                    }
+                    if(self.http.data.res && self.http.data.html){
+                        allflag = 1;
+                        pushres();
+                        return;
+                    }
+
+
                 }else{//linux是先更新再发布文件
                     var allflag = 0;//1:html,res都要发，0：表示 非1
                     function pushres(){
@@ -747,10 +790,10 @@ export default class extends Base {
 
                         //var sendStr = 'fis.media("rd").set("project.files",['+arr2+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str+'", {deploy:fis.plugin("http-push", {receiver:"http://10.1.21.201:8999/receiver",to:"/usr/local/sugy/res"})});';
 
-                        var sendStr = 'fis.media("rd").set("project.files",['+arr2+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str+'", {deploy:[fis.plugin("http-push", {receiver:"http://10.1.21.27:8999/receiver",to:"/usr/local/resource"}),fis.plugin("local-deliver",{to:"/usr/local/src/WebContent_"})]});';
+                        var sendStr = 'fis.media("rd").set("project.files",['+arr2+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str+'", {deploy:[fis.plugin("local-deliver",{to:"'+path.join(think.ROOT_PATH)+'"}),fis.plugin("http-push", {receiver:"http://10.100.7.19:8999/receiver",to:"'+path.join(think.ROOT_PATH)+'"}),fis.plugin("local-deliver",{to:"/usr/local/src/qikuweb_"})]});';
                         //写入文件
 
-                        fs.writeFile('/usr/local/src/WebContent/fis-conf'+un+'.js', sendStr, function (err) {
+                        fs.writeFile('/usr/local/src/qikuweb/fis-conf'+un+'.js', sendStr, function (err) {
                             if (err) {
                                 //console.log('Error', err);
                                 self.emit('abc', {
@@ -767,7 +810,7 @@ export default class extends Base {
                             self.emit('abc', {
                                 message: '开始推送文件'
                             });
-                            var grunt2 = child.spawn(file, linuxargs, {
+                            var grunt2 = child.spawn(file, linuxargs,{cwd:linuxcwdpath}, {
                                 //env: process.env
                             });
 
@@ -842,9 +885,9 @@ export default class extends Base {
                         }
                         arr2__ = arr2__.substring(0,arr2__.toString().length-1);
 
-                        var sendStr__ = 'fis.media("rd").set("project.files",['+arr2__+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str__+'", {deploy:[fis.plugin("http-push", {receiver:"http://10.1.21.27:8999/receiver",to:"/opt/tomcat3/webapps/ROOT"}),fis.plugin("local-deliver",{to:"/opt/tomcat_grab/webapps/ROOT"}),fis.plugin("local-deliver",{to:"/usr/local/src/WebContent_"})]});';
+                        var sendStr__ = 'fis.media("rd").set("project.files",['+arr2__+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+str__+'", {deploy:[fis.plugin("local-deliver",{to:"'+path.join(think.ROOT_PATH)+'"}),fis.plugin("http-push", {receiver:"http://10.100.7.19:8999/receiver",to:"'+path.join(think.ROOT_PATH)+'"}),fis.plugin("local-deliver",{to:"/usr/local/src/qikuweb_"})]});';
                         //写入文件
-                        fs.writeFile('/usr/local/src/WebContent/fis-conf'+un+'.js', sendStr__, function (err) {
+                        fs.writeFile('/usr/local/src/qikuweb/fis-conf'+un+'.js', sendStr__, function (err) {
                             if (err) {
                                 //console.log('Error', err);
                                 self.emit('abc', {
@@ -861,7 +904,7 @@ export default class extends Base {
                             self.emit('abc', {
                                 message: '开始推送文件'
                             });
-                            var grunt2__ = child.spawn(file, linuxargs, {
+                            var grunt2__ = child.spawn(file, linuxargs,{cwd:linuxcwdpath}, {
                                 //env: process.env
                             });
 
@@ -955,12 +998,12 @@ export default class extends Base {
 
         var file='',
             args=[],
-            linuxargs=['-c','cd /usr/local/src/WebContent && fis3 release rd'],
-            winargs = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\WebContent && fis3 release rd'],
+            linuxargs=['-c','cd /usr/local/src/qikuweb && fis3 release rd'],
+            winargs = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\qikuweb && fis3 release rd'],
             options = {};
         if (process.platform === 'win32') {
             file = process.env.comspec || 'cmd.exe';
-            args = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\WebContent'];
+            args = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\qikuweb'];
 // Make a shallow copy before patching so we don't clobber the user's
 // options object.
             //options = util._extend({}, options);
@@ -968,7 +1011,7 @@ export default class extends Base {
         } else {
             file = '/bin/sh';
             //args = ['-c','ssh -l root 10.1.21.201 /bin/bash /usr/upload/start-tomcat.sh'];
-            args =  ['-c','cd /usr/local/src/WebContent && svn update']
+            args =  ['-c','cd /usr/local/src/qikuweb && svn update']
 
         }
         var ipArr = self.http.data.ipArr;
@@ -1305,8 +1348,8 @@ return;
 
         var file='',
             args=[],
-            linuxargs=['-c','cd /usr/local/src/WebContent && fis3 release rd'],
-            winargs = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\WebContent && fis3 release rd'],
+            linuxargs=['-c','cd /usr/local/src/qikuweb && fis3 release rd'],
+            winargs = ['/s', '/c', 'cd /d E:\\qikusvn\\trunk\\front-web\\qikuweb && fis3 release rd'],
             args2 = [],//打包fis-conf
             options = {};
         if (process.platform === 'win32') {
@@ -1317,7 +1360,7 @@ return;
 
         } else {
             file = '/bin/sh';
-            args = ['-c','cd /usr/local/src/WebContent && svn update'];
+            args = ['-c','cd /usr/local/src/qikuweb && svn update'];
             args2 = ['-c', 'cd /usr/local/qikucms/www/upload/'+filepath+ ' && fis release -Dompd publish'];
         }
 
@@ -1363,11 +1406,11 @@ return;
                         arr2w += '\"\.' + arrw[i] + '\"'+ ',';
                     }
                     arr2w = arr2w.substring(0,arr2w.toString().length-1);
-                    var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:[fis.plugin("tar", {filename: "WebContent.tar.gz"}),fis.plugin("local-deliver", {to: "E:/yulong/EC/web/qikucms/www/upload/'+filepath+'"})]});';
+                    var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:[fis.plugin("tar", {filename: "qikuweb.tar.gz"}),fis.plugin("local-deliver", {to: "E:/yulong/EC/web/qikucms/www/upload/'+filepath+'"})]});';
 
                     //var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:fis.plugin("local-deliver",{to:"E:/yulong/EC/web/qikucms/www/upload/'+filepath+'"})});';
                     //写入文件
-                    fs.writeFile('E:\\qikusvn\\trunk\\front-web\\WebContent\\fis-conf.js', sendStrw, function (err) {
+                    fs.writeFile('E:\\qikusvn\\trunk\\front-web\\qikuweb\\fis-conf.js', sendStrw, function (err) {
                         if (err) {
                             //console.log('Error', err);
 
@@ -1399,8 +1442,8 @@ return;
                             if(isSuccess2w){
                                 //上传成功后打包文件
 
-                                    //console.log('成功生成压缩文件',think.RESOURCE_PATH+'/upload/'+filepath+'/WebContent.tar.gz')
-                                    //self.download('/upload/'+filepath+'/WebContent.tar.gz');
+                                    //console.log('成功生成压缩文件',think.RESOURCE_PATH+'/upload/'+filepath+'/qikuweb.tar.gz')
+                                    //self.download('/upload/'+filepath+'/qikuweb.tar.gz');
                                     self.emit('downloadpath',{
                                         path:filepath,
                                         id:self.http.data.id
@@ -1428,9 +1471,9 @@ return;
                         arr2w += '\"\.' + arrw[i] + '\"'+ ',';
                     }
                     arr2w = arr2w.substring(0,arr2w.toString().length-1);
-                    var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:[fis.plugin("tar", {filename: "WebContent.tar.gz"}),fis.plugin("local-deliver", {to: "/usr/local/qikucms/www/upload/'+filepath+'"})]});';
+                    var sendStrw = 'fis.media("rd").set("project.files",['+arr2w+']).set("project.ignore", ["{node_modules}/**",".*","package.json","fis-conf.js","gulpfile.js"]).match("'+strw+'", {deploy:[fis.plugin("tar", {filename: "qikuweb.tar.gz"}),fis.plugin("local-deliver", {to: "/usr/local/qikucms/www/upload/'+filepath+'"})]});';
                     //写入文件
-                    fs.writeFile('/usr/local/src/WebContent/fis-conf.js', sendStrw, function (err) {
+                    fs.writeFile('/usr/local/src/qikuweb/fis-conf.js', sendStrw, function (err) {
                         if (err) {
                             //console.log('Error', err);
 
@@ -1461,8 +1504,8 @@ return;
                             //console.log('开始压缩打包文件 ' + code,isSuccess2w);
                             if(isSuccess2w){
                                 //上传成功后打包文件
-                                //console.log('成功生成压缩文件',think.RESOURCE_PATH+'/upload/'+filepath+'/WebContent.tar.gz')
-                                //self.download('/upload/'+filepath+'/WebContent.tar.gz');
+                                //console.log('成功生成压缩文件',think.RESOURCE_PATH+'/upload/'+filepath+'/qikuweb.tar.gz')
+                                //self.download('/upload/'+filepath+'/qikuweb.tar.gz');
                                 self.emit('downloadpath',{
                                     path:filepath,
                                     id:self.http.data.id
