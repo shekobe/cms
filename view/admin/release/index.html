@@ -1,0 +1,619 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+
+
+
+
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link href="/static/admin/theme/assets/global/css/loaders.css.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/admin/pages/css/timeline-old.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="/static/admin/theme/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="/static/admin/theme/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+<link href="/static/admin/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+<style>
+    .panel:hover{
+        border: 1px solid #3598dc;
+    }
+</style>
+
+
+
+{% endblock %}
+
+
+{% block container %}
+<div class="row" style="color:#000;margin-top: 5px;height: 445px;overflow: hidden;">
+
+
+
+
+
+    <div class="col-md-11 j_scrolllog portlet-body" style="margin-right:15px;padding-top:5px; overflow-y:scroll;height: 400px;">
+        <ul style="" class="timeline j_setlog">
+
+
+        </ul>
+    </div>
+    <div class="col-md-11" style="margin-bottom: 10px;">
+        <a class="btn default green j_showlog" style="float: right;" href="javascript:;">
+            更新showlog</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box">
+
+            <div class="portlet-body">
+
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="j_logresult" style="border: 1px solid #b03d7b;padding: 12px;">
+                            提示：点击上面圆圈选择要提交的文件
+                        </div>
+                        <p class="help-block">
+                            <input type="text" class="j_commitmsg" style="width: 400px;" placeholder="选填项  Commit Message"/>
+                        </p>
+
+                    </div>
+                    <div class="clearfix col-md-12" style="margin: 0px 0px 15px 0px;">
+                        <a class="btn default red j_submit" href="javascript:;">
+                            提交 </a>
+                        <!--<a class="btn default red j_submit" data-toggle="modal" href="#responsive">-->
+                        <!--提交 </a>-->
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="tab-content j_contentBox">
+
+
+                        </div>
+                    </div>
+                    <!-- responsive -->
+                    <div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">实时状态</h4>
+                        </div>
+                        <div class="modal-body" style="background-color: rgb(29, 29, 29);color: rgb(255, 255, 255);">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <ul style="height: 500px;margin: 0;overflow-y: scroll;padding: 10px 20px 10px 20px;" class="messages">
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li>
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li>
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li>
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li>
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li>
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li><li class="message">
+                                        <span class="messageBody">sdfsdfds</span>
+                                    </li><li class="message">
+                                        <span class="messageBody">sdfsdfds</span>
+                                    </li><li class="message">
+                                        <span class="messageBody">sdfsdfds</span>
+                                    </li>
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li>
+
+
+
+                                        <li class="message">
+                                            <span class="messageBody">sdfsdfds</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                            <!--<button type="button" class="btn blue">Save changes</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/theme/assets/admin/layout/scripts/socket.io.js"></script>
+<script src="/static/admin/theme/assets/admin/layout/scripts/template.js"></script>
+<!-- END CONTAINER -->
+<script id="showlist" type="text/html">
+    {{each data as value i}}
+    <li class="timeline-green">
+        <div class="timeline-time">
+								<span class="date">
+									 {{value.date | dateFormat}}
+							</span>
+								<span class="time">
+								{{value.date | dateFormat2}} </span>
+        </div>
+        <div class="timeline-icon">
+            <a style="margin-bottom: 3px;display: none;" class="btn btn-circle btn-icon-only green" href="javascript:;">
+
+            </a>
+        </div>
+        <div class="timeline-body" style="padding: 0;">
+            <div id="tab_{{i}}" class="tab-pane active">
+                <div id="accordion{{i}}" class="panel-group">
+
+                    <div class="panel panel-default"  >
+
+
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion{{i}}" href="#accordion1_{{i}}">
+                            <h4 class="panel-title" style="margin-bottom:5px;">
+                                <a style="color:#ff0000" class="accordion-toggle collapsed" aria-expanded="false">
+                                    {{value.author}}
+
+                                </a>
+                                <span style="float: right">{{value.revision}}</span>
+                            </h4>
+                            <div>
+                                <a style="color:#000" class="accordion-toggle collapsed j_msg" aria-expanded="false">
+                                    {{value.message}}
+
+                                </a>
+                            </div>
+
+                        </div>
+                        <div id="accordion1_{{i}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                            <div style="color:#000" class="panel-body j_pathout">
+                                {{each value.changes as abc j}}
+                                <div class="j_path" data-value="{{abc.path}}">
+                                    {{if abc.status == 'A'}}
+
+                                    <span class="badge badge-success j_fcount">{{abc.status}}</span>
+                                    {{/if}}
+                                    {{if abc.status == 'M'}}
+
+                                    <span class="badge badge-info j_fcount">{{abc.status}}</span>
+                                    {{/if}}
+                                    {{if abc.status == 'D'}}
+
+                                    <span class="badge badge-danger j_fcount">{{abc.status}}</span>
+                                    {{/if}}
+                                    <span class="path">{{abc.path}}</span>
+                                </div>
+                                {{/each}}
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </li>
+    {{/each}}
+</script>
+<script id="userlist" type="text/html">
+
+    {{each data as value i}}
+    <div id="tabb_{{i}}" class="tab-pane active">
+        <div id="accordionb{{i}}" class="panel-group">
+            {{if value.status == 'close'}}
+            <div class="panel panel-success">
+                {{else if value.status == 'close27'}}
+                <div class="panel panel-danger">
+                    {{else if value.status == 'open'}}
+                    <div class="panel panel-default">
+                        {{/if}}
+
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordionb{{i}}" href="#accordion1b_{{i}}" aria-expanded="false">
+                            <h4 style="width: 800px;color: #000;" class="panel-title">
+                                {{i+1}}、{{value.msg}}
+                                <div style="float: right">
+                                    {{if value.status == 'open'}}
+                                    <a class="j_del btn default red" data-id="{{value._id}}">删除</a>
+                                    {{/if}}
+                                    <a class="j_download btn default blue" id="{{value._id}}" data-id="{{value._id}}" data-con="{{value.con}}">
+                                        <!--<img height="15" src="/static/theme/assets/admin/layout/img/loadingbg.gif">-->
+                                        下载压缩包
+                                    </a>
+                                </div>
+                            </h4>
+
+                            <div>
+								<span style="color:#26a69a">
+									{{value.data}}，
+									{{if value.operator}}
+									{{value.operator}}
+									{{/if}}
+
+								   {{if value.status == 'open'}}
+									未处理
+									{{else if value.status == 'close'}}
+									已发布到生产环境
+									{{else if value.status == 'close27'}}
+									已发布到测试环境
+									{{/if}}
+
+								</span>
+                            </div>
+                        </div>
+                        <div id="accordion1b_{{i}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body" style="overflow: hidden;">{{value.con | dateFormatCon}}</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {{/each}}
+
+</script>
+
+<style>
+    .timeline-icon:hover{
+        cursor: pointer;
+    }
+</style>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+    jQuery.ajaxSetup({
+        data: {
+            qktoken: $('input[name="qktoken"]').val()
+        }
+    });
+    jQuery(document).ready(function() {
+//				// initiate layout and plugins
+//				Metronic.init(); // init metronic core components
+//				Layout.init(); // init current layout
+//				QuickSidebar.init(); // init quick sidebar
+//				Demo.init(); // init demo features  // set current page
+//				ComponentsKnobDials.init();
+        template.helper('dateFormat', function (dateTime,from) {
+
+            var oldStr = new Date(dateTime);
+            var arr = [oldStr.getFullYear(),oldStr.getMonth()+1,oldStr.getDate()];
+            arr[1] = parseInt(arr[1]) < 10 ? '0'+arr[1] : arr[1];
+            var weekArray = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+            var week_i = new Date(arr[0]+'/'+arr[1]+'/'+arr[2]).getDay();
+            var week = weekArray[week_i];
+            return arr[0]+'/'+arr[1]+'/'+arr[2]+' '+week;
+
+        });
+        template.helper('dateFormat2', function (dateTime,from) {
+
+
+            var oldStr = new Date(dateTime);
+
+            return oldStr.getHours()+':'+oldStr.getMinutes();
+
+
+        });
+        template.helper('dateFormatCon', function (str,from) {
+
+            var str = str.substring(1,str.length-1);
+            var arr = str.split(',');
+            var str2 = '';
+            for(var i=0;i<arr.length;i++){
+                str2 +='<div class="path">'+arr[i]+'</div>';
+            }
+            return str2;
+
+
+        });
+        //UIExtendedModals.init();
+
+        // Initialize varibles
+        var $window = $(window);
+        var $messages = $('.messages'); // Messages area
+        var socket = io();
+        function checklogin(){
+            if(sesisonObj.username){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+        if(!checklogin()){
+           // window.location.reload();
+            //location.href = '/admin/login/logout';
+            return;
+        }
+        initData();
+        function initData(){//getuserbyname
+            $.ajax({
+                url:'/admin/user/getuserbyname2',
+                type:'POST',
+
+                cache: false,
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        window.console && console.log('init get data',response);
+                        if(response.errno == 0){//返回数据正常
+                            window.console && console.log('do updateall');
+                            socket.emit('updateall', {
+                                user: sesisonObj.username
+                            });
+                            var str = template('userlist',response);
+                            $('.j_contentBox').html(str);
+                            $('.j_textarea').val('');
+
+                        }else{
+
+                        }
+
+                    }else{
+                        window.console && console.log('error',xhr, textStatus);
+                    }
+                }
+            });
+
+        }
+        //删除数据
+        $(document).on('click','.j_del',function (e) {
+            e.stopPropagation();
+            if(!checklogin()){
+                window.location.reload();
+                return;
+            }
+            var id = $(this).attr('data-id');
+            window.console && console.log('del',id);
+            $.ajax({
+                url:'/admin/user/deldata',
+                type:'POST',
+                data:{
+                    id:id
+                },
+                cache: false,
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        window.console && console.log('res',response);
+                        if(response.errno == 0){//返回数据正常
+                            initData();
+
+                        }else{
+
+                        }
+
+                    }else{
+                        window.console && console.log('error',xhr, textStatus);
+                    }
+                }
+            });
+
+        });
+
+        //下载数据j_download    /admin/user/download
+        var cflag = true;
+        $(document).on('click','.j_download',function (e) {
+            if(!checklogin()){
+                window.location.reload();
+                return;
+            }
+            if(!cflag){
+                return;
+            }
+            cflag = false;
+            e.stopPropagation();
+            var t = $(this);
+            var str =$.trim(t.attr('data-con'));
+
+
+            window.console && console.log('str',str);
+            //return;
+            t.html('<div class="loader" style="height: 20px;overflow: hidden;width: 70px;"><div class="loader-inner pacman"><div></div><div></div><div></div><div></div><div></div></div></div>');
+            //t.html('<img height="15" width="56" src="/static/theme/assets/admin/layout/img/loadingbg.gif">');
+            setTimeout(function(){
+                socket.emit('downloadlist',{
+                    id:t.attr('data-id'),
+                    dom:t,
+                    str: t.attr('data-con')
+                });
+
+            },300);
+
+        });
+        //提交数据
+        $('.j_submit').on('click',function () {
+//					var str =$.trim($('.j_textarea').val());
+//					if(!str){
+//						return;
+//					}
+            if(!checklogin()){
+                window.location.reload();
+                return;
+            }
+            var str = '';
+            var re=/[\u0391-\uFFE5]+/g;
+            $('.j_logresult').find('span.path').each(function(){
+                var str2 = $(this).html();
+                //过滤带有中文的文件
+                if(!re.test(str2)){
+                    str +=str2+',';
+                }
+
+            });
+
+            //str = str.replace(/|/g,",");
+            str = str.replace(/\\ec-b2c\\3\.development\\trunk\\front-web\\qikuweb/g,"").replace(/\\/g,'/');
+
+
+            str = str.substring(0,str.length-1);
+            window.console && console.log('str',str);
+            if(!str){
+                return;
+            }
+            str = "{" +str+ "}";
+
+            $.ajax({
+                url:'/admin/user/addlist2',
+                type:'POST',
+                data:{
+                    str:str,
+                    msg:$('.j_commitmsg').val(),
+                    username:sesisonObj.username || $('.j_username').html()
+                },
+                cache: false,
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        window.console && console.log('res',response);
+                        if(response.errno == 0){//返回数据正常
+                            toastr.success('OK');
+                            initData();
+                            initshowlog();
+                        }else{
+                            toastr.error('提交失败');
+                        }
+
+                    }else{
+                        window.console && console.log('error',xhr, textStatus);
+                    }
+                }
+            });
+
+        });
+        //点击圆圈添加svn列表
+        $('.j_scrolllog').on('click','.timeline-icon',function(){
+            var t = $(this);
+            if(t.find('a').is(':visible')){
+                t.find('a').hide();
+                t.closest('li.timeline-green').removeClass('selected');
+            }else{
+                t.find('a').show();
+                t.closest('li.timeline-green').addClass('selected');
+            }
+            setpath();
+        });
+        //setpath
+        function setpath(){
+            var str = '';
+            $('.j_setlog').find('li.selected').each(function(i){
+                window.console && console.log('i',i);
+                str +=$(this).find('.j_pathout').html();
+            });
+            $('.j_commitmsg').val($.trim($('.j_setlog').find('li.selected').eq(0).find('.j_msg').html()));
+            $('.j_logresult').html(str);
+        }
+        //delapth
+        //showlog
+        initshowlog();
+        function initshowlog(){
+            window.console && console.log('initshowlog');
+            $.ajax({
+                url:'/admin/user/showlog',
+                type:'POST',
+                data:{
+                    page:60
+
+                },
+                cache: false,
+                complete:function(xhr, textStatus){
+
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        window.console && console.log('get showlog',response);
+                        if(response.errno == 0){//返回数据正常
+
+                            var str = template('showlist',response);
+                            $('.j_setlog').html(str);
+                            $('.j_scrolllog')[0].scrollTop = 0;
+                            $('.j_logresult').html('提示：点击上面圆圈选择要提交的文件');
+//									$('body,html').animate({scrollTop:0},1000);
+                        }else{
+
+                        }
+
+                    }else{
+                        window.console && console.log('get showlog error',xhr, textStatus);
+                    }
+                }
+            });
+            window.console && console.log('endinitshowlog');
+        }
+        $('.j_showlog').on('click',function () {
+            initshowlog();
+
+        });
+        //保存svn路径
+        $('.j_savesvn').on('click',function () {
+            var str =$.trim($('.j_svnul').val());
+            if(!str){
+                return;
+            }
+
+            window.console && console.log('str',str);
+            $.ajax({
+                url:'/admin/user/updatasvnurl',
+                type:'POST',
+                data:{
+                    str:str,
+                    username:sesisonObj.username || $('.j_username').html()
+                },
+                cache: false,
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success' && xhr.status == '200'){
+                        var response = eval("("+xhr.responseText+")");
+                        window.console && console.log('res',response);
+                        if(response.errno == 0){//返回数据正常
+                            initData();
+
+                        }else{
+
+                        }
+
+                    }else{
+                        window.console && console.log('error',xhr, textStatus);
+                    }
+                }
+            });
+
+        });
+
+//
+        socket.on('downloadpath', function (data) {
+
+            window.console && console.log('downloadpath',data.path);
+            var obj = $('#'+data.id);
+            obj.html('下载压缩包');
+            //obj.hide();
+            //obj.siblings('a.j_dd').addClass('btn blue').attr('href','/admin/user/download?name='+data.path).html('点击下载');
+            cflag = true;
+            location.href = '/admin/user/download?name='+data.path;
+            //obj.siblings('a.j_dd').trigger('click');
+
+        });
+
+
+    });
+</script>
+{% endblock %}
+
