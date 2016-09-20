@@ -67,7 +67,7 @@ import QueueFun from 'queue-fun';
 import crypto from 'crypto';
 import redis from 'redis';
 
-import ioredis_config from "../../rush/config/ioredis.js";
+//import ioredis_config from "../../rush/config/ioredis.js";
 
 let client = '';
 //if(think.env == 'development'){

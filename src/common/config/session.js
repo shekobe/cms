@@ -5,9 +5,9 @@
  */
 export default {
   name: 'qkToken',
-  type: 'memory',//
+  type: 'file',//
   secret: 'GTBHR2NL',
-  timeout: 24 * 3600,
+  timeout: 3600 * 2,
   cookie: { // cookie options
     length: 32,
     httponly: true

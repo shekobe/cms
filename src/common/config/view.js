@@ -24,6 +24,9 @@ export default {
          * 格式化时间  date :时间戳  formate 格式
          */
         env.addFilter("format_time", function (date, format) {
+            if(!date){
+                return '';
+            }
             if(typeof date ==='string' && /!(:+-)/g.test(date)) date = parseInt(date);
               date = new Date(date);
               var map = {
@@ -54,9 +57,9 @@ export default {
         /**
          * 格式化详情页导航
          */
-        env.addFilter("format_article_detail_nav", function (nav, sec) {
-           //nav = nav ? nav : '';
-            return nav.replace(/\//g,'/');
+        env.addFilter("format_random", function (nav, sec) {
+
+            return new Date().getTime()+'_'+Math.random();
         })
 
       }

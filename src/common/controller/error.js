@@ -21,18 +21,14 @@ export default class extends think.controller.base {
             return this.fail(status, message);
         }
 
-        let module = 'common';
+        let module = this.http.module;// 'common';
         if (think.mode !== think.mode_module) {
             module = this.config('default_module');
         }
         let file = `${module}/error/${status}.html`;
         let options = this.config('tpl');
-        let tpltype = {};
-         if(think.env == 'development'){//开发错误页面
-             tpltype = {type: 'ejs', file_depr: '_'};
-         }else{
-            tpltype = {type: 'ejs', file_depr: '/'};
-         }
+        let tpltype = {type: 'ejs', file_depr: '/'};
+
         options = think.extend({}, options, tpltype);
         
         return this.display(file, options);
