@@ -198,9 +198,12 @@ export default class extends Base {
      *
      */
     async getuserbyname2Action(self){
-         let userinfoToken = await self.cookie('qkToken');//获取touken
+        // let userinfoToken = await self.cookie('qkToken');//获取touken
         // console.log('getuserbyname2Action',self.cookie("user"))
-        await self.modelInstance_svnlogs.getData(userinfoToken.username,function(o){
+        //await self.modelInstance_svnlogs.getData(userinfoToken.username,function(o){
+        //    self.success(o);
+        //});
+        await self.modelInstance_svnlogs.getData2(function(o){
             self.success(o);
         });
     }
@@ -294,14 +297,14 @@ export default class extends Base {
         var session = self.http.param('session');
         await self.modelInstance.updatedatarole({id:self.http.param('id'),roles:self.http.param('roles')},function(o){
             if(o){//更新用户session
-                self.session("userinfo",{"username": session.username,
-                    "pass": session.pass,
-                    "styleName": session.styleName,
-                    "leftpos": session.leftpos,
-                    "power": session.power,
-                    "date": session.date,
-                    "roles":self.http.param('roles')
-                });
+                //self.session("userinfo",{"username": session.username,
+                //    "pass": session.pass,
+                //    "styleName": session.styleName,
+                //    "leftpos": session.leftpos,
+                //    "power": session.power,
+                //    "date": session.date,
+                //    "roles":self.http.param('roles')
+                //});
             }
             self.success(o);
         });

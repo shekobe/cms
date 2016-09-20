@@ -39,7 +39,7 @@ export default class extends think.model.mongo{
             updatetime:{//更新时间
                 type:"string"
             },
-            order:{//排序
+            order_:{//排序
                 type:"string"
             }
             ,
@@ -63,6 +63,10 @@ export default class extends think.model.mongo{
                 type:"string"
             }
 
+        }
+        //配置索引
+        this.indexes = {
+            title: 1
         }
     }
     /**
@@ -95,7 +99,7 @@ export default class extends think.model.mongo{
         if(categoryids.length){
             if(search){
                 let queryReg = new RegExp(".*"+search+'.*');
-                query = {categoryid: {"$in":categoryids},$or: [{pageName:queryReg}, {path:queryReg}]};
+                query = {categoryid: {"$in":categoryids},$or: [{title:queryReg}, {keywords:queryReg}]};
             }else{
                 query = {categoryid: {"$in":categoryids}};
             }
@@ -103,7 +107,7 @@ export default class extends think.model.mongo{
         }else{
             if(search){
                 let queryReg = new RegExp(".*"+search+'.*');
-                query = {$or: [{pageName:queryReg}, {path:queryReg}]};
+                query = {$or: [{title:queryReg}, {keywords:queryReg}]};
             }else{
                 query = {};
             }
@@ -125,7 +129,7 @@ export default class extends think.model.mongo{
         let obj = {};
         obj.status = status;
         obj.updateby = updateby;
-        obj.updatetime = moment().format();
+        //obj.updatetime = moment().format();
         let res = await this.where({_id: {"$in":ids}}).update(obj);
         return res;
     }
@@ -139,10 +143,10 @@ export default class extends think.model.mongo{
             thumb:obj.thumb,
             description:obj.description,
             url:obj.url,
-            status:1,
-            order:obj.order,
+            status:0,
+            order_:obj.order,
             author:obj.author,
-            createtime:moment().format(),
+            createtime:obj.createtime || moment().format("YYYY-MM-DD hh:mm:ss"),
             updatetime:moment().format(),
             categoryid:obj.categoryid,
             keywords:obj.keywords,
@@ -168,8 +172,9 @@ export default class extends think.model.mongo{
             url:obj.url,
             status:obj.status,
             updatetime:moment().format(),
+            createtime:obj.createtime,
             updateby:obj.updateby,
-            order:obj.order,
+            order_:obj.order,
             author:obj.author,
             categoryid:obj.categoryid,
             contents:obj.contents,

@@ -49,7 +49,7 @@ export default class extends think.controller.base {
       
       await this.usersmodel.manualLogin(username,password,function(msg,obj){
         if(msg){//错误
-          return self.fail(1001,'login error。'+msg);
+          return self.fail(1001,msg);
         }else{
           self.session("userinfo",{"username": obj.username,
                             "pass": obj.pass,

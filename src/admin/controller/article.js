@@ -7,7 +7,11 @@ import Base from './base.js';
 import fs from 'fs';
 import mongodb from 'mongodb';
 import path from 'path';
+import Ssh2 from 'ssh2';
 import moment from 'moment';
+import SshPool from 'ssh-pool';
+import child from 'child_process';
+let Client = Ssh2.Client;
 export default class extends Base {
     init(http) {
         super.init(http);
@@ -36,11 +40,84 @@ export default class extends Base {
         return self.display(path.join(think.ROOT_PATH,'view/home/news/index.html'));
     }
 
+    //更新热门文章
+    async updatehostlistAction(self){
+        let qktoken = 'qiku123456';
+        //    post请求
+        let con = 'curl -G -d "qktoken='+qktoken+ '\"'+' http://localhost/home/news/updatehostlist';
+        self.sshexec(con,function(flag){
+             if(flag){
+                 self.success('更新成功！');
+             }else{
+                 self.fail('更新失败！');
+             }
+        });
+
+
+    }
+
+    async sshexec(_str,call){
+        //标记当前时间
+        var time = new Date().getTime();
+        let ip = this.http.hostname;
+        console.log('sshexec ip',ip);
+        var pool = new SshPool.ConnectionPool(['root@'+ip,'root@10.100.7.64']);
+        try{
+
+            pool.run(_str)
+                .then(function (results) {
+                    for(var jj=0;jj<results.length;jj++){
+                        if(results[jj].stderr){
+                            console.log(':error'+results[jj].stderr);
+
+                        }
+                        if(results[jj].stdout){
+                            console.log(':ok'+results[jj].stdout);
+                            let res = JSON.parse(results[jj].stdout);
+                            if(res.errno == '0'){
+                                //return call(1);
+                            }else{
+                               // return call(0);
+                            }
+
+                        }
+
+                    }
+                    var time1 = new Date().getTime() - time;
+                    console.log(results.length+'台远程服务器成功接收命令！用时：'+time1/1000+'s');
+                    return call(1);
+
+                });
+        }
+        catch(e){
+            console.log('new sshPool.ConnectionPool error:'+e);
+        }
+    }
+
+    //更新单个文章详情，同时会更新文章所在列表等相关缓存 todo
+    async updatenewslistAction(self){
+        let cateid = self.http.param('categoryid');
+        let qktoken = 'qiku123456';
+        let articleid = self.http.param('articleid');
+        let pagenum = self.http.param('pagenum');
+        var con = 'curl -G -d "categoryid='+cateid+'&articleid='+articleid+'&pagenum='+pagenum+'&qktoken='+qktoken+ '\"'+' http://localhost/home/news/updatenewslist';
+        self.sshexec(con,function(flag){
+            if(flag){
+                self.success('更新成功！');
+            }else{
+                self.fail('更新失败！');
+            }
+        });
+    }
+
+
+
+
     /*显示详情页或修改内容*/
     async detailAction(self) {
         let id = self.http.param("articleid") || '';
         let categoryid = self.http.param("categoryid") || '';
-        let data =  {"url":'',"description":'',"keywords":'',"_id": '',"contents":"",'title':"","thumb":"",'images':'',"categoryid":'',status:'',order:'',"author":''};
+        let data =  {"url":'',"description":'',"keywords":'',"_id": '',"contents":"",'title':"","thumb":"",'images':'',"categoryid":'',status:'',order_:'',"author":'',createtime:''};
         if(id){//修改
             data = await this._model.where({_id:id}).find();
             if(data.categoryid){
@@ -168,6 +245,36 @@ export default class extends Base {
         self.success(result);
     }
 
+    /*两类热门新闻列表*/
+    async gethostlist(){
+        //获取排序靠前的两种类型文章
+        let hostlist1 = {};
+        let hostlist2 = {};
+        let cateObjList = await this.model('category').page(1,2).order('order_ DESC').select();
+        let cateid1 = cateObjList[0].id || '';
+        hostlist1.cateid = cateid1 || '';
+        hostlist1.title = cateObjList[0].name || '';
+        if(cateid1){
+            let artObjList1 = await this._model.getList(1, 4,[cateid1],'','order_ DESC') || null;
+            //console.log('artObjList1',artObjList1);
+            hostlist1.data = artObjList1.data;
+        }
+        let cateid2 = cateObjList[1].id || '';
+        hostlist2.cateid = cateid2 || '';
+        hostlist2.title = cateObjList[1].name || '';
+        if(cateid2){
+            let artObjList2 = await this._model.getList(1, 4,[cateid2],'','order_ DESC') || null;
+            //console.log('artObjList2',artObjList2);
+            hostlist2.data = artObjList2.data;
+        }
+        //console.log('hostlist2',hostlist2);
+        return {
+            hot1:hostlist1,
+            hot2:hostlist2
+        }
+
+    }
+
 
     /** 文章详情页预览 **/
     async previewAction(self){//
@@ -180,7 +287,8 @@ export default class extends Base {
         let cateObj =  await self.getarticleidlist(cate_id);
         tmplObj.nav = cateObj.nav || '';
         //获取热门文章列表
-        let articleList = await self._model.getList(1, 6,'','','createtime DESC');
+        let hot  = await self.gethostlist();
+
 
         //获取上一条下一条
         //上一条DESC ABS
@@ -188,7 +296,8 @@ export default class extends Base {
             {
                 createtime: {
                     '$lt': tmplObj.createtime
-                }
+                },
+                categoryid:cate_id,
             }).order('createtime DESC').find();
 
         //下一条
@@ -196,14 +305,17 @@ export default class extends Base {
             {
                 createtime: {
                     '$gt': tmplObj.createtime
-                }
+                },
+                categoryid:cate_id,
             }).order('createtime ABS').find();
 
 
         self.assign({
+            "hostobjlist1":hot.hot1,
+            "hostobjlist2":hot.hot2,
             "articleObj":tmplObj
             ,"preObj": preObj,"nextObj": nextObj,
-        "articleListObj": articleList.data,"title": tmplObj.title,"keywords":tmplObj.keywords,"description":tmplObj.description});
+        "title": tmplObj.title,"keywords":tmplObj.keywords,"description":tmplObj.description});
         return self.display(path.join(think.ROOT_PATH,'view/home/news/detail.html'));
     }
 
@@ -233,7 +345,7 @@ export default class extends Base {
                 updateby:self.http.param('updateby'),
                 keywords:self.http.param('keywords'),
                 description:self.http.param('description'),
-
+                createtime:self.http.param('createtime'),
                 url:self.http.param('url'),
                 status:self.http.param('status'),
                 order:self.http.param('order'),
@@ -262,6 +374,7 @@ export default class extends Base {
             keywords:self.http.param('keywords'),
             description:self.http.param('description'),
             url:self.http.param('url'),
+            createtime:self.http.param('createtime'),
             status:self.http.param('status'),
             order:self.http.param('order'),
             author:self.http.param('author'),

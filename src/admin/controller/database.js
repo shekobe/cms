@@ -36,7 +36,7 @@ export default class extends Base {
         var datastr = Moment().format('YYYYMMDDhhmmss');
       await conn1.on('ready', function() {
             //console.log('FIRST :: connection ready');
-            conn1.exec('/usr/local/mongodb/bin/mongodump -h 10.100.7.18 -d qiku -o /app/mongodb/database_'+datastr+' -u qiku -p 123456', function(err, stream) {
+            conn1.exec('/usr/local/mongodb/bin/mongodump -h 10.100.7.64:28001 -d qiku -o /app/mongodb/database_'+datastr, function(err, stream) {
                 if (err) {
                     self.fail(err);
                     console.log('FIRST :: exec error: ' + err);
@@ -52,7 +52,7 @@ export default class extends Base {
 
             });
         }).connect({
-            host: '10.100.7.18',
+            host: '10.100.7.64',
             username: 'root',
             password: '360qiku@qkcorpec'
         });

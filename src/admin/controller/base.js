@@ -11,7 +11,7 @@ export default class extends think.controller.base {
     async __before() {
         //初始化
         this.assign({"name": "default", "username": "logo"});
-        let token = await this.session("qkToken");
+        let token = await this.session("qkToken") || "";
         this.assign({"qktoken": token});
         //checklogin and user premission
         let auth = await this.checkauth();
@@ -76,7 +76,7 @@ export default class extends think.controller.base {
         var flag = false;
         var pathname = '/'+this.http.module+'/'+this.http.controller;
 
-        if(pathname == '/admin/index' || pathname == '/admin/ueditor'){
+        if(({"/admin/index":1,"/admin/ueditor":1,'/admin/socket':1})[pathname]){
             flag = true;
         }else{
             pathname = pathname + (({"preview":1,"previewhome":1,'previewdefault':1,'index':1,'detail':1})[this.http.action] ? '' : '/'+this.http.action);

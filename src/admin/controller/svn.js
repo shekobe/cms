@@ -183,7 +183,7 @@ svn.getInfo = function (callback, revision) {
 svn.log = function (path, limit, callback) {
     var _this = this;
 
-    return this.run('svn', ['log', 'https://10.100.13.10/svn/EC/ec-b2c/3.development/trunk/front-web/WebContent', '-v', '-l', limit || 25, '-r', 'HEAD:1', '--incremental'], function (err, text) {
+    return this.run('svn', ['log', 'https://10.100.13.10/svn/EC/ec-b2c/3.development/trunk/front-web/qikuweb', '-v', '-l', limit || 25, '-r', 'HEAD:1', '--incremental'], function (err, text) {
         if (!err) {
             callback(null, _this._parseLog(text));
         } else {

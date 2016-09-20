@@ -1,7 +1,7 @@
-'use strict';
+ï»¿'use strict';
 
 /**
- * ºóÌ¨ÏµÍ³ÓÃ»§±íÒµÎñÂß¼­
+ * åå°ç³»ç»Ÿç”¨æˆ·è¡¨ä¸šåŠ¡é€»è¾‘
  *
  */
 
@@ -14,11 +14,10 @@ export default class extends Base {
         this._model = this.model('category');
     }
     /**
-     * Èë¿ÚÅĞ¶Ï
+     * å…¥å£åˆ¤æ–­
      *
      */
     async indexAction(self) {
-
         //self.http.redirect("/admin/menu/index");
         return self.display();
 
@@ -26,7 +25,7 @@ export default class extends Base {
     }
 
     /**
-     * Í¨¹ıÓÃ»§Ãû»ñÈ¡ÓÃ»§ĞÅÏ¢
+     * é€šè¿‡ç”¨æˆ·åè·å–ç”¨æˆ·ä¿¡æ¯
      *
      */
     async getlistAction(self){
@@ -36,7 +35,7 @@ export default class extends Base {
     }
 
     /**
-     * Í¨¹ıroleid»ñÈ¡ÓÃ»§ĞÅÏ¢
+     * é€šè¿‡roleidè·å–ç”¨æˆ·ä¿¡æ¯
      *
      */
     async getlistbyidAction(self){
@@ -48,7 +47,7 @@ export default class extends Base {
     }
 
     /**
-     * Í¨¹ıidÉ¾³ısvnÈÕÖ¾±í
+     * é€šè¿‡idåˆ é™¤svnæ—¥å¿—è¡¨
      *
      */
     async deldataAction(self){
@@ -59,7 +58,7 @@ export default class extends Base {
         });
     }
     /**
-     * Í¨»ñÈ¡svnlogsĞÅÏ¢
+     * é€šè·å–svnlogsä¿¡æ¯
      *
      */
     async addlistAction(self) {
@@ -82,7 +81,7 @@ export default class extends Base {
 
 
     /**
-     * ¸üĞÂsvnlogs±í
+     * æ›´æ–°svnlogsè¡¨
      *
      */
     async updatedataAction(self){
@@ -97,20 +96,20 @@ export default class extends Base {
             children_dd:self.http.param('children_d'),
             icon:self.http.param('icon'),
             description:self.http.param('description'),
-            order:self.http.param('order'),
+            order_:self.http.param('order'),
             status:self.http.param('status')
         },function(o){
             //if (o != null) {
             //    self.success(o)
             //} else {
-            //    self.fail(1000, "connect error"); //Ö¸¶¨´íÎóºÅºÍ´íÎóĞÅÏ¢
+            //    self.fail(1000, "connect error"); //æŒ‡å®šé”™è¯¯å·å’Œé”™è¯¯ä¿¡æ¯
             //}
             self.success(o);
         });
     }
 
     /**
-     * ¸üĞÂsvnlogs±í
+     * æ›´æ–°svnlogsè¡¨
      *
      */
     async updatedatatextAction(self){
@@ -125,7 +124,7 @@ export default class extends Base {
             //if (o != null) {
             //    self.success(o)
             //} else {
-            //    self.fail(1000, "connect error"); //Ö¸¶¨´íÎóºÅºÍ´íÎóĞÅÏ¢
+            //    self.fail(1000, "connect error"); //æŒ‡å®šé”™è¯¯å·å’Œé”™è¯¯ä¿¡æ¯
             //}
             self.success(o);
         });

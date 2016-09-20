@@ -1,6 +1,6 @@
 'use strict';
 /**
- * ´¦ÀíusersÓÃ»§±íµÄ¸÷ÖÖ²Ù×÷
+ * ï¿½ï¿½ï¿½ï¿½usersï¿½Ã»ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ö²ï¿½ï¿½ï¿½
  *
  */
 
@@ -10,7 +10,7 @@ import crypto from 'crypto';
 export default class extends think.model.mongo{
     init(...args){
         super.init(...args);
-        //ÉèÖÃ×Ö¶Î
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½
         this.fields = {
             username: {
                 type: "string"
@@ -44,7 +44,7 @@ export default class extends think.model.mongo{
         }
     }
     /**
-     * »ñÈ¡ÓÃ»§ĞÅÏ¢
+     * ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
      *
      */
     async getAccountByName(name,callback){
@@ -56,7 +56,7 @@ export default class extends think.model.mongo{
         }
     }
     /**
-     * »ñÈ¡ÓÃ»§ÁĞ±í
+     * ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½Ğ±ï¿½
     */
     async getUserList(callback){
         let res = await this.select();
@@ -64,7 +64,7 @@ export default class extends think.model.mongo{
 
     }
     /**
-     * Ìí¼ÓÓÃ»§
+     * ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
      *
      */
     async addUser(obj,callback){
@@ -89,8 +89,40 @@ export default class extends think.model.mongo{
             callback(re);
         }
     }
+
+    //æ›´æ–°å¯†ç 
+    async updatepassword(user,oldpass,newpass){
+        let self = this;
+        let nps = '';
+        let flag = 0;
+        let obj = await this.where({username:user}).find();
+        if(!think.isEmpty(obj)){
+            validatePassword(oldpass, obj.pass, function(err, res) {
+                if (res){
+                    flag = 1;
+
+                }
+            });
+            console.log('flag',flag);
+            if(flag){
+                saltAndHash(newpass, function(hash){
+                    nps = hash;
+
+                });
+                let res =  await self.where({username:user}).update({pass:nps});
+                return res;
+            }else{
+                return 'error'
+            }
+
+        }else{
+           return 'objnull';
+        }
+
+     }
+
     /**
-     * ×Ô¶¯µÇÂ¼´¦Àí
+     * ï¿½Ô¶ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
      *
      */
     async autoLogin(user, pass, callback){
@@ -103,7 +135,7 @@ export default class extends think.model.mongo{
 
     }
     /**
-     * µÇÂ¼´¦Àí
+     * ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
      *
      */
     async manualLogin(user, pass, callback){
@@ -125,7 +157,7 @@ export default class extends think.model.mongo{
     }
     
     /**
-     * ÉèÖÃÓÃ»§×ó²à²Ëµ¥Î»ÖÃ
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ëµï¿½Î»ï¿½ï¿½
      *
      */
     async setleftpos(obj,callback){
@@ -134,20 +166,20 @@ export default class extends think.model.mongo{
     }
 
      
-    //É¾³ıÓÃ»§
+    //É¾ï¿½ï¿½ï¿½Ã»ï¿½
     async delUserById(id,callback){
 
         let res = await this.where({_id:id}).delete();
         callback(res);
     }
-    //ĞŞ¸ÄÓÃ»§
+    //ï¿½Ş¸ï¿½ï¿½Ã»ï¿½
     async updateUserById(obj,callback){
 
         let res = await this.where({_id:obj.id}).update({power: obj.power});
         callback(res);
     }
 
-    //ĞŞ¸ÄÓÃ»§È¨ÏŞ
+    //ï¿½Ş¸ï¿½ï¿½Ã»ï¿½È¨ï¿½ï¿½
     async updatedatarole(obj,callback){
 
         let res = await this.where({_id:obj.id}).update({roles: obj.roles});
@@ -155,7 +187,7 @@ export default class extends think.model.mongo{
     }
 
     /**
-     * ÉèÖÃÓÃ»§ÑùÊ½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ê½
      *
      */
     async setStyle(obj,callback){// obj = {name,  username}

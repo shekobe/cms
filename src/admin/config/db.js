@@ -5,11 +5,11 @@
  */
 module.exports = {
   type: 'mongo',
-  host: '10.100.7.18',
-  port: '27017',
+  host: '10.100.7.64',
+  port: '28001',
   database: 'qiku',
-  user: 'qiku',
-  password: '123456',
+  //user: 'qiku',
+  //password: '123456',
   prefix: 'qkadmin_',
   //prefix: '',
   encoding: 'utf8',
