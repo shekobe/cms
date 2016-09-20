@@ -81,9 +81,7 @@
 <script>
     var sesisonObj = {$ userinfo | safe $};
     jQuery.ajaxSetup({
-        data: {
-            qktoken: "{$ qktoken $}"
-        }
+        data:{ qktoken: "{$ qktoken $}"}
     });
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core componets
@@ -94,16 +92,8 @@
     });
 </script>
 <script>
-    // $(document).on('click.b', '.j_outli', function () {
-    //     var t = $(this);
-    //     if (t.find('.sub-menu').length) {
-    //         t.find('.sub-menu').show();
-    //     }
-    // });
-
+   
     $(function () {
-       
-        //window.console && console.log('sesisonObj',sesisonObj);
         $('.j_username').html(sesisonObj.username);
         getLeftMenu(sesisonObj.leftMenuArr);
 
@@ -114,12 +104,12 @@
                 var dom = getTreedom(tree);
                 $('.j_leftsidebar').append(dom);
                 //选中状态
-                var url = location.href;
+                var url = location.pathname;
                 $('.j_leftsidebar > li').each(function(){
                     var _this = $(this);
                     var a = _this.find('a');
                     a.each(function(){
-                        if(url.indexOf($(this).attr('href')) > 0){
+                        if(url == $(this).attr('href') ){
                             _this.addClass('open');
                             $(this).parent('li').addClass('active').parents('.sub-menu').show().siblings('a').find('.arrow').addClass('open');
                         }

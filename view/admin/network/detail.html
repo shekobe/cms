@@ -1,0 +1,301 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/admin/js/pulgins/webuploader/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/js/imageupload/style.css" />
+<style>
+    #fileList{width: 100px;}
+    #uploader .placeholder{min-height:200px;}
+    #uploader .queueList{margin:0;}
+    .md15{margin-bottom:15px;}
+    .progress{background-color:transparent!important;margin-bottom:0!important;}
+    #uploader .filelist div.file-panel{height:auto!important;}
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>
+                    <span class="j_nav">网点内容</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <input type="hidden" name="_id" value="{$ template._id | default('') $}">
+                <div class="row-fluid form-body">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="javascript:history.go(-1);" class="btn green">
+                                        <i class="icon-arrow-left"></i> 返回 
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a href="javascript:;" class="btn blue j_save">
+                                        <i class="fa fa-save"></i> 保存 
+                                    </a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tab-content no-space">
+                            <div class="tab-pane active" id="tab_general">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">PK(ID):</label>
+                                                <div class="col-md-3">
+                                                    <input type="text" name="j_PK" autocomplete="off" class="form-control j_PK" placeholder="网点PK" value="{$ template.PK | default('') $}"><span class="help-block">&nbsp;</span>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="j_buildLevel" autocomplete="off" class="form-control j_buildLevel" placeholder="店面等级" value="{$ template.buildLevel | default('基础店') $}"><span class="help-block">店面等级</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">网点名称:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_netName" autocomplete="off" class="form-control j_netName" placeholder="" value="{$ template.netName | default('') $}"><span class="help-block">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">所在地:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <div class="btn-group">
+                                                        <select id="province" class="form-control input-small">
+                                                            {% if provlist %}
+                                                            {% for provitem in provlist %}
+                                                            <option{% if currentprov == provitem[0] %} class="on" {% endif %} value="{$ provitem[0] $}">{$ provitem[1] $}</option>
+                                                            {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <select id="city" class="form-control input-small">
+                                                            {% if citylist %}
+                                                            {% for cityitem in citylist %}
+                                                            <option{% if currentcity == cityitem.cityId %} class="on" {% endif %} data-province="{$ cityitem.provinceCode $}" data-city="{$ cityitem.cityCode $}" value="{$ cityitem.cityId $}">{$ cityitem.cityName $}</option>
+                                                            {% endfor %}
+                                                            {% endif %}
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">网点图片:</label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_img" autocomplete="off" class="form-control j_img" placeholder="网点招牌图片或外观图片" value="{$ template.img | default('') $}"><span class="help-block">图片地址</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">网点地址:</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="j_businessAddress" autocomplete="off" class="form-control j_businessAddress" placeholder="" value="{$ template.businessAddress | default('') $}"><span class="help-block">&nbsp;</span>
+                                                </div>
+                                                <a href="javascript:;" class="btn green btn-default j-jwd"><i class="fa fa-refresh"></i>  刷新经纬度</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">businessHours:</label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_businessHours" autocomplete="off" class="form-control j_businessHours" placeholder="网点营业时间" value="{$ template.businessHours | default('') $}"><span class="help-block">营业时间</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">longitude:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_longitude" autocomplete="off" class="form-control j_longitude" placeholder="" value="{$ template.longitude | default('') $}"><span class="help-block">经度(中国经度范围 东经73度40分 -- 东经135度2分30秒)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">latitude:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_latitude" autocomplete="off" class="form-control j_latitude" placeholder="" value="{$ template.latitude | default('') $}"><span class="help-block">纬度(中国纬度范围 北纬3度52分 -- 北纬53度33分 )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">maintainType:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_maintainType" autocomplete="off" class="form-control j_maintainType" placeholder="" value="{$ template.maintainType | default('') $}"><span class="help-block">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">netCode:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_netCode" autocomplete="off" class="form-control j_netCode" placeholder="" value="{$ template.netCode | default('') $}"><span class="help-block">网点代码</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">netType:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_netType" autocomplete="off" class="form-control j_netType" placeholder="" value="{$ template.netType | default('') $}"><span class="help-block">网络类型</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">网点电话:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_servicePhone" autocomplete="off" class="form-control j_servicePhone" placeholder="" value="{$ template.servicePhone | default('') $}"><span class="help-block">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">provinceCode:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_provinceCode" autocomplete="off" class="form-control j_provinceCode" placeholder="" value="{$ template.provinceCode | default('') $}"><span class="help-block">省编码</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">time:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_time" autocomplete="off" class="form-control j_time" placeholder="" value="{$ template.time | default('') $}"><span class="help-block">更新时间</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">cityCode:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_cityCode" autocomplete="off" class="form-control j_cityCode" placeholder="" value="{$ template.cityCode | default('') $}"><span class="help-block">城市编码</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 md15">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">enabledFlag:
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" name="j_enabledFlag" autocomplete="off" class="form-control j_enabledFlag" placeholder="" value="{$ template.enabledFlag | default('') $}"><span class="help-block">0：可用 ，1：禁用</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <a href="javascript:history.go(-1);" class="btn btn-default"><i class="icon-arrow-left"></i> 取消 </a>
+                            <button type="button" class="btn j_save blue"> <i class="fa fa-save"></i>保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="http://api.map.so.com/js?key=d42e966d37cd59d580ca"></script>
+<script type="text/javascript">
+    $(function(){
+        var area = {$ area | safe $};
+        // window.console && console.log('area',area);
+        $("#province").change(function(){
+            var t = $(this);
+            var cityArr = getCity(t.val());
+            var str = '';
+            for(var i in cityArr){
+                str += "<option value=" + cityArr[i].cityId + " data-province=" +cityArr[i].provinceCode+ " data-city=" + cityArr[i].cityCode + ">"
+                        + cityArr[i].cityName  + "</option>";
+            }
+            $("#city").html(str);
+            //修改code
+            $(".j_cityCode").val($('#city :selected').attr('data-city'))
+            $(".j_provinceCode").val($('#city :selected').attr('data-province'))
+        });
+
+        $('#city').change(function(){
+            $(".j_cityCode").val($('#city :selected').attr('data-city'))
+        })
+        if($(".j_cityCode").val() ==''){
+            $(".j_cityCode").val($('#city').find('.on').attr('data-city'))
+        }
+        if($(".j_provinceCode").val() ==''){
+            $(".j_provinceCode").val($('#city').find('.on').attr('data-province'))
+        }
+        $("#province option[class='on']").attr("selected", true);
+        $("#city option[class='on']").attr("selected", true);
+        function getCity(proId){
+            var result = [];
+            for(var i in area){
+                if(area[i].provinceId == proId)
+                    result.push(area[i]);
+            }
+            return result;
+        }
+        $.ajaxSetup({
+            data: {
+                qktoken: $('input[name="qktoken"]').val()
+            }
+        });
+
+    });
+
+</script>
+
+<script src="/static/admin/js/network_detail.js"></script>
+{% endblock %}

@@ -5,19 +5,10 @@
 
 <link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
 <style>
-    .btn-info{
-        padding: 0;
-    }
-    table input[type=checkbox]{
-        width: 20px;
-        height: 20px;
-    }
-    table th.cob,table td.cob{
-        text-align: center;
-    }
-    #sample_editable_1 td,#sample_editable_1 th{
-        vertical-align: middle!important;
-    }
+    .btn-info{padding: 0;}
+    table input[type=checkbox]{width: 20px;height: 20px;}
+    table th.cob,table td.cob{text-align: center;}
+    #sample_editable_1 td,#sample_editable_1 th{vertical-align: middle!important;}
 </style>
 {% endblock %}
 
@@ -72,6 +63,10 @@
                                 <button value="0" type="button" class="btn yellow j_enable">禁用</button>
 
                                 <button type="button" class="btn red j_delete">删除</button>
+                            </div>
+                            <div class="btn-group">
+                                <button data-loading-text="更新中。。。" type="button" class="btn green j_hot">更新热门文章</button>
+
                             </div>
                         </div>
                         <div class="col-md-6 text-right">
@@ -140,6 +135,7 @@
             <a data-id="{{value._id}}" target="_blank" href="/admin/article/preview?articleid={{value._id}}" data-path="view/home/news/detail.html" class="btn green"> 预览 </a>
             <a data-id="{{value._id}}" class="delete btn red" href="javascript:;">
                 删除 </a>
+            <a data-id="{{value._id}}" data-loading-text="更新" class="btn green j_update" href="javascript:;">更新</a>
         </td>
     </tr>
     {{/each}}
@@ -150,7 +146,7 @@
 </script>
 
 <script type="text/javascript" src="/static/admin/theme/assets/global/plugins/jquery.bootpag.min.js"></script>
-
+<script src="/static/admin/theme/assets/admin/layout/scripts/template.js"></script>
 
 <script src="/static/admin/js/article_index.js"></script>
 <script src="/static/admin/theme/assets/global/plugins/jstree/dist/jstree.js"></script>
@@ -285,6 +281,73 @@
                 var ref = $('#tree_3').jstree(true);
                 ref.close_all();
             }
+
+        });
+        //更新热门文章
+        $('.j_hot').on('click',function(){
+            var t = $(this);
+            t.addClass('disabled').attr('disabled','disabled');
+            var val = t.text();
+            t.text(t.attr('data-loading-text'));
+            $.ajax({
+                url: '/admin/article/updatehostlist',
+                type: 'POST',
+                cache: false,
+                data:{
+                    qktoken:$('input[name="qktoken"]').val()
+                },
+                complete: function (xhr, textStatus) {
+                    t.removeClass('disabled').removeAttr('disabled');
+                    t.text(val);
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            toastr.success('更新成功');
+                        } else {
+                            toastr.error('更新失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
+
+        });
+        //更新单个文章详情，同时会更新文章所在列表等相关缓存
+        $(document).on('click','.j_update',function(){
+            var t = $(this);
+            t.addClass('disabled').attr('disabled','disabled');
+            var val = t.text();
+            t.text(t.attr('data-loading-text'));
+            var articleid = $(this).attr('data-id');
+            var categoryid = getUrlParam('categoryid') || 1;
+            $.ajax({
+                url: '/admin/article/updatenewslist',
+                type: 'POST',
+                cache: false,
+                data:{
+                    qktoken:$('input[name="qktoken"]').val(),
+                    articleid:articleid,
+                    categoryid:categoryid,
+                    pagenum:$('.pagination').find('li.active').attr('data-lp')
+                },
+                complete: function (xhr, textStatus) {
+                    t.removeClass('disabled').removeAttr('disabled');
+                    t.text(val);
+                    if (textStatus == 'success' && xhr.status == '200') {
+                        var response = eval("(" + xhr.responseText + ")");
+                        if (response.errno == 0) {//返回数据正常
+                            toastr.success('更新成功');
+                        } else {
+                            toastr.error('更新失败');
+                        }
+
+                    } else {
+                        //window.console && console.log('error', xhr, textStatus);
+                    }
+                }
+            });
 
         });
         var newId = '';

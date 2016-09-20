@@ -1,0 +1,127 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/admin/theme/assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+<style>
+    .btn-info{padding: 0;}
+    table input[type=checkbox]{width: 20px;height: 20px;}
+    table th.cob,table td.cob{text-align: center;}
+    #sample_editable_1 td,#sample_editable_1 th{vertical-align: middle!important;}
+    /* #sample_editable_1 #checkAll+th,#sample_editable_1 tbody .cob+td{width:51px;text-align:center;} */
+     #sample_editable_1 thead tr>th:first-child,#sample_editable_1 tbody tr>td:first-child{width:51px;text-align:center;}
+     #sample_editable_1 a:visited,#sample_editable_1 a:active{text-decoration:none;}
+     #sample_editable_1 tbody tr>td:nth-child(n+3){max-width:480px;}
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+    
+    <div class="col-md-12">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-comments"></i>问题反馈
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                    
+                </table>
+
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info"></div>
+                    </div>
+                    <div class="col-md-7 col-sm-12">
+                        <div class="dataTables_paginate paging_simple_numbers" id="sample_editable_1_paginate">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+        
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script id="userlist" type="text/html">
+    <thead>
+    <tr>
+        <!-- <th class="cob"><input id="checkAll" type="checkbox" value="" class=""></th> -->
+        <th>序号</th><th>问题类型</th><th>问题内容</th><th>页面链接</th><th>提交时间</th><th>状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{if data.data.length >0}}
+    {{each data.data as value i}}
+
+    <tr data-id="{{value._id}}">
+        <!-- <td class="cob">
+            <input  type="checkbox" value="{{value._id}}"  class="tablecb">
+        </td> -->
+        <td>{{(data.currentPage - 1) * data.numsPerPage + i + 1}}</td>
+        <td>{{value.title}}</td>
+        <td>{{value.content}}</td>
+        <td><a href="{{value.url}}" target="_blank">{{value.url}}</a></td>
+        <td>{{value.createtime | dateFormat}}</td>
+        <td>已处理</td>
+        <!-- <td>
+            <a class="btn green" href="/admin/article/detail?articleid={{value._id}}">编辑 </a>
+            <a data-id="{{value._id}}" target="_blank" href="/admin/article/preview?articleid={{value._id}}" data-path="view/home/news/detail.html" class="btn green"> 预览 </a>
+            <a data-id="{{value._id}}" class="delete btn red" href="javascript:;">
+                删除 </a>
+            <a data-id="{{value._id}}" data-loading-text="更新" class="btn green j_update" href="javascript:;">更新</a>
+        </td> -->
+    </tr>
+    {{/each}}
+    {{else}}
+    <tr><td colspan="13" align="center">暂无数据</td></tr>
+    {{/if}}
+    </tbody>
+</script>
+
+<script type="text/javascript" src="/static/admin/theme/assets/global/plugins/jquery.bootpag.min.js"></script>
+<script src="/static/admin/theme/assets/admin/layout/scripts/template.js"></script>
+
+<script src="/static/admin/js/feedback_index.js"></script>
+<script src="/static/admin/theme/assets/global/plugins/jstree/dist/jstree.js"></script>
+<script type="text/javascript">
+    <!--
+    $(function(){
+
+        //全部选择
+        $(document).on('click','#checkAll',function(){
+            if(this.checked){
+                $(".tablecb").attr("checked",true);
+            }else{
+                $(".tablecb").attr("checked",false);
+            }
+        });
+
+        /*$(document).on('load', '#sample_editable_1 td>a', function() {
+            var href = $(this).attr("href");
+            if (/^[\w]*[h][t][t][p]+[\w]*$/.test(href)) {
+            }else{
+                href = $(this).attr("href","http://"+href);
+            }
+        });*/
+
+        
+
+    });
+    //-->
+</script>
+{% endblock %}
+

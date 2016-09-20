@@ -95,28 +95,29 @@
                                     </div>
                                     <div class=" md15">
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">链接接地址:
+                                            <label class="col-md-2 control-label">创建时间:
                                             </label>
                                             <div class="col-md-10">
-                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_url" placeholder="" value="{$ template.url | safe $}"><span class="help-block">&nbsp;</span>
+
+                                                <input style="cursor: auto;" type="text" readonly="readonly" name="pageName" autocomplete="off" class="form-control j_createtime" placeholder="" value="{$ template.createtime | format_time('yyyy/MM/dd hh:mm:ss') $}"><span class="help-block">&nbsp;</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--<div class=" md15">-->
-                                        <!--<div class="form-group">-->
-                                            <!--<label class="col-md-2 control-label">状态:-->
-                                            <!--</label>-->
-                                            <!--<div class="col-md-10">-->
-                                                <!--<input type="text" name="pageName" autocomplete="off" class="form-control j_status" placeholder="" value="{$ template.status | safe $}"><span class="help-block">&nbsp;</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
+                                    <div style="display: none;" class=" md15">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">状态:
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_status" placeholder="" value="{$ template.status | safe $}"><span class="help-block">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class=" md15">
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">排序:
                                             </label>
                                             <div class="col-md-10">
-                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_order" placeholder="" value="{$ template.order | safe $}"><span class="help-block">&nbsp;</span>
+                                                <input type="text" name="pageName" autocomplete="off" class="form-control j_order" placeholder="越高排序越靠前" value="{$ template.order_ | safe $}"><span class="help-block">&nbsp;</span>
                                             </div>
                                         </div>
                                     </div>
@@ -225,13 +226,22 @@
 <script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="/static/admin/theme/assets/global/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/static/js/news/bundle.js"></script>
 <script type="text/javascript">
-    jQuery.ajaxSetup({
-        data: {
-            qktoken: $('input[name="qktoken"]').val()
-        }
+    var editor = UE.getEditor('editor',{zIndex:9996});
+    $(function(){
+        $.ajaxSetup({
+            data: {
+                qktoken: $('input[name="qktoken"]').val()
+            }
+        });
+        var Calendar = window["hermes-calendar"];
+        new Calendar({
+            trigger: $('.j_createtime'),
+            format : 'YYYY/MM/DD HH:mm:ss'
+        });
     });
-    var editor = UE.getEditor('editor',{zIndex:99});
+
 </script>
 
 <script src="/static/admin/js/article_detail.js"></script>

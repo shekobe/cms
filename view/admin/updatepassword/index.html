@@ -1,0 +1,161 @@
+{% extends "../layout/layout.html" %}
+
+
+{% block css %}
+<link href="/static/admin/theme/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+<style>
+    .content {
+        background-color: #eceef1;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        -ms-border-radius: 7px;
+        -o-border-radius: 7px;
+        border-radius: 7px;
+        width: 500px;
+        margin-left:15px;
+        padding: 30px;
+        padding-top: 10px;
+        overflow: hidden;
+        position: relative;
+    }
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="row">
+
+    <div class="content">
+
+        <form class="register-form" action="/signup" method="post">
+            <h3>修改密码</h3>
+            <span style="" class="help-block">密码要求：1、长度大于8 <br>2、密码必须是字母大写，字母小写，数字，特殊字符中任意三个组合。</span>
+
+            <div class="form-group">
+                <label class="control-label  visible-ie8 visible-ie9">原密码</label>
+                <input class="form-control oldpassword placeholder-no-fix" type="password" autocomplete="off" id="" placeholder="原密码" name="password"/>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">新密码</label>
+                <input class="form-control newpassword placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="新密码" name="password"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">确认密码</label>
+                <input class="form-control rpassword placeholder-no-fix" type="password" autocomplete="off" placeholder="确认密码" name="rpassword"/>
+                <span style="color: #a94442;" class="help-block j_error"></span>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="register-submit-btn" class="btn btn-success uppercase pull-right">提交</button>
+            </div>
+        </form>
+        <input type="hidden" name="qktoken" value="{$ qktoken $}">
+        <!-- END REGISTRATION FORM -->
+    </div>
+
+
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+    <!--
+   $(function(){
+       function checkPass(s){
+
+           if(s.length < 8){
+               return 0;
+           }
+           var ls = 0;
+           if(s.match(/([a-z])+/)){
+
+               ls++;
+
+           }
+           if(s.match(/([0-9])+/)){
+               ls++;
+           }
+           if(s.match(/([A-Z])+/)){
+
+               ls++;
+
+           }
+           if(s.match(/[^a-zA-Z0-9]+/)){
+               ls++;
+
+           }
+           return ls
+
+       }
+           $('#register-submit-btn').on('click',function(){
+               if(!$('.oldpassword').val()){
+                   $('.j_error').html("请输入原密码！");
+
+                   return false ;
+               }
+               if(!$('.newpassword').val()){
+                   $('.j_error').html("请输入新密码！");
+
+                   return false ;
+               }
+               if(!$('.rpassword').val()){
+                   $('.j_error').html("请输入确认密码！");
+
+                   return false ;
+               }
+               if($('.rpassword').val() != $('.newpassword').val()){
+                   $('.j_error').html("新密码和确认密码不一致！");
+                   return false ;
+               }
+               if(checkPass($('.newpassword').val())<3){
+
+                   $('.j_error').html("密码复杂度不够，请重新设置！");
+
+                   return false ;
+               }
+
+               if($('.oldpassword').val() == $('.newpassword').val()){
+                   $('.j_error').html("新密码不能设置为原密码！");
+                   return false ;
+               }
+
+               $.ajax({
+                   url:'/admin/updatepassword/updatepassword',
+                   type:'POST',
+                   data:{
+                       oldpassword:$('.oldpassword').val(),
+                       newpassword:$('.newpassword').val(),
+                       qktoken:$('input[name="qktoken"]').val()
+                   },
+                   cache: false,
+                   beforeSend:function(){
+                       $('.j_error').html("");
+                       $('#register-submit-btn').addClass('disabled');
+                   },
+                   complete:function(xhr, textStatus){
+                       $('#register-submit-btn').removeClass('disabled');
+                       if (textStatus == 'success' && xhr.status == '200') {
+                           var response = eval("(" + xhr.responseText + ")");
+                           if(response.errno == 0){//返回数据正常
+                               alert('修改成功，请重新登录');
+                               location.href = '/admin/login/logout';
+                           }else{
+                               alert(response.errmsg);
+                           }
+                       }else{
+                           alert('后台数据异常');
+                       }
+
+
+
+                   }
+
+               });
+           });
+   });
+    //-->
+</script>
+{% endblock %}
+
