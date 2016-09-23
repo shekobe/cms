@@ -1,6 +1,6 @@
 
 application created by [ThinkJS](http://www.thinkjs.org)
-
+## ./mongorestore -h 10.100.7.18 -d qiku /app/mongodb/sugy/qiku -u qiku -p 123456 还原
 ## install dependencies
 
 ```
