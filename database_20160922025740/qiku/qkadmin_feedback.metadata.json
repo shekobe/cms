@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"qiku.qkadmin_feedback"},{"v":1,"key":{"title":1},"name":"title_1","ns":"qiku.qkadmin_feedback"}]}
